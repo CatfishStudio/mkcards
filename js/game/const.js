@@ -1,0 +1,3 @@
+const WIDTH = 860;
+const HEIGH = 730;
+const BACKGROUND_COLOR = 0xFFFFFF;
