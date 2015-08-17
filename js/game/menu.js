@@ -2,17 +2,17 @@ var menuStage;
 var menuTextureButton;
 var menuSpriteButton;
 var menuTextButton;
-var menuTextButtons = ["Кнопка1","Кнопка2","Кнопка3","Кнопка4","Кнопка5","Кнопка6","Кнопка7"];
+var menuTextButtons = ["Одиночная игра","Карточная игра","Магазин","Персонаж","Рейтинг","Настройки","Пригласить"];
 
 var menuStyleTextButton = {
-    font : 'bold italic 16px Arial',
+    font : 'bold 12px Arial',
     fill : '#F7EDCA',
-    stroke : '#4a1850',
-    strokeThickness : 5,
-    dropShadow : true,
-    dropShadowColor : '#000000',
-    dropShadowAngle : Math.PI / 6,
-    dropShadowDistance : 6,
+    stroke : '#500000',
+    strokeThickness : 3,
+    //dropShadow : true,
+    //dropShadowColor : '#000000',
+    //dropShadowAngle : Math.PI / 6,
+    //dropShadowDistance : 6,
     wordWrap : true,
     wordWrapWidth : 440
 };
@@ -25,8 +25,9 @@ function menuShow()
 	for(var i = 0; i < 7; i++)
 	{
 		menuTextButton = new PIXI.Text(menuTextButtons[i], menuStyleTextButton);
-		menuTextButton.x = 25;
-		menuTextButton.y = 15;
+		menuTextButton.x = (170 / 2) - (menuTextButton.width / 2);
+		menuTextButton.y = 20;
+		console.log(menuTextButton.width);
 
 		menuSpriteButton = new PIXI.Sprite(menuTextureButton);
 		menuSpriteButton.name = "menuSpriteButton" + i;
