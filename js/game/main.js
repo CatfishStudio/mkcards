@@ -11,7 +11,8 @@ function init()
 
 	draw();
 
-	bgShow();	
+	bgShow();
+	menuShow();
 }
 
 window.addEventListener("load", init, false);
@@ -32,6 +33,6 @@ function bgShow()
 
 	stage.addChild(bgSprite);
 
-	console.log("Background - show!");
+	console.log("Create background!");
 }
 
