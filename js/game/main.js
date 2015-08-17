@@ -1,30 +1,31 @@
 var renderer;
 var stage;
+var bgTexture;
+var bgSprite;
 
 function init()
 {
-	renderer = PIXI.autoDetectRenderer(WIDTH, HEIGH,{backgroundColor : BACKGROUND_COLOR});
+	renderer = PIXI.autoDetectRenderer(MAIN_WIDTH, MAIN_HEIGH,{backgroundColor : MAIN_BACKGROUND_COLOR});
 	document.body.appendChild(renderer.view);
 	stage = new PIXI.Container();
 
-	animate();
+	draw();
 
 	bgShow();	
 }
 
 window.addEventListener("load", init, false);
 
-function animate() 
+function draw() 
 {
-	requestAnimationFrame(animate);
+	requestAnimationFrame(draw);
 	renderer.render(stage);
 }
 
-
 function bgShow()
 {
-	var bgTexture = PIXI.Texture.fromImage('./img/background.jpg');
-	var bgSprite = new PIXI.Sprite(bgTexture);
+	bgTexture = PIXI.Texture.fromImage('./assets/image/background.jpg');
+	bgSprite = new PIXI.Sprite(bgTexture);
 	
 	bgSprite.position.x = 0;
 	bgSprite.position.y = 0;
