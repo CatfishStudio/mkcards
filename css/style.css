@@ -8,3 +8,15 @@ body,html
 	vertical-align: baseline;
 	line-height: 1;
 }
+
+#mkload
+{
+	position: absolute;
+	top: 200px;
+	left: 265px;
+	width: 330px;
+	height: 330px;
+	background-image: url("../assets/image/load.png");
+    background-color: #FFFFFF;
+    background-repeat: none;
+}

@@ -5,14 +5,18 @@ var bgSprite;
 
 function init()
 {
+	//var mkload = document.getElementById("mkload");
+	//mkload.parentNode.removeChild(mkload);
+
 	renderer = PIXI.autoDetectRenderer(MAIN_WIDTH, MAIN_HEIGH,{backgroundColor : MAIN_BACKGROUND_COLOR});
 	document.body.appendChild(renderer.view);
 	stage = new PIXI.Container();
 
 	draw();
 
-	bgShow();
-	menuShow();
+	preloaderShow();
+	//bgShow();
+	//menuShow();
 }
 
 window.addEventListener("load", init, false);

@@ -1,0 +1,3 @@
+var bgTexture;
+var buttonTexture;
+
