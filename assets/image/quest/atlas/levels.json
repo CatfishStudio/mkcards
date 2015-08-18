@@ -1,0 +1,75 @@
+{
+"frames": {
+	"level_1.png": {
+		"frame": {"x":0, "y":255, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_10.png": {
+		"frame": {"x":0, "y":765, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_11.png": {
+		"frame": {"x":802, "y":764, "w":395, "h":253},
+		"spriteSourceSize": {"x":0,"y":0,"w":395,"h":253},
+		"sourceSize": {"w":395,"h":253}
+	},
+	"level_12.png": {
+		"frame": {"x":802, "y":1018, "w":395, "h":253},
+		"spriteSourceSize": {"x":0,"y":0,"w":395,"h":253},
+		"sourceSize": {"w":395,"h":253}
+	},
+	"level_13.png": {
+		"frame": {"x":802, "y":510, "w":395, "h":253},
+		"spriteSourceSize": {"x":0,"y":0,"w":395,"h":253},
+		"sourceSize": {"w":395,"h":253}
+	},
+	"level_2.png": {
+		"frame": {"x":401, "y":765, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_3.png": {
+		"frame": {"x":802, "y":255, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_4.png": {
+		"frame": {"x":401, "y":510, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_5.png": {
+		"frame": {"x":802, "y":0, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_6.png": {
+		"frame": {"x":0, "y":510, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_7.png": {
+		"frame": {"x":0, "y":0, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_8.png": {
+		"frame": {"x":401, "y":255, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	},
+	"level_9.png": {
+		"frame": {"x":401, "y":0, "w":400, "h":254},
+		"spriteSourceSize": {"x":0,"y":0,"w":400,"h":254},
+		"sourceSize": {"w":400,"h":254}
+	}
+
+},
+"meta": {
+	"image": "levels.png",
+	"size": {"w": 1203, "h": 1272},
+	"scale": "1"
+}
+}
