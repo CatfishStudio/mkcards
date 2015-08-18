@@ -37,9 +37,13 @@ function menuShow()
 		menuSpriteButton.tap = onMenuSpriteButtonClick;
 		menuSpriteButton.click = onMenuSpriteButtonClick;
 		menuSpriteButton.on('mousedown', onMenuButtonDown);
-    	menuSpriteButton.on('mouseup', onMenuButtonUp);
+		menuSpriteButton.on('touchstart', onMenuButtonDown);
+		menuSpriteButton.on('mouseup', onMenuButtonUp);
+		menuSpriteButton.on('touchend', onMenuButtonUp);
+		menuSpriteButton.on('mouseupoutside', onMenuButtonUp);
+		menuSpriteButton.on('touchendoutside', onMenuButtonUp);
 
-    	menuSpriteButton.addChild(menuTextButton);
+		menuSpriteButton.addChild(menuTextButton);
 		menuStage.addChild(menuSpriteButton);
 	}
 	
@@ -58,9 +62,12 @@ function onMenuButtonDown()
 
 function onMenuButtonUp()
 {
-    this.isdown = false;
-    this.scale.set(1.0);
-    this.position.x -= 5;
+	if(this.isdown)
+	{
+    	this.isdown = false;
+    	this.scale.set(1.0);
+    	this.position.x -= 5;
+    }
 }
 
 function onMenuSpriteButtonClick() 
