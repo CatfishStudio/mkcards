@@ -20,7 +20,7 @@ function onPreloaderLoaded(loader, res)
 
 	stage.addChild(bgPreloaderSprite);
 
-	console.log("Preloader show!");
+	console.log("Preloader: show");
 
 	loadAssets();		// LOAD ASSETS
 }
@@ -28,16 +28,39 @@ function onPreloaderLoaded(loader, res)
 function loadAssets()
 {
 	var loader = new PIXI.loaders.Loader();
-	loader.add('bgImage',"./assets/image/background.jpg");
-	loader.add('buttonImage',"./assets/image/button.png");
+	loader.add('bgImage','./assets/image/background.jpg');
+	loader.add('buttonImage','./assets/image/button.png');
+	loader.add('gameAtlas','./assets/image/quest/atlas/game.json');
 	loader.once('complete',onAssetsLoaded);
+	loader.once('progress',onProgressLoad);
 	loader.load();
+}
+
+function onProgressLoad()
+{
+	console.log("Progress load!");
 }
 
 function onAssetsLoaded(loader, res) 
 {
 	bgTexture = res.bgImage.texture;
 	buttonTexture = res.buttonImage.texture;
+	bgCharacterWindowTexture = PIXI.Texture.fromFrame('character_background_small.png');
+	borderCharacterWindowTexture = PIXI.Texture.fromFrame('character_border_small.png');
+	iconBarakaTexture = PIXI.Texture.fromFrame('baraka.png');
+	iconGoroTexture = PIXI.Texture.fromFrame('goro.png');
+	iconJaxTexture = PIXI.Texture.fromFrame('jax.png');
+	iconJohnnycageTexture = PIXI.Texture.fromFrame('johnnycage.png');
+	iconKitanaTexture = PIXI.Texture.fromFrame('kitana.png');
+	iconKunglaoTexture = PIXI.Texture.fromFrame('kunglao.png');
+	iconLiukangTexture = PIXI.Texture.fromFrame('liukang.png');
+	iconMileenaTexture = PIXI.Texture.fromFrame('mileena.png');
+	iconRaidenTexture = PIXI.Texture.fromFrame('raiden.png');
+	iconReptileTexture = PIXI.Texture.fromFrame('reptile.png');
+	iconScorpionTexture = PIXI.Texture.fromFrame('scorpion.png');
+	iconShangtsungTexture = PIXI.Texture.fromFrame('shangtsung.png');
+	iconShaokahnTexture = PIXI.Texture.fromFrame('shaokahn.png');
+	iconSubzeroTexture = PIXI.Texture.fromFrame('subzero.png');
 
 	console.log("Load assets complete!");
 	
@@ -54,7 +77,7 @@ function bgShow()
 
 	stage.addChild(bgSprite);
 
-	console.log("Create background!");
+	console.log("Create game background");
 
 	menuShow();			// MENU SHOW
 }

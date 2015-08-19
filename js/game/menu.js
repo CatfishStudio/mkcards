@@ -1,35 +1,35 @@
 var menuStage;
-var menuTextureButton;
-var menuSpriteButton;
-var menuTextButton;
-var menuTextButtons = ["Одиночная игра","Карточная игра","Магазин","Персонаж","Рейтинг","Настройки","Пригласить"];
 
 var menuStyleTextButton = {
     font : 'bold 12px Arial',
     fill : '#F7EDCA',
     stroke : '#500000',
     strokeThickness : 3,
-    //dropShadow : true,
-    //dropShadowColor : '#000000',
-    //dropShadowAngle : Math.PI / 6,
-    //dropShadowDistance : 6,
     wordWrap : true,
     wordWrapWidth : 440
 };
 
 function menuShow()
 {
-	menuStage = new PIXI.Container();
-	menuTextureButton = PIXI.Texture.fromImage('./assets/image/button.png');
+	var menuSpriteButton;
+	var menuTextButton;
+	var menuTextButtonsRus = ["Одиночная игра","Карточная игра","Магазин","Персонаж","Рейтинг","Настройки","Пригласить"];
+	var menuTextButtonsEng = ["Single player","Card game","Store","Personage","Rating","Settings","Invite"];
 
+	menuStage = new PIXI.Container();
+	
 	for(var i = 0; i < 7; i++)
 	{
-		menuTextButton = new PIXI.Text(menuTextButtons[i], menuStyleTextButton);
+		if(language == "rus")
+		{
+			menuTextButton = new PIXI.Text(menuTextButtonsRus[i], menuStyleTextButton);
+		}else{
+			menuTextButton = new PIXI.Text(menuTextButtonsEng[i], menuStyleTextButton);
+		}
 		menuTextButton.x = (170 / 2) - (menuTextButton.width / 2);
 		menuTextButton.y = 20;
-		console.log(menuTextButton.width);
-
-		menuSpriteButton = new PIXI.Sprite(menuTextureButton);
+		
+		menuSpriteButton = new PIXI.Sprite(buttonTexture);
 		menuSpriteButton.name = "menuSpriteButton" + i;
 		menuSpriteButton.position.x = (MAIN_WIDTH / 2) - (170 / 2);
 		menuSpriteButton.position.y = (MAIN_HEIGH / 3) + (55 * i);
@@ -49,8 +49,7 @@ function menuShow()
 	
 
 	stage.addChild(menuStage);
-
-	console.log("Create menu!");
+	console.log("Create window: menu");
 }
 
 function onMenuButtonDown()
@@ -72,5 +71,10 @@ function onMenuButtonUp()
 
 function onMenuSpriteButtonClick() 
 {
-	console.log(this.name);
+	if(this.name == "menuSpriteButton0")
+	{
+		stage.removeChild(menuStage);
+		fightersShow(); // FIGHTERS SHOW
+	}
+	console.log("Menu click button: " + this.name);
 }

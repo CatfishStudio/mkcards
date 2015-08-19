@@ -1,3 +1,18 @@
 var bgTexture;
 var buttonTexture;
-
+var bgCharacterWindowTexture;
+var borderCharacterWindowTexture;
+var iconBarakaTexture;
+var iconGoroTexture;
+var iconJaxTexture;
+var iconJohnnycageTexture;
+var iconKitanaTexture;
+var iconKunglaoTexture;
+var iconLiukangTexture;
+var iconMileenaTexture;
+var iconRaidenTexture;
+var iconReptileTexture;
+var iconScorpionTexture;
+var iconShangtsungTexture;
+var iconShaokahnTexture;
+var iconSubzeroTexture;
