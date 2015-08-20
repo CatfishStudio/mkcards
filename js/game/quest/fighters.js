@@ -2,6 +2,11 @@ var fightersStage;
 var fightersLeftWindowSprite;
 var fightersRightWindowSprite;
 
+var fightersStyleText = {
+    font : 'bold 13px Arial',
+    fill : '#FFFFFF'
+};
+
 function fightersShow()
 {
 
@@ -44,9 +49,57 @@ function createFightersRightWindow()
 	borderSprite.name = "fightersRightWindowBorder";
 	borderSprite.position.x = 0;
 	borderSprite.position.y = 0;
+	fightersRightWindowSprite.addChild(borderSprite);
 
-	fightersRightWindowSprite.addChild(borderSprite);	
+	var characterHitSprite 	= new PIXI.Sprite(characterHit1);
+	characterHitSprite.name = "characterHit1";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 10;
+	fightersRightWindowSprite.addChild(characterHitSprite);
 
+	characterHitSprite 	= new PIXI.Sprite(characterHit2);
+	characterHitSprite.name = "characterHit2";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 60;
+	fightersRightWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit3);
+	characterHitSprite.name = "characterHit3";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 110;
+	fightersRightWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit4);
+	characterHitSprite.name = "characterHit4";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 160;
+	fightersRightWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit5);
+	characterHitSprite.name = "characterHit5";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 210;
+	fightersRightWindowSprite.addChild(characterHitSprite);
+
+	var fightersTextRus = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
+	var fightersTextEng = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
+	var fightersTextRightWindow;
+
+	for (var i = 0; i < 5; i++)
+	{
+		if(language == "rus")
+		{
+			fightersTextRightWindow = new PIXI.Text(fightersTextRus[i], fightersStyleText);
+			fightersTextRightWindow.x = 60;
+			fightersTextRightWindow.y = 25 + (50 * i);
+			fightersRightWindowSprite.addChild(fightersTextRightWindow);
+		}else{
+			fightersTextRightWindow = new PIXI.Text(fightersTextEng[i], fightersStyleText);
+			fightersTextRightWindow.x = 60;
+			fightersTextRightWindow.y = 25 + (50 * i);
+			fightersRightWindowSprite.addChild(fightersTextRightWindow);
+		}
+	}
 	fightersStage.addChild(fightersRightWindowSprite);
 }
 

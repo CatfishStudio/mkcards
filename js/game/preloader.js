@@ -61,6 +61,12 @@ function onAssetsLoaded(loader, res)
 	iconShangtsungTexture = PIXI.Texture.fromFrame('shangtsung.png');
 	iconShaokahnTexture = PIXI.Texture.fromFrame('shaokahn.png');
 	iconSubzeroTexture = PIXI.Texture.fromFrame('subzero.png');
+	characterHit1 = PIXI.Texture.fromFrame('character_hit_1.png');
+	characterHit2 = PIXI.Texture.fromFrame('character_hit_2.png');
+	characterHit3 = PIXI.Texture.fromFrame('character_hit_3.png');
+	characterHit4 = PIXI.Texture.fromFrame('character_hit_4.png');
+	characterHit5 = PIXI.Texture.fromFrame('character_hit_5.png');
+
 
 	console.log("Load assets complete!");
 	

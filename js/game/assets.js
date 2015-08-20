@@ -1,5 +1,6 @@
 var bgTexture;
 var buttonTexture;
+
 var bgCharacterWindowTexture;
 var borderCharacterWindowTexture;
 var iconBarakaTexture;
@@ -16,3 +17,8 @@ var iconScorpionTexture;
 var iconShangtsungTexture;
 var iconShaokahnTexture;
 var iconSubzeroTexture;
+var characterHit1;
+var characterHit2;
+var characterHit3;
+var characterHit4;
+var characterHit5;
