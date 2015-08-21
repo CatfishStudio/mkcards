@@ -2,6 +2,8 @@ var fightersStage;
 var fightersLeftWindowSprite;
 var fightersRightWindowSprite;
 
+var fightersCharacteristics;
+
 var fightersStyleText = {
     font : 'bold 13px Arial',
     fill : '#FFFFFF'
@@ -9,17 +11,35 @@ var fightersStyleText = {
 
 function fightersShow()
 {
-
 	fightersStage = new PIXI.Container();
 
+	initFightersCharacteristics()
 	createFightersLeftWindow();
 	createFightersSelectPanel();
-	createFightersRightWindow();
+	createFightersRightWindow("liukang");
 
 	stage.addChild(fightersStage);
 	console.log("Create window: fighters");
 }
 
+function initFightersCharacteristics()
+{
+	fightersCharacteristics = new Object();
+	//fightersCharacteristics["shaokahn"] = [2,2,1,3,2,1200];
+	//fightersCharacteristics["goro"] = [2,2,2,2,2,1200];
+	fightersCharacteristics["liukang"] = [2,1,1,1,2,0];
+	fightersCharacteristics["kunglao"] = [1,2,1,2,1,0];
+	fightersCharacteristics["johnnycage"] = [1,1,2,2,1,0];
+	fightersCharacteristics["reptile"] = [1,1,1,2,2,0];
+	fightersCharacteristics["subzero"] = [2,2,1,1,1,0];
+	fightersCharacteristics["shangtsung"] = [1,1,1,3,1,0];
+	fightersCharacteristics["kitana"] = [1,1,3,1,1,0];
+	fightersCharacteristics["jax"] = [1,3,1,1,1,0];
+	fightersCharacteristics["mileena"] = [1,2,2,1,1,0];
+	fightersCharacteristics["baraka"] = [1,1,1,1,3,0];
+	fightersCharacteristics["scorpion"] = [3,1,1,1,1,0];
+	fightersCharacteristics["raiden"] = [2,1,2,1,2,0];
+}
 
 function createFightersLeftWindow()
 {
@@ -38,7 +58,7 @@ function createFightersLeftWindow()
 	fightersStage.addChild(fightersLeftWindowSprite);
 }
 
-function createFightersRightWindow()
+function createFightersRightWindow(fighterName)
 {
 	fightersRightWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
 	fightersRightWindowSprite.name = "fightersRightWindow";
@@ -83,6 +103,8 @@ function createFightersRightWindow()
 
 	var fightersTextRus = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
 	var fightersTextEng = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
+	var fightersHits = ["5 x","3 x","3 x","6 x","10 x"];
+
 	var fightersTextRightWindow;
 
 	for (var i = 0; i < 5; i++)
@@ -93,9 +115,19 @@ function createFightersRightWindow()
 			fightersTextRightWindow.x = 60;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
+
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + fightersCharacteristics[fighterName][i], fightersStyleText);
+			fightersTextRightWindow.x = 150;
+			fightersTextRightWindow.y = 25 + (50 * i);
+			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 		}else{
 			fightersTextRightWindow = new PIXI.Text(fightersTextEng[i], fightersStyleText);
 			fightersTextRightWindow.x = 60;
+			fightersTextRightWindow.y = 25 + (50 * i);
+			fightersRightWindowSprite.addChild(fightersTextRightWindow);
+
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + fightersCharacteristics[fighterName][i], fightersStyleText);
+			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 		}
@@ -106,20 +138,20 @@ function createFightersRightWindow()
 
 function createFightersSelectPanel()
 {
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 0), (MAIN_HEIGH / 2.9), iconLiukangTexture, "iconButtonLiukang");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 1), (MAIN_HEIGH / 2.9), iconKunglaoTexture, "iconButtonKunglao");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 2), (MAIN_HEIGH / 2.9), iconJohnnycageTexture, "iconButtonJohnnycage");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 3), (MAIN_HEIGH / 2.9), iconReptileTexture, "iconButtonReptile");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 0), (MAIN_HEIGH / 2.9), iconLiukangTexture, "liukang");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 1), (MAIN_HEIGH / 2.9), iconKunglaoTexture, "kunglao");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 2), (MAIN_HEIGH / 2.9), iconJohnnycageTexture, "johnnycage");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 3), (MAIN_HEIGH / 2.9), iconReptileTexture, "reptile");
 
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 0), (MAIN_HEIGH / 2.9) + (85 * 1), iconSubzeroTexture, "iconButtonSubzero");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 1), (MAIN_HEIGH / 2.9) + (85 * 1), iconShangtsungTexture, "iconButtonShangtsung");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 2), (MAIN_HEIGH / 2.9) + (85 * 1), iconKitanaTexture, "iconButtonKitana");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 3), (MAIN_HEIGH / 2.9) + (85 * 1), iconJaxTexture, "iconButtonJax");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 0), (MAIN_HEIGH / 2.9) + (85 * 1), iconSubzeroTexture, "subzero");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 1), (MAIN_HEIGH / 2.9) + (85 * 1), iconShangtsungTexture, "shangtsung");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 2), (MAIN_HEIGH / 2.9) + (85 * 1), iconKitanaTexture, "kitana");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 3), (MAIN_HEIGH / 2.9) + (85 * 1), iconJaxTexture, "jax");
 
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 0), (MAIN_HEIGH / 2.9) + (85 * 2), iconMileenaTexture, "iconButtonMileena");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 1), (MAIN_HEIGH / 2.9) + (85 * 2), iconBarakaTexture, "iconButtonBaraka");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 2), (MAIN_HEIGH / 2.9) + (85 * 2), iconScorpionTexture, "iconButtonScorpion");
-	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 3), (MAIN_HEIGH / 2.9) + (85 * 2), iconRaidenTexture, "iconButtonRaiden");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 0), (MAIN_HEIGH / 2.9) + (85 * 2), iconMileenaTexture, "mileena");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 1), (MAIN_HEIGH / 2.9) + (85 * 2), iconBarakaTexture, "baraka");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 2), (MAIN_HEIGH / 2.9) + (85 * 2), iconScorpionTexture, "scorpion");
+	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 3), (MAIN_HEIGH / 2.9) + (85 * 2), iconRaidenTexture, "raiden");
 }
 
 function createFightersIconButton(xPos, yPos, texture, name)
@@ -161,9 +193,7 @@ function onFightersIconButtonUp()
 
 function onFightersIconButtonClick() 
 {
-	if(this.name == "")
-	{
-		
-	}
+	fightersStage.removeChild(fightersRightWindowSprite);
+	createFightersRightWindow(this.name);
 	console.log("Fighters click icon button: " + this.name);
 }
