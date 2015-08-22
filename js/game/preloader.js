@@ -31,6 +31,8 @@ function loadAssets()
 	loader.add('bgImage','./assets/image/background.jpg');
 	loader.add('buttonImage','./assets/image/button.png');
 	loader.add('gameAtlas','./assets/image/quest/atlas/game.json');
+	loader.add('barakaAtlas','./assets/image/quest/atlas/baraka.json');
+	loader.add('liukangAtlas','./assets/image/quest/atlas/liukang.json');
 	loader.once('complete',onAssetsLoaded);
 	loader.once('progress',onProgressLoad);
 	loader.load();
@@ -43,8 +45,10 @@ function onProgressLoad()
 
 function onAssetsLoaded(loader, res) 
 {
-	bgTexture = res.bgImage.texture;
-	buttonTexture = res.buttonImage.texture;
+	bgTexture = res.bgImage.texture; /* background.jpg */
+	buttonTexture = res.buttonImage.texture; /* button.png */
+
+	/* game.json */
 	bgCharacterWindowTexture = PIXI.Texture.fromFrame('character_background_small.png');
 	borderCharacterWindowTexture = PIXI.Texture.fromFrame('character_border_small.png');
 	iconBarakaTexture = PIXI.Texture.fromFrame('baraka.png');
@@ -66,6 +70,24 @@ function onAssetsLoaded(loader, res)
 	characterHit3 = PIXI.Texture.fromFrame('character_hit_3.png');
 	characterHit4 = PIXI.Texture.fromFrame('character_hit_4.png');
 	characterHit5 = PIXI.Texture.fromFrame('character_hit_5.png');
+
+	/* baraka.json */
+	for(var i = 1; i < 10; i++)
+	{
+		var texture = PIXI.Texture.fromFrame('baraka_stance_left_to_right_0' + i + '.png');
+		animTexBarakaStanceLeftToRight.push(texture);
+		texture = PIXI.Texture.fromFrame('baraka_stance_right_to_left_0' + i + '.png');
+		animTexBarakaStanceRightToLeft.push(texture);
+	}
+	/* liukang.json */
+	for(var i = 1; i < 8; i++)
+	{
+		var texture = PIXI.Texture.fromFrame('stance_left_to_right_0' + i + '.png');
+		animTexLiukangStanceLeftToRight.push(texture);
+		texture = PIXI.Texture.fromFrame('stance_right_to_left_0' + i + '.png');
+		animTexLiukangStanceRightToLeft.push(texture);
+	}
+	/**/
 
 
 	console.log("Load assets complete!");

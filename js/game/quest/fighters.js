@@ -2,7 +2,7 @@ var fightersStage;
 var fightersLeftWindowSprite;
 var fightersRightWindowSprite;
 
-var fightersCharacteristics;
+var fightersCharacteristics; // Global Fighters Characteristics
 
 var fightersStyleText = {
     font : 'bold 13px Arial',
@@ -14,7 +14,7 @@ function fightersShow()
 	fightersStage = new PIXI.Container();
 
 	initFightersCharacteristics()
-	createFightersLeftWindow();
+	createFightersLeftWindow("liukang");
 	createFightersSelectPanel();
 	createFightersRightWindow("liukang");
 
@@ -22,11 +22,12 @@ function fightersShow()
 	console.log("Create window: fighters");
 }
 
+/* INITIALIZATION FIGHTERS CHARACTERISTICS */
 function initFightersCharacteristics()
 {
 	fightersCharacteristics = new Object();
-	//fightersCharacteristics["shaokahn"] = [2,2,1,3,2,1200];
-	//fightersCharacteristics["goro"] = [2,2,2,2,2,1200];
+	fightersCharacteristics["shaokahn"] = [2,2,1,3,2,1200];
+	fightersCharacteristics["goro"] = [2,2,2,2,2,1200];
 	fightersCharacteristics["liukang"] = [2,1,1,1,2,0];
 	fightersCharacteristics["kunglao"] = [1,2,1,2,1,0];
 	fightersCharacteristics["johnnycage"] = [1,1,2,2,1,0];
@@ -41,7 +42,8 @@ function initFightersCharacteristics()
 	fightersCharacteristics["raiden"] = [2,1,2,1,2,0];
 }
 
-function createFightersLeftWindow()
+/* LEFT WINDOW */
+function createFightersLeftWindow(fighterName)
 {
 	fightersLeftWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
 	fightersLeftWindowSprite.name = "fightersLeftWindow";
@@ -52,12 +54,33 @@ function createFightersLeftWindow()
 	borderSprite.name = "fightersLeftWindowBorder";
 	borderSprite.position.x = 0;
 	borderSprite.position.y = 0;
+	fightersLeftWindowSprite.addChild(borderSprite);
 
-	fightersLeftWindowSprite.addChild(borderSprite);	
+	var animationFighter;
+	if(fighterName == "liukang") { animationFighter = new PIXI.extras.MovieClip(animTexLiukangStanceLeftToRight); }
+	if(fighterName == "kunglao") { animationFighter = new PIXI.extras.MovieClip(animTexKunglaoStanceLeftToRight); }
+	if(fighterName == "johnnycage") { animationFighter = new PIXI.extras.MovieClip(animTexJohnnycageStanceLeftToRight); }
+	if(fighterName == "reptile") { animationFighter = new PIXI.extras.MovieClip(animTexReptileStanceLeftToRight); }
+	if(fighterName == "subzero") { animationFighter = new PIXI.extras.MovieClip(animTexSubzeroStanceLeftToRight); }
+	if(fighterName == "shangtsung") { animationFighter = new PIXI.extras.MovieClip(animTexShangtsungStanceLeftToRight); }
+	if(fighterName == "kitana") { animationFighter = new PIXI.extras.MovieClip(animTexKitanaStanceLeftToRight); }
+	if(fighterName == "jax") { animationFighter = new PIXI.extras.MovieClip(animTexJaxStanceLeftToRight); }
+	if(fighterName == "mileena") { animationFighter = new PIXI.extras.MovieClip(animTexMileenaStanceLeftToRight); }
+	if(fighterName == "baraka") { animationFighter = new PIXI.extras.MovieClip(animTexBarakaStanceLeftToRight); }
+	if(fighterName == "scorpion") { animationFighter = new PIXI.extras.MovieClip(animTexScorpionStanceLeftToRight); }
+	if(fighterName == "raiden") { animationFighter = new PIXI.extras.MovieClip(animTexRaidenStanceLeftToRight); }
+	animationFighter.position.x = 40;
+	animationFighter.position.y = 30;
+	animationFighter.scale.x += 0.5;
+	animationFighter.scale.y += 0.5;
+	animationFighter.play();
+	animationFighter.animationSpeed = 0.2;
+	fightersLeftWindowSprite.addChild(animationFighter);
 
 	fightersStage.addChild(fightersLeftWindowSprite);
 }
 
+/* RIGHT WINDOW */
 function createFightersRightWindow(fighterName)
 {
 	fightersRightWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
@@ -103,7 +126,7 @@ function createFightersRightWindow(fighterName)
 
 	var fightersTextRus = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
 	var fightersTextEng = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
-	var fightersHits = ["5 x","3 x","3 x","6 x","10 x"];
+	var fightersHits = ["5  x ","3  x ","3  x ","6  x ","10  x "];
 
 	var fightersTextRightWindow;
 
@@ -135,7 +158,7 @@ function createFightersRightWindow(fighterName)
 	fightersStage.addChild(fightersRightWindowSprite);
 }
 
-
+/* FIGHTERS PANEL */
 function createFightersSelectPanel()
 {
 	createFightersIconButton((MAIN_WIDTH / 3) + (75 * 0), (MAIN_HEIGH / 2.9), iconLiukangTexture, "liukang");
@@ -195,5 +218,8 @@ function onFightersIconButtonClick()
 {
 	fightersStage.removeChild(fightersRightWindowSprite);
 	createFightersRightWindow(this.name);
+	fightersStage.removeChild(fightersLeftWindowSprite);
+	createFightersLeftWindow(this.name);
+
 	console.log("Fighters click icon button: " + this.name);
 }
