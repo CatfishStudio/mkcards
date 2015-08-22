@@ -82,9 +82,9 @@ function onAssetsLoaded(loader, res)
 	/* liukang.json */
 	for(var i = 1; i < 8; i++)
 	{
-		var texture = PIXI.Texture.fromFrame('stance_left_to_right_0' + i + '.png');
+		var texture = PIXI.Texture.fromFrame('liukang_stance_left_to_right_0' + i + '.png');
 		animTexLiukangStanceLeftToRight.push(texture);
-		texture = PIXI.Texture.fromFrame('stance_right_to_left_0' + i + '.png');
+		texture = PIXI.Texture.fromFrame('liukang_stance_right_to_left_0' + i + '.png');
 		animTexLiukangStanceRightToLeft.push(texture);
 	}
 	/**/
