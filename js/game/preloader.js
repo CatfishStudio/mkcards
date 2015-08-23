@@ -72,21 +72,13 @@ function onAssetsLoaded(loader, res)
 	characterHit5 = PIXI.Texture.fromFrame('character_hit_5.png');
 
 	/* baraka.json */
-	for(var i = 1; i < 10; i++)
-	{
-		var texture = PIXI.Texture.fromFrame('baraka_stance_left_to_right_0' + i + '.png');
-		animTexBarakaStanceLeftToRight.push(texture);
-		texture = PIXI.Texture.fromFrame('baraka_stance_right_to_left_0' + i + '.png');
-		animTexBarakaStanceRightToLeft.push(texture);
-	}
+	animTexBarakaStanceLeftToRight = loadAnimationTextures(10, 'baraka_stance_left_to_right_');
+	animTexBarakaStanceRightToLeft = loadAnimationTextures(10, 'baraka_stance_right_to_left_');
+
 	/* liukang.json */
-	for(var i = 1; i < 8; i++)
-	{
-		var texture = PIXI.Texture.fromFrame('liukang_stance_left_to_right_0' + i + '.png');
-		animTexLiukangStanceLeftToRight.push(texture);
-		texture = PIXI.Texture.fromFrame('liukang_stance_right_to_left_0' + i + '.png');
-		animTexLiukangStanceRightToLeft.push(texture);
-	}
+	animTexLiukangStanceLeftToRight = loadAnimationTextures(8, 'liukang_stance_left_to_right_');
+	animTexLiukangStanceRightToLeft = loadAnimationTextures(8, 'liukang_stance_right_to_left_');
+
 	/**/
 
 
@@ -94,6 +86,24 @@ function onAssetsLoaded(loader, res)
 	
 	bgShow();		// GAME BACKGROUND SHOW
 	stage.removeChild(bgPreloaderSprite);
+}
+
+function loadAnimationTextures(countFrame, nameFrame)
+{
+	var nameTexture;
+	var animTextures = [];
+	for(var i = 1; i < countFrame; i++)
+	{
+		if(i < 10)
+		{
+			nameTexture = nameFrame + '0' + i + '.png'
+		}else{
+			nameTexture = nameFrame + i + '.png'
+		}
+		var texture = PIXI.Texture.fromFrame(nameTexture);
+		animTextures.push(texture);
+	}
+	return animTextures;
 }
 
 function bgShow()

@@ -2,8 +2,6 @@ var fightersStage;
 var fightersLeftWindowSprite;
 var fightersRightWindowSprite;
 
-var fightersCharacteristics; // Global Fighters Characteristics
-
 var fightersStyleText = {
     font : 'bold 13px Arial',
     fill : '#FFFFFF'
@@ -13,33 +11,13 @@ function fightersShow()
 {
 	fightersStage = new PIXI.Container();
 
-	initFightersCharacteristics()
+	globalInitFightersCharacteristics();
 	createFightersLeftWindow("liukang");
 	createFightersSelectPanel();
 	createFightersRightWindow("liukang");
 
 	stage.addChild(fightersStage);
 	console.log("Create window: fighters");
-}
-
-/* INITIALIZATION FIGHTERS CHARACTERISTICS */
-function initFightersCharacteristics()
-{
-	fightersCharacteristics = new Object();
-	fightersCharacteristics["shaokahn"] = [2,2,1,3,2,1200];
-	fightersCharacteristics["goro"] = [2,2,2,2,2,1200];
-	fightersCharacteristics["liukang"] = [2,1,1,1,2,0];
-	fightersCharacteristics["kunglao"] = [1,2,1,2,1,0];
-	fightersCharacteristics["johnnycage"] = [1,1,2,2,1,0];
-	fightersCharacteristics["reptile"] = [1,1,1,2,2,0];
-	fightersCharacteristics["subzero"] = [2,2,1,1,1,0];
-	fightersCharacteristics["shangtsung"] = [1,1,1,3,1,0];
-	fightersCharacteristics["kitana"] = [1,1,3,1,1,0];
-	fightersCharacteristics["jax"] = [1,3,1,1,1,0];
-	fightersCharacteristics["mileena"] = [1,2,2,1,1,0];
-	fightersCharacteristics["baraka"] = [1,1,1,1,3,0];
-	fightersCharacteristics["scorpion"] = [3,1,1,1,1,0];
-	fightersCharacteristics["raiden"] = [2,1,2,1,2,0];
 }
 
 /* LEFT WINDOW */
@@ -139,7 +117,7 @@ function createFightersRightWindow(fighterName)
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
-			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + fightersCharacteristics[fighterName][i], fightersStyleText);
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[fighterName][i], fightersStyleText);
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
@@ -149,7 +127,7 @@ function createFightersRightWindow(fighterName)
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
-			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + fightersCharacteristics[fighterName][i], fightersStyleText);
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[fighterName][i], fightersStyleText);
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
