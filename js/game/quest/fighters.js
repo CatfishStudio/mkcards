@@ -11,10 +11,13 @@ function fightersShow()
 {
 	fightersStage = new PIXI.Container();
 
+	globalClearUser();
 	globalInitFightersCharacteristics();
+
 	createFightersLeftWindow("liukang");
 	createFightersSelectPanel();
 	createFightersRightWindow("liukang");
+	createFightersButton();
 
 	stage.addChild(fightersStage);
 	console.log("Create window: fighters");
@@ -27,12 +30,6 @@ function createFightersLeftWindow(fighterName)
 	fightersLeftWindowSprite.name = "fightersLeftWindow";
 	fightersLeftWindowSprite.position.x = (MAIN_WIDTH / 25);
 	fightersLeftWindowSprite.position.y = (MAIN_HEIGH / 2.9);
-
-	var borderSprite = new PIXI.Sprite(borderCharacterWindowTexture);
-	borderSprite.name = "fightersLeftWindowBorder";
-	borderSprite.position.x = 0;
-	borderSprite.position.y = 0;
-	fightersLeftWindowSprite.addChild(borderSprite);
 
 	var animationFighter;
 	if(fighterName == "liukang") { animationFighter = new PIXI.extras.MovieClip(animTexLiukangStanceLeftToRight); }
@@ -54,6 +51,12 @@ function createFightersLeftWindow(fighterName)
 	animationFighter.play();
 	animationFighter.animationSpeed = 0.2;
 	fightersLeftWindowSprite.addChild(animationFighter);
+
+	var borderSprite = new PIXI.Sprite(borderCharacterWindowTexture);
+	borderSprite.name = "fightersLeftWindowBorder";
+	borderSprite.position.x = 0;
+	borderSprite.position.y = 0;
+	fightersLeftWindowSprite.addChild(borderSprite);
 
 	fightersStage.addChild(fightersLeftWindowSprite);
 }
@@ -102,11 +105,13 @@ function createFightersRightWindow(fighterName)
 	characterHitSprite.position.y = 210;
 	fightersRightWindowSprite.addChild(characterHitSprite);
 
-	var fightersTextRus = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
-	var fightersTextEng = ["Удар ногой","Уран рукой","Блок","Апперкот","С разворота"];
+	var fightersTextRus = ["Удар ногой","Удар рукой","Блок","Апперкот","С разворота"];
+	var fightersTextEng = ["Hit leg","Hit hand","Defense","Uppercut","With reversal"];
 	var fightersHits = ["5  x ","3  x ","3  x ","6  x ","10  x "];
 
 	var fightersTextRightWindow;
+
+	globalUserFighterName = fighterName;
 
 	for (var i = 0; i < 5; i++)
 	{
@@ -117,7 +122,7 @@ function createFightersRightWindow(fighterName)
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
-			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[fighterName][i], fightersStyleText);
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[globalUserFighterName][i], fightersStyleText);
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
@@ -127,7 +132,7 @@ function createFightersRightWindow(fighterName)
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
-			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[fighterName][i], fightersStyleText);
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[globalUserFighterName][i], fightersStyleText);
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
@@ -200,4 +205,91 @@ function onFightersIconButtonClick()
 	createFightersLeftWindow(this.name);
 
 	console.log("Fighters click icon button: " + this.name);
+}
+
+
+function createFightersButton()
+{
+	var fightersSpriteButton;
+	var fightersTextButton;
+	var textFightersButtonsRus = ["Назад","Настройки","Пригласить","Играть"];
+	var textFightersButtonsEng = ["Back","Settings","Invite","Play"];
+	var fightersStyleTextButton = {
+    	font : 'bold 12px Arial',
+    	fill : '#F7EDCA',
+    	stroke : '#500000',
+    	strokeThickness : 3,
+    	wordWrap : true,
+    	wordWrapWidth : 440
+	};
+	for(var i = 0; i < 4; i++)
+	{
+		if(language == "rus")
+		{
+			fightersTextButton = new PIXI.Text(textFightersButtonsRus[i], fightersStyleTextButton);
+		}else{
+			fightersTextButton = new PIXI.Text(textFightersButtonsEng[i], fightersStyleTextButton);
+		}
+		fightersTextButton.x = (170 / 2) - (fightersTextButton.width / 2);
+		fightersTextButton.y = 20;
+
+		fightersSpriteButton = new PIXI.Sprite(buttonTexture);
+		fightersSpriteButton.name = textFightersButtonsEng[i];
+		fightersSpriteButton.position.x = 35 + (200 * i);
+		fightersSpriteButton.position.y = 650;
+		fightersSpriteButton.interactive = true;
+
+		fightersSpriteButton.tap = onFightersButtonClick;
+		fightersSpriteButton.click = onFightersButtonClick;
+		fightersSpriteButton.on('mousedown', onFightersButtonDown);
+		fightersSpriteButton.on('touchstart', onFightersButtonDown);
+		fightersSpriteButton.on('mouseup', onFightersButtonUp);
+		fightersSpriteButton.on('touchend', onFightersButtonUp);
+		fightersSpriteButton.on('mouseupoutside', onFightersButtonUp);
+		fightersSpriteButton.on('touchendoutside', onFightersButtonUp);
+		
+		fightersSpriteButton.addChild(fightersTextButton);
+		fightersStage.addChild(fightersSpriteButton);
+	}
+
+}
+
+function onFightersButtonDown()
+{
+    this.isdown = true;
+    this.scale.set(0.95);
+    this.position.x += 5; 
+}
+
+function onFightersButtonUp()
+{
+	if(this.isdown)
+	{
+    	this.isdown = false;
+    	this.scale.set(1.0);
+    	this.position.x -= 5;
+    }
+}
+
+function onFightersButtonClick() 
+{
+	if(this.name == "Back")
+	{
+		stage.removeChild(fightersStage);
+		menuShow(); // MENU SHOW
+	}
+	if(this.name == "Settings")
+	{
+		
+	}
+	if(this.name == "Invite")
+	{
+		
+	}
+	if(this.name == "Play")
+	{
+		stage.removeChild(fightersStage);
+		globalItinUserFighter();
+	}
+	console.log("Fighters click button: " + this.name);
 }
