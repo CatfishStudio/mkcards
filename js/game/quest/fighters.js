@@ -11,8 +11,8 @@ function fightersShow()
 {
 	fightersStage = new PIXI.Container();
 
-	globalClearUser();
-	globalInitFightersCharacteristics();
+	qGlobalClearUser();
+	qGlobalInitFightersCharacteristics();
 
 	createFightersLeftWindow("liukang");
 	createFightersSelectPanel();
@@ -111,7 +111,7 @@ function createFightersRightWindow(fighterName)
 
 	var fightersTextRightWindow;
 
-	globalUserFighterName = fighterName;
+	qGlobalUserFighterName = fighterName;
 
 	for (var i = 0; i < 5; i++)
 	{
@@ -122,7 +122,7 @@ function createFightersRightWindow(fighterName)
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
-			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[globalUserFighterName][i], fightersStyleText);
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + qGlobalFightersCharacteristics[qGlobalUserFighterName][i], fightersStyleText);
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
@@ -132,7 +132,7 @@ function createFightersRightWindow(fighterName)
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
-			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + globalFightersCharacteristics[globalUserFighterName][i], fightersStyleText);
+			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + qGlobalFightersCharacteristics[qGlobalUserFighterName][i], fightersStyleText);
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
@@ -288,8 +288,9 @@ function onFightersButtonClick()
 	}
 	if(this.name == "Play")
 	{
+		qGlobalItinUserFighter();			// инициализация бойца пользователя
+		qGlobalInitEnemiesAI();				// инициализация всех протичников
 		stage.removeChild(fightersStage);
-		globalItinUserFighter();
 	}
 	console.log("Fighters click button: " + this.name);
 }
