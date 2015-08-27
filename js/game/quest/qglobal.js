@@ -69,18 +69,18 @@ function qGlobalInitFightersCharacteristics()
 	qGlobalFightersCharacteristics = new Object();
 	qGlobalFightersCharacteristics["shaokahn"] = [2,2,1,3,2,1200];
 	qGlobalFightersCharacteristics["goro"] = [2,2,2,2,2,1200];
-	qGlobalFightersCharacteristics["liukang"] = [2,1,1,1,2,0];
-	qGlobalFightersCharacteristics["kunglao"] = [1,2,1,2,1,0];
-	qGlobalFightersCharacteristics["johnnycage"] = [1,1,2,2,1,0];
-	qGlobalFightersCharacteristics["reptile"] = [1,1,1,2,2,0];
-	qGlobalFightersCharacteristics["subzero"] = [2,2,1,1,1,0];
-	qGlobalFightersCharacteristics["shangtsung"] = [1,1,1,3,1,0];
-	qGlobalFightersCharacteristics["kitana"] = [1,1,3,1,1,0];
-	qGlobalFightersCharacteristics["jax"] = [1,3,1,1,1,0];
-	qGlobalFightersCharacteristics["mileena"] = [1,2,2,1,1,0];
-	qGlobalFightersCharacteristics["baraka"] = [1,1,1,1,3,0];
-	qGlobalFightersCharacteristics["scorpion"] = [3,1,1,1,1,0];
-	qGlobalFightersCharacteristics["raiden"] = [2,1,2,1,2,0];
+	qGlobalFightersCharacteristics["liukang"] = [2,1,1,1,2,200];
+	qGlobalFightersCharacteristics["kunglao"] = [1,2,1,2,1,200];
+	qGlobalFightersCharacteristics["johnnycage"] = [1,1,2,2,1,200];
+	qGlobalFightersCharacteristics["reptile"] = [1,1,1,2,2,200];
+	qGlobalFightersCharacteristics["subzero"] = [2,2,1,1,1,200];
+	qGlobalFightersCharacteristics["shangtsung"] = [1,1,1,3,1,200];
+	qGlobalFightersCharacteristics["kitana"] = [1,1,3,1,1,200];
+	qGlobalFightersCharacteristics["jax"] = [1,3,1,1,1,200];
+	qGlobalFightersCharacteristics["mileena"] = [1,2,2,1,1,200];
+	qGlobalFightersCharacteristics["baraka"] = [1,1,1,1,3,200];
+	qGlobalFightersCharacteristics["scorpion"] = [3,1,1,1,1,200];
+	qGlobalFightersCharacteristics["raiden"] = [2,1,2,1,2,200];
 	console.log("GLOBAL[quest]: init fighters characteristics");
 }
 /*======================================================================================================================*/
@@ -88,14 +88,18 @@ function qGlobalInitFightersCharacteristics()
 /*======================================================================================================================*/
 /* Характеристики ИИ */
 var qGlobalEnemiesAI;
-var qGlobalEnemy = {
-    ai_name : null,
-    ai_hit_1 : 0,
-    ai_hit_2 : 0,
-    ai_hit_3 : 0,
-	ai_hit_4 : 0,
-	ai_hit_5 : 0,
-	ai_life : 0
+var qGlobalEnemy = function()
+{
+	var that = {
+    	ai_name : null,
+    	ai_hit_1 : 0,
+    	ai_hit_2 : 0,
+    	ai_hit_3 : 0,
+		ai_hit_4 : 0,
+		ai_hit_5 : 0,
+		ai_life : 0
+	};
+	return that;
 };
 
 /*  Инициализация списка врагов */
@@ -103,46 +107,66 @@ function qGlobalInitEnemiesAI()
 {
 	var fightersName = ["liukang", "kunglao", "johnnycage", "reptile", "subzero", "shangtsung", "kitana", "jax", "mileena", "baraka", "scorpion", "raiden"];
 	var EnemiesAI = [];
+	var qGE;
 
 	for (var i = 0; i < fightersName.length; i++)
 	{
 		if(fightersName[i] != qGlobalUserFighterName)
 		{
-			qGlobalEnemy.ai_name = fightersName[i];
-			qGlobalEnemy.ai_hit_1 = qGlobalFightersCharacteristics[fightersName[i]][0];
-			qGlobalEnemy.ai_hit_2 = qGlobalFightersCharacteristics[fightersName[i]][1];
-			qGlobalEnemy.ai_hit_3 = qGlobalFightersCharacteristics[fightersName[i]][2];
-			qGlobalEnemy.ai_hit_4 = qGlobalFightersCharacteristics[fightersName[i]][3];
-			qGlobalEnemy.ai_hit_5 = qGlobalFightersCharacteristics[fightersName[i]][4];
-			qGlobalEnemy.ai_life = qGlobalFightersCharacteristics[fightersName[i]][5];
-			EnemiesAI.push(qGlobalEnemy);
+			qGE = new qGlobalEnemy();
+			qGE.ai_name = fightersName[i];
+			qGE.ai_hit_1 = qGlobalFightersCharacteristics[fightersName[i]][0];
+			qGE.ai_hit_2 = qGlobalFightersCharacteristics[fightersName[i]][1];
+			qGE.ai_hit_3 = qGlobalFightersCharacteristics[fightersName[i]][2];
+			qGE.ai_hit_4 = qGlobalFightersCharacteristics[fightersName[i]][3];
+			qGE.ai_hit_5 = qGlobalFightersCharacteristics[fightersName[i]][4];
+			qGE.ai_life = qGlobalFightersCharacteristics[fightersName[i]][5];
+			EnemiesAI.push(qGE);
 			console.log("GLOBAL[quest][AI][EnemiesAI]: " + EnemiesAI[EnemiesAI.length - 1].ai_name + " LIFE: " + EnemiesAI[EnemiesAI.length - 1].ai_life);
 		}
 	}
 
 	qGlobalEnemiesAI = [];
 
-	qGlobalEnemy.ai_name = "shaokahn";
-	qGlobalEnemy.ai_hit_1 = qGlobalFightersCharacteristics["shaokahn"][0];
-	qGlobalEnemy.ai_hit_2 = qGlobalFightersCharacteristics["shaokahn"][1];
-	qGlobalEnemy.ai_hit_3 = qGlobalFightersCharacteristics["shaokahn"][2];
-	qGlobalEnemy.ai_hit_4 = qGlobalFightersCharacteristics["shaokahn"][3];
-	qGlobalEnemy.ai_hit_5 = qGlobalFightersCharacteristics["shaokahn"][4];
-	qGlobalEnemy.ai_life = qGlobalFightersCharacteristics["shaokahn"][5];
-	qGlobalEnemiesAI.push(qGlobalEnemy);
+	qGE = new qGlobalEnemy();
+	qGE.ai_name = "shaokahn";
+	qGE.ai_hit_1 = qGlobalFightersCharacteristics["shaokahn"][0];
+	qGE.ai_hit_2 = qGlobalFightersCharacteristics["shaokahn"][1];
+	qGE.ai_hit_3 = qGlobalFightersCharacteristics["shaokahn"][2];
+	qGE.ai_hit_4 = qGlobalFightersCharacteristics["shaokahn"][3];
+	qGE.ai_hit_5 = qGlobalFightersCharacteristics["shaokahn"][4];
+	qGE.ai_life = qGlobalFightersCharacteristics["shaokahn"][5];
+	qGlobalEnemiesAI.push(qGE);
 	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[0].ai_name + " LIFE: " + qGlobalEnemiesAI[0].ai_life);
 
-	qGlobalEnemy.ai_name = "goro";
-	qGlobalEnemy.ai_hit_1 = qGlobalFightersCharacteristics["goro"][0];
-	qGlobalEnemy.ai_hit_2 = qGlobalFightersCharacteristics["goro"][1];
-	qGlobalEnemy.ai_hit_3 = qGlobalFightersCharacteristics["goro"][2];
-	qGlobalEnemy.ai_hit_4 = qGlobalFightersCharacteristics["goro"][3];
-	qGlobalEnemy.ai_hit_5 = qGlobalFightersCharacteristics["goro"][4];
-	qGlobalEnemy.ai_life = qGlobalFightersCharacteristics["goro"][5];
-	qGlobalEnemiesAI.push(qGlobalEnemy);
+	qGE = new qGlobalEnemy();
+	qGE.ai_name = "goro";
+	qGE.ai_hit_1 = qGlobalFightersCharacteristics["goro"][0];
+	qGE.ai_hit_2 = qGlobalFightersCharacteristics["goro"][1];
+	qGE.ai_hit_3 = qGlobalFightersCharacteristics["goro"][2];
+	qGE.ai_hit_4 = qGlobalFightersCharacteristics["goro"][3];
+	qGE.ai_hit_5 = qGlobalFightersCharacteristics["goro"][4];
+	qGE.ai_life = qGlobalFightersCharacteristics["goro"][5];
+	qGlobalEnemiesAI.push(qGE);
 	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[1].ai_name + " LIFE: " + qGlobalEnemiesAI[1].ai_life);
 
+	for (var k = EnemiesAI.length; k > 0 ; k--)
+	{
+		var index = qGlobalRandomIndexEnemies(k);
+		EnemiesAI[index].ai_life += 50 * (k - 1) *2;
+		qGlobalEnemiesAI.push(EnemiesAI[index]);
+		console.log("GLOBAL[quest][AI][EnemiesAI -> qGlobalEnemiesAI]: " + EnemiesAI[index].ai_name + " LIFE: " + EnemiesAI[index].ai_life);
+		EnemiesAI.splice(index, 1);
+	}
+}
 
+/* Генератор случайного индекса врага */
+function qGlobalRandomIndexEnemies(_count)
+{
+	var index = qGlobalRandomIndex();
+	var result = (index * _count);
+	if(result == _count) result--;
+	return result;
 }
 /*======================================================================================================================*/
 
