@@ -290,6 +290,7 @@ function onFightersButtonClick()
 	{
 		qGlobalItinUserFighter();			// инициализация бойца пользователя
 		qGlobalInitEnemiesAI();				// инициализация всех протичников
+		qGlobalInitEnemiesCharacteristics();// инициализация прокачки характеристик врагов
 		stage.removeChild(fightersStage);
 	}
 	console.log("Fighters click button: " + this.name);

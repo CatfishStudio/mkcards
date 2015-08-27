@@ -168,6 +168,39 @@ function qGlobalRandomIndexEnemies(_count)
 	if(result == _count) result--;
 	return result;
 }
+
+/*  Инициализация прокачки ИИ в соответствии с уровнем */
+function qGlobalInitEnemiesCharacteristics()
+{
+	var index = 0;
+	var experiencePoints = 0;
+	var n = qGlobalEnemiesAI.length - 1;
+	for(var i = n; i >=0; i--)
+	{
+		experiencePoints = 13 - i;
+		for(var j = 0; j < experiencePoints; j++)
+		{
+			index = qGlobalRandomIndexEnemiesCharacteristics();
+			if (index == 1) qGlobalEnemiesAI[i].ai_hit_1++;
+			if (index == 2) qGlobalEnemiesAI[i].ai_hit_2++;
+			if (index == 3) qGlobalEnemiesAI[i].ai_hit_3++;
+			if (index == 4) qGlobalEnemiesAI[i].ai_hit_4++;
+			if (index == 5) qGlobalEnemiesAI[i].ai_hit_5++;
+		}
+		console.log("GLOBAL[quest][AI][Characteristics]: " + qGlobalEnemiesAI[i].ai_name + "  HIT1:" + qGlobalEnemiesAI[i].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[i].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[i].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[i].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[i].ai_hit_5);
+	}
+}
+
+/* Генератор случайных чисел прокачки характеристик */
+function qGlobalRandomIndexEnemiesCharacteristics()
+{
+	var index = qGlobalRandomIndex();
+	if (index > 0 && index <= 2) return 1;
+	if (index > 2 && index <= 4) return 2;
+	if (index > 4 && index <= 6) return 3;
+	if (index > 6 && index <= 8) return 4;
+	if (index > 8 && index <= 10) return 5;
+}
 /*======================================================================================================================*/
 
 /*======================================================================================================================*/
