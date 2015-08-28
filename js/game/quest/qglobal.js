@@ -1,5 +1,5 @@
 /*======================================================================================================================*/
-/* Вспомогательные функции */
+/* Генератор случайных чисел */
 function qGlobalRandomIndex()
 {
 	var indexRandom = Math.random();
@@ -11,15 +11,15 @@ function qGlobalRandomIndex()
 /*======================================================================================================================*/
 /* Характеристики пользователя */
 var qGlobalUserFighterName;					// Имя бойца пользователя
-var qGlobalUserHit1 = 0;						// Удар ногой
-var qGlobalUserHit2 = 0;						// Удар рукой
-var qGlobalUserHit3 = 0;						// Блок
-var qGlobalUserHit4 = 0;						// Апперкот
-var qGlobalUserHit5 = 0;						// С разворота
+var qGlobalUserHit1 = 0;					// Удар ногой
+var qGlobalUserHit2 = 0;					// Удар рукой
+var qGlobalUserHit3 = 0;					// Блок
+var qGlobalUserHit4 = 0;					// Апперкот
+var qGlobalUserHit5 = 0;					// С разворота
 var qGlobalUserLife = 200;					// количество жизни
-var qGlobalUserContinue = 9;					// количество повторов
+var qGlobalUserContinue = 9;				// количество повторов
 var qGlobalTournamentProgress = 12;			// Прогресс прохождения турника (индекс врага) с конца в начало
-var qGlobalExperiencePoints = 0;				// Очки опыта
+var qGlobalExperiencePoints = 0;			// Очки опыта
 var qGlobalTotalPointsPlayerTournament = 0;	// Общие очки игрока за весь турнир
 var qGlobalTotalPointsPlayerLevel = 0;		// Общие очки игрока за уровень
 
@@ -61,7 +61,7 @@ function qGlobalClearUser()
 
 /*======================================================================================================================*/
 /* Характеристики всех бойцов по умолчанию */
-var qGlobalFightersCharacteristics; // 
+var qGlobalFightersCharacteristics; 		// Список характеристик по умолчанию
 
 /* Инициализация характеристик по умолчанию */
 function qGlobalInitFightersCharacteristics()
@@ -87,8 +87,8 @@ function qGlobalInitFightersCharacteristics()
 
 /*======================================================================================================================*/
 /* Характеристики ИИ */
-var qGlobalEnemiesAI;
-var qGlobalEnemy = function()
+var qGlobalEnemiesAI;					// Список всех врагов
+var qGlobalEnemy = function()			// Класс врага
 {
 	var that = {
     	ai_name : null,
@@ -205,7 +205,27 @@ function qGlobalRandomIndexEnemiesCharacteristics()
 
 /*======================================================================================================================*/
 /* Уровни */
-var qGlobalLevels;
+var qGlobalLevels;						// Список всех уровней
+var qGlobalLevel = function()			// Класс уровня
+{
+	var that = {
+    	levelField : [],
+    	backgroundTexture : null
+    };
+	return that;
+};
+
+/* Инициализация уровней */
+function qGlobalInitLevels()
+{
+	var bgFileNames = ["level_01.png", "level_02.png", "level_03.png", "level_04.png", "level_05.png", "level_06.png", "level_07.png", "level_08.png", "level_09.png", "level_10.png", "level_11.png", "level_12.png", "level_13.png"];
+	
+	qGlobalLevels = [];
+
+	console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.LevelType);
+	console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.cell[0].cellObject);
+
+}
 
 /*======================================================================================================================*/
 

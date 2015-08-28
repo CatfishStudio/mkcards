@@ -37,6 +37,8 @@ var animTexFlash = [];
 /* levels.json */
 var texuresLevels = [];
 
+/* level0.json, level1.json, level2.json, .., level13.json*/
+var fieldLevels = [];
 
 /* baraka.json */
 var animTexBarakaDamageLeftToRight = [];
@@ -276,3 +278,5 @@ var animTexSubzeroLost = [];
 var animTexSubzeroStanceLeftToRight = [];
 var animTexSubzeroStanceRightToLeft = [];
 var animTexSubzeroVictory = [];
+
+/**/
