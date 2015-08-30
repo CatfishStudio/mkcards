@@ -373,7 +373,6 @@ function onAssetsLoaded(loader, res)
 	console.log("Load assets subzero.json - complete!");
 
 	/* levels */
-	fieldLevels.push(res.level0); /* level0.json */ console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
 	fieldLevels.push(res.level1); /* level1.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
 	fieldLevels.push(res.level2); /* level2.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
 	fieldLevels.push(res.level3); /* level3.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
@@ -387,6 +386,7 @@ function onAssetsLoaded(loader, res)
 	fieldLevels.push(res.level11); /* level11.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
 	fieldLevels.push(res.level12); /* level12.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
 	fieldLevels.push(res.level13); /* level13.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level0); /* level0.json */ console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
 	
 
 	console.log("Load all assets - complete!");

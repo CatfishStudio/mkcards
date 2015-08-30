@@ -209,7 +209,7 @@ var qGlobalLevels;						// Список всех уровней
 var qGlobalLevel = function()			// Класс уровня
 {
 	var that = {
-    	levelField : [],
+    	levelField : null,
     	backgroundTexture : null
     };
 	return that;
@@ -218,13 +218,45 @@ var qGlobalLevel = function()			// Класс уровня
 /* Инициализация уровней */
 function qGlobalInitLevels()
 {
-	var bgFileNames = ["level_01.png", "level_02.png", "level_03.png", "level_04.png", "level_05.png", "level_06.png", "level_07.png", "level_08.png", "level_09.png", "level_10.png", "level_11.png", "level_12.png", "level_13.png"];
-	
+	var tLevels = [];
+	var fLevels = [];
+
+	for (var i = 0; i < texuresLevels.length; i++)
+	{
+		tLevels.push(texuresLevels[i]);
+		fLevels.push(fieldLevels[i]);
+	}	
+
 	qGlobalLevels = [];
 
+	for (var k = fLevels.length; k > 0 ; k--)
+	{
+		var index = qGlobalRandomIndexLevels(k);
+		var qGL = new qGlobalLevel();
+		qGL.levelField = fLevels[index];
+		fLevels.splice(index, 1);
+
+		index = qGlobalRandomIndexLevels(k);
+		qGL.backgroundTexture = tLevels[index];
+		tLevels.splice(index, 1);
+
+		qGlobalLevels.push(qGL);
+		console.log("GLOBAL[quest][Levels] Level : " + qGlobalLevels[qGlobalLevels.length - 1].levelField.data.Level.LevelNumber + "  Background : " + index);
+	}
+
+	/*
 	console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.LevelType);
 	console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.cell[0].cellObject);
+	*/
+}
 
+/* Генератор случайного индекса уровней */
+function qGlobalRandomIndexLevels(_count)
+{
+	var index = qGlobalRandomIndex();
+	var result = (index * _count);
+	if(result == _count) result--;
+	return result;
 }
 
 /*======================================================================================================================*/
