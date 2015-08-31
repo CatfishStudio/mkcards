@@ -293,6 +293,7 @@ function onFightersButtonClick()
 		qGlobalInitEnemiesCharacteristics();// инициализация прокачки характеристик врагов
 		qGlobalInitLevels();				// инициализация уровней
 		stage.removeChild(fightersStage);
+		stairsShow();						// STAIRS SHOW
 	}
 	console.log("Fighters click button: " + this.name);
 }

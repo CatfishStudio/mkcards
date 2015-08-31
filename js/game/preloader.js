@@ -30,6 +30,8 @@ function loadAssets()
 	var loader = new PIXI.loaders.Loader();
 	loader.add('bgImage','./assets/image/background.jpg');
 	loader.add('buttonImage','./assets/image/button.png');
+	loader.add('blueportalImage','./assets/image/quest/texture/blueportal.png');
+	loader.add('borderImage','./assets/image/quest/texture/border_screen.png');
 	loader.add('gameAtlas','./assets/image/quest/atlas/game.json');
 	loader.add('bloodAtlas','./assets/image/quest/atlas/blood.json');
 	loader.add('drugonAtlas','./assets/image/quest/atlas/drugon.json');
@@ -77,6 +79,8 @@ function onAssetsLoaded(loader, res)
 {
 	bgTexture = res.bgImage.texture; /* background.jpg */
 	buttonTexture = res.buttonImage.texture; /* button.png */
+	borderTexture = res.borderImage.texture; /* border_screen.png */
+	blueportalTexture = res.blueportalImage.texture; /* blueportalImage.png */
 	console.log("Load assets textures - complete!");
 
 	/* game.json */

@@ -1,5 +1,7 @@
 var bgTexture;						// background.jpg
 var buttonTexture;					// button.png
+var borderTexture;					// border_screen.png
+var blueportalTexture;				// blueportalImage.png
 
 /* game.json */
 var bgCharacterWindowTexture;		// character_background_small.png
