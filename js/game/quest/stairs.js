@@ -13,6 +13,8 @@ function stairsShow()
 
 	stairsBackground();
 	createStairsButton();
+	createStairsRightWindow(qGlobalUserFighterName);
+	stairsTween();
 
 	stage.addChild(stairsStage);
 	console.log("Create window: stairs");
@@ -33,9 +35,22 @@ function stairsBackground()
 	border.position.x = (MAIN_WIDTH - 800) / 2;
 	border.position.y = (MAIN_HEIGH - 600) / 2.5;
 	stairsStage.addChild(border);
+}
 
+function createStairsRightWindow(fighterName)
+{
+	stairsRightWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
+	stairsRightWindowSprite.name = "stairsRightWindow";
+	stairsRightWindowSprite.position.x = (MAIN_WIDTH / 3) + (75 * 4.5);
+	stairsRightWindowSprite.position.y = (MAIN_HEIGH / 2.9);
 
-	
+	var borderSprite = new PIXI.Sprite(borderCharacterWindowTexture);
+	borderSprite.name = "stairsRightWindowBordet";
+	borderSprite.position.x = 0;
+	borderSprite.position.y = 0;
+	stairsRightWindowSprite.addChild(borderSprite);
+
+	stairsStage.addChild(stairsRightWindowSprite);
 }
 
 function createStairsButton()
@@ -121,4 +136,16 @@ function onStairsButtonClick()
 		stage.removeChild(stairsStage);
 	}
 	console.log("Stairs click button: " + this.name);
+}
+
+function stairsTween()
+{
+	createjs.Tween.get(stairsRightWindowSprite, {loop: true})
+          .to({x: 400}, 1000, createjs.Ease.getPowInOut(4))
+          .to({alpha: 0, y: 75}, 500, createjs.Ease.getPowInOut(2))
+          .to({alpha: 0, y: 125}, 100)
+          .to({alpha: 1, y: 100}, 500, createjs.Ease.getPowInOut(2))
+          .to({x: 100}, 800, createjs.Ease.getPowInOut(2));
+    createjs.Ticker.setFPS(60);
+    //createjs.Ticker.addEventListener("tick", stage);
 }
