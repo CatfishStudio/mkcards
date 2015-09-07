@@ -14,6 +14,7 @@ function stairsShow()
 	stairsBackground();
 	createStairsButton();
 	createStairsRightWindow(qGlobalUserFighterName);
+	createStairsLeftWindow(qGlobalUserFighterName);
 	stairsTween();
 
 	stage.addChild(stairsStage);
@@ -41,8 +42,8 @@ function createStairsRightWindow(fighterName)
 {
 	stairsRightWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
 	stairsRightWindowSprite.name = "stairsRightWindow";
-	stairsRightWindowSprite.position.x = (MAIN_WIDTH / 3) + (75 * 4.5);
-	stairsRightWindowSprite.position.y = (MAIN_HEIGH / 2.9);
+	stairsRightWindowSprite.position.x = MAIN_WIDTH;
+	stairsRightWindowSprite.position.y = (MAIN_HEIGH / 3.6);
 
 	var borderSprite = new PIXI.Sprite(borderCharacterWindowTexture);
 	borderSprite.name = "stairsRightWindowBordet";
@@ -51,6 +52,22 @@ function createStairsRightWindow(fighterName)
 	stairsRightWindowSprite.addChild(borderSprite);
 
 	stairsStage.addChild(stairsRightWindowSprite);
+}
+
+function createStairsLeftWindow(fighterName)
+{
+	stairsLeftWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
+	stairsLeftWindowSprite.name = "stairsLeftWindow";
+	stairsLeftWindowSprite.position.x = (stairsLeftWindowSprite.width * -1);
+	stairsLeftWindowSprite.position.y = (MAIN_HEIGH / 3.6);
+
+	var borderSprite = new PIXI.Sprite(borderCharacterWindowTexture);
+	borderSprite.name = "stairsLeftWindowBordet";
+	borderSprite.position.x = 0;
+	borderSprite.position.y = 0;
+	stairsLeftWindowSprite.addChild(borderSprite);
+
+	stairsStage.addChild(stairsLeftWindowSprite);
 }
 
 function createStairsButton()
@@ -140,12 +157,14 @@ function onStairsButtonClick()
 
 function stairsTween()
 {
-	createjs.Tween.get(stairsRightWindowSprite, {loop: true})
-          .to({x: 400}, 1000, createjs.Ease.getPowInOut(4))
-          .to({alpha: 0, y: 75}, 500, createjs.Ease.getPowInOut(2))
-          .to({alpha: 0, y: 125}, 100)
-          .to({alpha: 1, y: 100}, 500, createjs.Ease.getPowInOut(2))
-          .to({x: 100}, 800, createjs.Ease.getPowInOut(2));
+	createjs.Tween.get(stairsRightWindowSprite, {loop: false})
+		.to({x: 580}, 1000, createjs.Ease.getPowInOut(4));
+		//.to({alpha: 0, y: 75}, 500, createjs.Ease.getPowInOut(2))
+		//.to({alpha: 0, y: 125}, 100)
+		//.to({alpha: 1, y: 100}, 500, createjs.Ease.getPowInOut(2))
+		//.to({x: 100}, 800, createjs.Ease.getPowInOut(2));
+	createjs.Tween.get(stairsLeftWindowSprite, {loop: false})
+		.to({x: 75}, 1000, createjs.Ease.getPowInOut(4));
     createjs.Ticker.setFPS(60);
     //createjs.Ticker.addEventListener("tick", stage);
 }

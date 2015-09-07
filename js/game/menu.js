@@ -18,7 +18,7 @@ function menuShow()
 
 	menuStage = new PIXI.Container();
 	
-	for(var i = 0; i < 7; i++)
+	for(var i = 0; i < menuTextButtonsRus.length; i++)
 	{
 		if(language == "rus")
 		{
