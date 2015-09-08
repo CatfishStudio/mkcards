@@ -1,4 +1,5 @@
 var stairsStage;
+var stairsWindowStage;
 var stairsLeftWindowSprite;
 var stairsRightWindowSprite;
 
@@ -10,15 +11,38 @@ var stairsStyleText = {
 function stairsShow()
 {
 	stairsStage = new PIXI.Container();
+	stairsWindowStage = new PIXI.Container();
 
 	stairsBackground();
 	createStairsButton();
 	createStairsRightWindow(qGlobalUserFighterName);
 	createStairsLeftWindow(qGlobalUserFighterName);
+	stairsMask();
+	
 	stairsTween();
 
 	stage.addChild(stairsStage);
 	console.log("Create window: stairs");
+}
+
+function stairsMask()
+{
+	var posX = (MAIN_WIDTH - 800) / 2;
+	var posY = (MAIN_HEIGH - 600) / 2.5;
+	var thing = new PIXI.Graphics();
+	stage.addChild(thing);
+	thing.position.x = 0;
+	thing.position.y = 0;
+	thing.lineStyle(0);
+	thing.clear();
+    thing.beginFill(0x8bc5ff, 0.4);
+    thing.moveTo(posX, posY);
+    thing.lineTo(posX, posY);
+    thing.lineTo(posX + 800, posY);
+    thing.lineTo(posX + 800, posY + 600);
+    thing.lineTo(posX, posY + 600);
+        
+	stairsWindowStage.mask = thing;
 }
 
 function stairsBackground()
@@ -29,13 +53,14 @@ function stairsBackground()
 	background.position.y = (MAIN_HEIGH - 600) / 2.5;
 	background.scale.x += 1.0;
 	background.scale.y += 1.35;
-	stairsStage.addChild(background);
+	stairsWindowStage.addChild(background);
 
 	var border = new PIXI.Sprite(borderTexture);
 	border.name = "stairsBorder";
 	border.position.x = (MAIN_WIDTH - 800) / 2;
 	border.position.y = (MAIN_HEIGH - 600) / 2.5;
-	stairsStage.addChild(border);
+
+	stairsWindowStage.addChild(border);
 }
 
 function createStairsRightWindow(fighterName)
@@ -51,7 +76,7 @@ function createStairsRightWindow(fighterName)
 	borderSprite.position.y = 0;
 	stairsRightWindowSprite.addChild(borderSprite);
 
-	stairsStage.addChild(stairsRightWindowSprite);
+	stairsWindowStage.addChild(stairsRightWindowSprite);
 }
 
 function createStairsLeftWindow(fighterName)
@@ -67,7 +92,8 @@ function createStairsLeftWindow(fighterName)
 	borderSprite.position.y = 0;
 	stairsLeftWindowSprite.addChild(borderSprite);
 
-	stairsStage.addChild(stairsLeftWindowSprite);
+	stairsWindowStage.addChild(stairsLeftWindowSprite);
+	stairsStage.addChild(stairsWindowStage);
 }
 
 function createStairsButton()
