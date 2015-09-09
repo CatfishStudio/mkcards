@@ -15,8 +15,8 @@ function stairsShow()
 
 	stairsBackground();
 	createStairsButton();
-	createStairsRightWindow(qGlobalUserFighterName);
-	createStairsLeftWindow(qGlobalUserFighterName);
+	createStairsRightWindow(qGlobalTournamentProgress);
+	createStairsLeftWindow();
 	stairsMask();
 	
 	stairsTween();
@@ -63,7 +63,7 @@ function stairsBackground()
 	stairsWindowStage.addChild(border);
 }
 
-function createStairsRightWindow(fighterName)
+function createStairsRightWindow(fighterIndex)
 {
 	stairsRightWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
 	stairsRightWindowSprite.name = "stairsRightWindow";
@@ -76,10 +76,73 @@ function createStairsRightWindow(fighterName)
 	borderSprite.position.y = 0;
 	stairsRightWindowSprite.addChild(borderSprite);
 
+	var characterHitSprite 	= new PIXI.Sprite(characterHit1);
+	characterHitSprite.name = "characterHit1";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 10;
+	stairsRightWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit2);
+	characterHitSprite.name = "characterHit2";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 60;
+	stairsRightWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit3);
+	characterHitSprite.name = "characterHit3";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 110;
+	stairsRightWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit4);
+	characterHitSprite.name = "characterHit4";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 160;
+	stairsRightWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit5);
+	characterHitSprite.name = "characterHit5";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 210;
+	stairsRightWindowSprite.addChild(characterHitSprite);
+
+	var fightersTextRus = ["Удар ногой","Удар рукой","Блок","Апперкот","С разворота"];
+	var fightersTextEng = ["Hit leg","Hit hand","Defense","Uppercut","With reversal"];
+	var fightersHits = ["5  x " + qGlobalEnemiesAI[fighterIndex].ai_hit_1, "3  x " + qGlobalEnemiesAI[fighterIndex].ai_hit_2, "3  x " + qGlobalEnemiesAI[fighterIndex].ai_hit_3, "6  x " + qGlobalEnemiesAI[fighterIndex].ai_hit_4, "10  x " + qGlobalEnemiesAI[fighterIndex].ai_hit_5];
+
+	var stairsTextRightWindow;
+
+	for (var i = 0; i < 5; i++)
+	{
+		if(language == "rus")
+		{
+			stairsTextRightWindow = new PIXI.Text(fightersTextRus[i], stairsStyleText);
+			stairsTextRightWindow.x = 60;
+			stairsTextRightWindow.y = 25 + (50 * i);
+			stairsRightWindowSprite.addChild(stairsTextRightWindow);
+
+			stairsTextRightWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			stairsTextRightWindow.x = 150;
+			stairsTextRightWindow.y = 25 + (50 * i);
+			stairsRightWindowSprite.addChild(stairsTextRightWindow);
+		}else{
+			stairsTextRightWindow = new PIXI.Text(fightersTextEng[i], stairsStyleText);
+			stairsTextRightWindow.x = 60;
+			stairsTextRightWindow.y = 25 + (50 * i);
+			stairsRightWindowSprite.addChild(stairsTextRightWindow);
+
+			stairsTextRightWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			stairsTextRightWindow.x = 150;
+			stairsTextRightWindow.y = 25 + (50 * i);
+			stairsRightWindowSprite.addChild(stairsTextRightWindow);
+		}
+	}
+
 	stairsWindowStage.addChild(stairsRightWindowSprite);
+	console.log("Stairs Enemy (Right window): " + qGlobalEnemiesAI[fighterIndex].ai_name);
 }
 
-function createStairsLeftWindow(fighterName)
+function createStairsLeftWindow()
 {
 	stairsLeftWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
 	stairsLeftWindowSprite.name = "stairsLeftWindow";
@@ -92,8 +155,73 @@ function createStairsLeftWindow(fighterName)
 	borderSprite.position.y = 0;
 	stairsLeftWindowSprite.addChild(borderSprite);
 
+	var characterHitSprite 	= new PIXI.Sprite(characterHit1);
+	characterHitSprite.name = "characterHit1";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 10;
+	stairsLeftWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit2);
+	characterHitSprite.name = "characterHit2";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 60;
+	stairsLeftWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit3);
+	characterHitSprite.name = "characterHit3";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 110;
+	stairsLeftWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit4);
+	characterHitSprite.name = "characterHit4";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 160;
+	stairsLeftWindowSprite.addChild(characterHitSprite);
+
+	characterHitSprite 	= new PIXI.Sprite(characterHit5);
+	characterHitSprite.name = "characterHit5";
+	characterHitSprite.position.x = 10;
+	characterHitSprite.position.y = 210;
+	stairsLeftWindowSprite.addChild(characterHitSprite);
+
+	var fightersTextRus = ["Удар ногой","Удар рукой","Блок","Апперкот","С разворота"];
+	var fightersTextEng = ["Hit leg","Hit hand","Defense","Uppercut","With reversal"];
+	var fightersHits = ["5  x " + qGlobalUserHit1, "3  x " + qGlobalUserHit2, "3  x " + qGlobalUserHit3, "6  x " + qGlobalUserHit4, "10  x " + qGlobalUserHit5];
+
+	var stairsTextLeftWindow;
+
+	for (var i = 0; i < 5; i++)
+	{
+		if(language == "rus")
+		{
+			stairsTextLeftWindow = new PIXI.Text(fightersTextRus[i], stairsStyleText);
+			stairsTextLeftWindow.x = 60;
+			stairsTextLeftWindow.y = 25 + (50 * i);
+			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
+
+			stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			stairsTextLeftWindow.x = 150;
+			stairsTextLeftWindow.y = 25 + (50 * i);
+			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
+		}else{
+			stairsTextLeftWindow = new PIXI.Text(fightersTextEng[i], stairsStyleText);
+			stairsTextLeftWindow.x = 60;
+			stairsTextLeftWindow.y = 25 + (50 * i);
+			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
+
+			stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			stairsTextLeftWindow.x = 150;
+			stairsTextLeftWindow.y = 25 + (50 * i);
+			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
+		}
+	}
+
+
+
 	stairsWindowStage.addChild(stairsLeftWindowSprite);
 	stairsStage.addChild(stairsWindowStage);
+	console.log("Stairs User (Left window): " + qGlobalUserFighterName);
 }
 
 function createStairsButton()

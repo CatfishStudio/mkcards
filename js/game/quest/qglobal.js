@@ -2,14 +2,14 @@
 /* Генератор случайных чисел */
 function qGlobalRandomIndex()
 {
-	var indexRandom = Math.random();
+	var indexRandom = Math.random() / 0.1;
 	var index = Math.round(indexRandom);
 	return index;
 }
 /*======================================================================================================================*/
 
 /*======================================================================================================================*/
-/* Характеристики пользователя */
+/* ХАРАКТЕРИСТИКИ ПОЛЬЗОВАТЕЛЯ */
 var qGlobalUserFighterName;					// Имя бойца пользователя
 var qGlobalUserHit1 = 0;					// Удар ногой
 var qGlobalUserHit2 = 0;					// Удар рукой
@@ -60,7 +60,7 @@ function qGlobalClearUser()
 /*======================================================================================================================*/
 
 /*======================================================================================================================*/
-/* Характеристики всех бойцов по умолчанию */
+/* ХАРАКТЕРИСТИКИ ВСЕХ БОЙЦОВ ПО УМОЛЧАНИМЮ  */
 var qGlobalFightersCharacteristics; 		// Список характеристик по умолчанию
 
 /* Инициализация характеристик по умолчанию */
@@ -86,8 +86,8 @@ function qGlobalInitFightersCharacteristics()
 /*======================================================================================================================*/
 
 /*======================================================================================================================*/
-/* Характеристики ИИ */
-var qGlobalEnemiesAI;					// Список всех врагов
+/* ХАРАКТЕРИСТИКИ ИИ */
+var qGlobalEnemiesAI = [];				// Список всех врагов
 var qGlobalEnemy = function()			// Класс врага
 {
 	var that = {
@@ -137,7 +137,7 @@ function qGlobalInitEnemiesAI()
 	qGE.ai_hit_5 = qGlobalFightersCharacteristics["shaokahn"][4];
 	qGE.ai_life = qGlobalFightersCharacteristics["shaokahn"][5];
 	qGlobalEnemiesAI.push(qGE);
-	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[0].ai_name + " LIFE: " + qGlobalEnemiesAI[0].ai_life);
+	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[0].ai_name + " LIFE: " + qGlobalEnemiesAI[0].ai_life + "  HIT1:" + qGlobalEnemiesAI[0].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[0].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[0].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[0].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[0].ai_hit_5);
 
 	qGE = new qGlobalEnemy();
 	qGE.ai_name = "goro";
@@ -148,14 +148,14 @@ function qGlobalInitEnemiesAI()
 	qGE.ai_hit_5 = qGlobalFightersCharacteristics["goro"][4];
 	qGE.ai_life = qGlobalFightersCharacteristics["goro"][5];
 	qGlobalEnemiesAI.push(qGE);
-	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[1].ai_name + " LIFE: " + qGlobalEnemiesAI[1].ai_life);
+	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[1].ai_name + " LIFE: " + qGlobalEnemiesAI[1].ai_life + "  HIT1:" + qGlobalEnemiesAI[1].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[1].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[1].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[1].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[1].ai_hit_5);
 
 	for (var k = EnemiesAI.length; k > 0 ; k--)
 	{
 		var index = qGlobalRandomIndexEnemies(k);
 		EnemiesAI[index].ai_life += 50 * (k - 1) *2;
 		qGlobalEnemiesAI.push(EnemiesAI[index]);
-		console.log("GLOBAL[quest][AI][EnemiesAI -> qGlobalEnemiesAI]: " + EnemiesAI[index].ai_name + " LIFE: " + EnemiesAI[index].ai_life);
+		console.log("GLOBAL[quest][AI][EnemiesAI -> qGlobalEnemiesAI]: " + EnemiesAI[index].ai_name + " LIFE: " + EnemiesAI[index].ai_life + "  HIT1:" + EnemiesAI[index].ai_hit_1+ "  HIT2:" + EnemiesAI[index].ai_hit_2+ "  HIT3:" + EnemiesAI[index].ai_hit_3+ "  HIT4:" + EnemiesAI[index].ai_hit_4+ "  HIT5:" + EnemiesAI[index].ai_hit_5);
 		EnemiesAI.splice(index, 1);
 	}
 }
@@ -164,7 +164,7 @@ function qGlobalInitEnemiesAI()
 function qGlobalRandomIndexEnemies(_count)
 {
 	var index = qGlobalRandomIndex();
-	var result = (index * _count);
+	var result = Math.round((index * _count) * 0.1);
 	if(result == _count) result--;
 	return result;
 }
@@ -187,7 +187,7 @@ function qGlobalInitEnemiesCharacteristics()
 			if (index == 4) qGlobalEnemiesAI[i].ai_hit_4++;
 			if (index == 5) qGlobalEnemiesAI[i].ai_hit_5++;
 		}
-		console.log("GLOBAL[quest][AI][Characteristics]: " + qGlobalEnemiesAI[i].ai_name + "  HIT1:" + qGlobalEnemiesAI[i].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[i].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[i].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[i].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[i].ai_hit_5);
+		console.log("GLOBAL[quest][AI][Characteristics ++ " + experiencePoints + " ]: " + qGlobalEnemiesAI[i].ai_name + "  HIT1:" + qGlobalEnemiesAI[i].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[i].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[i].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[i].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[i].ai_hit_5);
 	}
 }
 
@@ -204,8 +204,8 @@ function qGlobalRandomIndexEnemiesCharacteristics()
 /*======================================================================================================================*/
 
 /*======================================================================================================================*/
-/* Уровни */
-var qGlobalLevels;						// Список всех уровней
+/* УРОВНИ */
+var qGlobalLevels = [];					// Список всех уровней
 var qGlobalLevel = function()			// Класс уровня
 {
 	var that = {
@@ -254,7 +254,7 @@ function qGlobalInitLevels()
 function qGlobalRandomIndexLevels(_count)
 {
 	var index = qGlobalRandomIndex();
-	var result = (index * _count);
+	var result = Math.round((index * _count) * 0.1);
 	if(result == _count) result--;
 	return result;
 }
@@ -262,7 +262,7 @@ function qGlobalRandomIndexLevels(_count)
 /*======================================================================================================================*/
 
 /*======================================================================================================================*/
-/* Обучение */
+/* ОБУЧЕНИЕ */
 var qGlobalTutorialStep = 1;
 
 /*======================================================================================================================*/
