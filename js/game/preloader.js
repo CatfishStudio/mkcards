@@ -84,6 +84,7 @@ function onAssetsLoaded(loader, res)
 	console.log("Load assets textures - complete!");
 
 	/* game.json */
+	buttonPlusTextures = PIXI.Texture.fromFrame('character_button_plus.png');
 	bgCharacterWindowTexture = PIXI.Texture.fromFrame('character_background_small.png');
 	borderCharacterWindowTexture = PIXI.Texture.fromFrame('character_border_small.png');
 	iconBarakaTexture = PIXI.Texture.fromFrame('baraka.png');

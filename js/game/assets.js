@@ -4,6 +4,7 @@ var borderTexture;					// border_screen.png
 var blueportalTexture;				// blueportalImage.png
 
 /* game.json */
+var buttonPlusTextures;				// character_button_plus.png
 var bgCharacterWindowTexture;		// character_background_small.png
 var borderCharacterWindowTexture;	// character_border_small.png
 var iconBarakaTexture;				// baraka.png

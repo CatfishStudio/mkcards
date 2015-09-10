@@ -1,3 +1,15 @@
 const MAIN_WIDTH = 860;
 const MAIN_HEIGH = 730;
 const MAIN_BACKGROUND_COLOR = 0xFFFFFF;
+
+const DAMAGE_HIT_1 = 5;
+const DAMAGE_HIT_2 = 3;
+const DAMAGE_HIT_3 = 3;
+const DAMAGE_HIT_4 = 6;
+const DAMAGE_HIT_5 = 10;
+
+const DAMAGE_MAX_HIT_1 = 6;
+const DAMAGE_MAX_HIT_2 = 12;
+const DAMAGE_MAX_HIT_3 = 12;
+const DAMAGE_MAX_HIT_4 = 5;
+const DAMAGE_MAX_HIT_5 = 3;

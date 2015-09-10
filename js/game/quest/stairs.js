@@ -2,12 +2,16 @@ var stairsStage;
 var stairsWindowStage;
 var stairsLeftWindowSprite;
 var stairsRightWindowSprite;
+var stairsButtonsPlus = [];			// кнопки плюс
+var stairsUserCharacteres = [];		// характеристики пользователя для прокачки
+var stairsPanelButtonPlus;
 
 var stairsStyleText = {
     font : 'bold 13px Arial',
     fill : '#FFFFFF'
 };
 
+/* Главная функция */
 function stairsShow()
 {
 	stairsStage = new PIXI.Container();
@@ -17,6 +21,7 @@ function stairsShow()
 	createStairsButton();
 	createStairsRightWindow(qGlobalTournamentProgress);
 	createStairsLeftWindow();
+	if(qGlobalExperiencePoints != 0) createStairsButtonPlus();
 	stairsMask();
 	
 	stairsTween();
@@ -25,6 +30,7 @@ function stairsShow()
 	console.log("Create window: stairs");
 }
 
+/* Наложение маски */
 function stairsMask()
 {
 	var posX = (MAIN_WIDTH - 800) / 2;
@@ -45,6 +51,7 @@ function stairsMask()
 	stairsWindowStage.mask = thing;
 }
 
+/* Наложение фоновой картинки и рамки */
 function stairsBackground()
 {
 	var background = new PIXI.Sprite(blueportalTexture);
@@ -63,6 +70,7 @@ function stairsBackground()
 	stairsWindowStage.addChild(border);
 }
 
+/* Создание правого окна характеристик */
 function createStairsRightWindow(fighterIndex)
 {
 	stairsRightWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
@@ -142,6 +150,7 @@ function createStairsRightWindow(fighterIndex)
 	console.log("Stairs Enemy (Right window): " + qGlobalEnemiesAI[fighterIndex].ai_name);
 }
 
+/* Создание левого окна характеристик */
 function createStairsLeftWindow()
 {
 	stairsLeftWindowSprite = new PIXI.Sprite(bgCharacterWindowTexture);
@@ -188,32 +197,38 @@ function createStairsLeftWindow()
 	var fightersTextRus = ["Удар ногой","Удар рукой","Блок","Апперкот","С разворота"];
 	var fightersTextEng = ["Hit leg","Hit hand","Defense","Uppercut","With reversal"];
 	var fightersHits = ["5  x " + qGlobalUserHit1, "3  x " + qGlobalUserHit2, "3  x " + qGlobalUserHit3, "6  x " + qGlobalUserHit4, "10  x " + qGlobalUserHit5];
+	var fightersHitsUpdate = ["x " + qGlobalUserHit1, "x " + qGlobalUserHit2, "x " + qGlobalUserHit3, "x " + qGlobalUserHit4, "x " + qGlobalUserHit5];
 
+	stairsUserCharacteres = [];
+	
 	var stairsTextLeftWindow;
-
 	for (var i = 0; i < 5; i++)
 	{
 		if(language == "rus")
 		{
 			stairsTextLeftWindow = new PIXI.Text(fightersTextRus[i], stairsStyleText);
-			stairsTextLeftWindow.x = 60;
+			stairsTextLeftWindow.x = 55;
 			stairsTextLeftWindow.y = 25 + (50 * i);
 			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
 
-			stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
-			stairsTextLeftWindow.x = 150;
+			if(qGlobalExperiencePoints == 0) stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			else stairsTextLeftWindow = new PIXI.Text(fightersHitsUpdate[i], stairsStyleText);
+			stairsTextLeftWindow.x = 140;
 			stairsTextLeftWindow.y = 25 + (50 * i);
-			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
+			stairsUserCharacteres.push(stairsTextLeftWindow);
+			stairsLeftWindowSprite.addChild(stairsUserCharacteres[stairsUserCharacteres.length - 1]);
 		}else{
 			stairsTextLeftWindow = new PIXI.Text(fightersTextEng[i], stairsStyleText);
-			stairsTextLeftWindow.x = 60;
+			stairsTextLeftWindow.x = 55;
 			stairsTextLeftWindow.y = 25 + (50 * i);
 			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
 
-			stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
-			stairsTextLeftWindow.x = 150;
+			if(qGlobalExperiencePoints == 0) stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			else stairsTextLeftWindow = new PIXI.Text(fightersHitsUpdate[i], stairsStyleText);
+			stairsTextLeftWindow.x = 140;
 			stairsTextLeftWindow.y = 25 + (50 * i);
-			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
+			stairsUserCharacteres.push(stairsTextLeftWindow);
+			stairsLeftWindowSprite.addChild(stairsUserCharacteres[stairsUserCharacteres.length - 1]);
 		}
 	}
 
@@ -224,6 +239,37 @@ function createStairsLeftWindow()
 	console.log("Stairs User (Left window): " + qGlobalUserFighterName);
 }
 
+/* Создание панели кнопок плюс для левого окна характеристик */
+function createStairsButtonPlus()
+{
+	stairsPanelButtonPlus = new PIXI.Container();
+	stairsButtonsPlus = [];
+
+	var stairsButtonPlus;
+	for(var i = 0; i < 5; i++)
+	{
+		stairsButtonPlus = new PIXI.Sprite(buttonPlusTextures);
+		stairsButtonPlus.name = "buttonPlus"+i;
+		stairsButtonPlus.position.x = 160;
+		stairsButtonPlus.position.y = 10 + (50 * i);
+		stairsButtonPlus.interactive = true;
+
+		stairsButtonPlus.tap = onStairsButtonClick;
+		stairsButtonPlus.click = onStairsButtonClick;
+		stairsButtonPlus.on('mousedown', onStairsButtonDown);
+		stairsButtonPlus.on('touchstart', onStairsButtonDown);
+		stairsButtonPlus.on('mouseup', onStairsButtonUp);
+		stairsButtonPlus.on('touchend', onStairsButtonUp);
+		stairsButtonPlus.on('mouseupoutside', onStairsButtonUp);
+		stairsButtonPlus.on('touchendoutside', onStairsButtonUp);
+
+		stairsButtonsPlus.push(stairsButtonPlus);
+		stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+	}
+	stairsLeftWindowSprite.addChild(stairsPanelButtonPlus);
+}
+
+/* Создание основных кнопок окна */
 function createStairsButton()
 {
 	var stairsSpriteButton;
@@ -270,6 +316,7 @@ function createStairsButton()
 
 }
 
+/* События кнопок */
 function onStairsButtonDown()
 {
     this.isdown = true;
@@ -306,9 +353,35 @@ function onStairsButtonClick()
 	{
 		stage.removeChild(stairsStage);
 	}
+	if(this.name == "buttonPlus0")
+	{
+		if(qGlobalUserHit1 < DAMAGE_MAX_HIT_1){
+			qGlobalUserHit1++;
+			stairsUserCharacteres[0].text = "x " + qGlobalUserHit1;	
+			if(qGlobalUserHit1 >= DAMAGE_MAX_HIT_1) stairsPanelButtonPlus.removeChild(stairsButtonsPlus[0]);
+		}
+		
+	}
+	if(this.name == "buttonPlus1")
+	{
+		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[1]);
+	}
+	if(this.name == "buttonPlus2")
+	{
+		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[2]);
+	}
+	if(this.name == "buttonPlus3")
+	{
+		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[3]);
+	}
+	if(this.name == "buttonPlus4")
+	{
+		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[4]);
+	}
 	console.log("Stairs click button: " + this.name);
 }
 
+/* Выполнение аминации, перемещения */
 function stairsTween()
 {
 	createjs.Tween.get(stairsRightWindowSprite, {loop: false})
