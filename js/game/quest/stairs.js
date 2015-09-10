@@ -21,7 +21,7 @@ function stairsShow()
 	createStairsButton();
 	createStairsRightWindow(qGlobalTournamentProgress);
 	createStairsLeftWindow();
-	if(qGlobalExperiencePoints != 0) createStairsButtonPlus();
+	createStairsButtonPlus();
 	stairsMask();
 	
 	stairsTween();
@@ -242,31 +242,51 @@ function createStairsLeftWindow()
 /* Создание панели кнопок плюс для левого окна характеристик */
 function createStairsButtonPlus()
 {
-	stairsPanelButtonPlus = new PIXI.Container();
-	stairsButtonsPlus = [];
-
-	var stairsButtonPlus;
-	for(var i = 0; i < 5; i++)
+	if(qGlobalExperiencePoints != 0) 
 	{
-		stairsButtonPlus = new PIXI.Sprite(buttonPlusTextures);
-		stairsButtonPlus.name = "buttonPlus"+i;
-		stairsButtonPlus.position.x = 160;
-		stairsButtonPlus.position.y = 10 + (50 * i);
-		stairsButtonPlus.interactive = true;
+		stairsPanelButtonPlus = new PIXI.Container();
+		stairsButtonsPlus = [];
 
-		stairsButtonPlus.tap = onStairsButtonClick;
-		stairsButtonPlus.click = onStairsButtonClick;
-		stairsButtonPlus.on('mousedown', onStairsButtonDown);
-		stairsButtonPlus.on('touchstart', onStairsButtonDown);
-		stairsButtonPlus.on('mouseup', onStairsButtonUp);
-		stairsButtonPlus.on('touchend', onStairsButtonUp);
-		stairsButtonPlus.on('mouseupoutside', onStairsButtonUp);
-		stairsButtonPlus.on('touchendoutside', onStairsButtonUp);
+		var stairsButtonPlus;
+		for(var i = 0; i < 5; i++)
+		{
+			stairsButtonPlus = new PIXI.Sprite(buttonPlusTextures);
+			stairsButtonPlus.name = "buttonPlus"+i;
+			stairsButtonPlus.position.x = 160;
+			stairsButtonPlus.position.y = 10 + (50 * i);
+			stairsButtonPlus.interactive = true;
 
-		stairsButtonsPlus.push(stairsButtonPlus);
-		stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			stairsButtonPlus.tap = onStairsButtonClick;
+			stairsButtonPlus.click = onStairsButtonClick;
+			stairsButtonPlus.on('mousedown', onStairsButtonDown);
+			stairsButtonPlus.on('touchstart', onStairsButtonDown);
+			stairsButtonPlus.on('mouseup', onStairsButtonUp);
+			stairsButtonPlus.on('touchend', onStairsButtonUp);
+			stairsButtonPlus.on('mouseupoutside', onStairsButtonUp);
+			stairsButtonPlus.on('touchendoutside', onStairsButtonUp);
+
+			stairsButtonsPlus.push(stairsButtonPlus);
+			if(i==0 & qGlobalUserHit1 < DAMAGE_MAX_HIT_1) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i==1 & qGlobalUserHit2 < DAMAGE_MAX_HIT_2) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i==2 & qGlobalUserHit3 < DAMAGE_MAX_HIT_3) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i==3 & qGlobalUserHit4 < DAMAGE_MAX_HIT_4) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i==4 & qGlobalUserHit5 < DAMAGE_MAX_HIT_5) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+		}
+		stairsLeftWindowSprite.addChild(stairsPanelButtonPlus);
 	}
-	stairsLeftWindowSprite.addChild(stairsPanelButtonPlus);
+}
+
+function removeStairsButtonPlus()
+{
+	var hits = ["5  x " + qGlobalUserHit1, "3  x " + qGlobalUserHit2, "3  x " + qGlobalUserHit3, "6  x " + qGlobalUserHit4, "10  x " + qGlobalUserHit5];
+	if(qGlobalExperiencePoints == 0)stairsUserCharacteres[0].text = "x " + qGlobalUserHit1;
+	{
+		stairsLeftWindowSprite.removeChild(stairsPanelButtonPlus);
+		for(var i = 0; i < hits.length; i++)
+		{
+			stairsUserCharacteres[i].text = hits[i];
+		}
+	}
 }
 
 /* Создание основных кнопок окна */
@@ -357,14 +377,21 @@ function onStairsButtonClick()
 	{
 		if(qGlobalUserHit1 < DAMAGE_MAX_HIT_1){
 			qGlobalUserHit1++;
+			qGlobalExperiencePoints--;
 			stairsUserCharacteres[0].text = "x " + qGlobalUserHit1;	
 			if(qGlobalUserHit1 >= DAMAGE_MAX_HIT_1) stairsPanelButtonPlus.removeChild(stairsButtonsPlus[0]);
 		}
-		
+		removeStairsButtonPlus();
 	}
 	if(this.name == "buttonPlus1")
 	{
-		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[1]);
+		if(qGlobalUserHit2 < DAMAGE_MAX_HIT_2){
+			qGlobalUserHit2++;
+			qGlobalExperiencePoints--;
+			stairsUserCharacteres[1].text = "x " + qGlobalUserHit2;	
+			if(qGlobalUserHit2 >= DAMAGE_MAX_HIT_2) stairsPanelButtonPlus.removeChild(stairsButtonsPlus[1]);
+		}
+		removeStairsButtonPlus();
 	}
 	if(this.name == "buttonPlus2")
 	{
