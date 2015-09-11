@@ -252,8 +252,8 @@ function createStairsButtonPlus()
 		{
 			stairsButtonPlus = new PIXI.Sprite(buttonPlusTextures);
 			stairsButtonPlus.name = "buttonPlus"+i;
-			stairsButtonPlus.position.x = 160;
-			stairsButtonPlus.position.y = 10 + (50 * i);
+			stairsButtonPlus.position.x = 163;
+			stairsButtonPlus.position.y = 12 + (50 * i);
 			stairsButtonPlus.interactive = true;
 
 			stairsButtonPlus.tap = onStairsButtonClick;
@@ -279,7 +279,7 @@ function createStairsButtonPlus()
 function removeStairsButtonPlus()
 {
 	var hits = ["5  x " + qGlobalUserHit1, "3  x " + qGlobalUserHit2, "3  x " + qGlobalUserHit3, "6  x " + qGlobalUserHit4, "10  x " + qGlobalUserHit5];
-	if(qGlobalExperiencePoints == 0)stairsUserCharacteres[0].text = "x " + qGlobalUserHit1;
+	if(qGlobalExperiencePoints == 0 || (qGlobalUserHit1 + qGlobalUserHit2 + qGlobalUserHit3 + qGlobalUserHit4 + qGlobalUserHit5) == 38)
 	{
 		stairsLeftWindowSprite.removeChild(stairsPanelButtonPlus);
 		for(var i = 0; i < hits.length; i++)
@@ -395,15 +395,33 @@ function onStairsButtonClick()
 	}
 	if(this.name == "buttonPlus2")
 	{
-		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[2]);
+		if(qGlobalUserHit3 < DAMAGE_MAX_HIT_3){
+			qGlobalUserHit3++;
+			qGlobalExperiencePoints--;
+			stairsUserCharacteres[2].text = "x " + qGlobalUserHit3;	
+			if(qGlobalUserHit3 >= DAMAGE_MAX_HIT_3) stairsPanelButtonPlus.removeChild(stairsButtonsPlus[2]);
+		}
+		removeStairsButtonPlus();
 	}
 	if(this.name == "buttonPlus3")
 	{
-		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[3]);
+		if(qGlobalUserHit4 < DAMAGE_MAX_HIT_4){
+			qGlobalUserHit4++;
+			qGlobalExperiencePoints--;
+			stairsUserCharacteres[3].text = "x " + qGlobalUserHit4;	
+			if(qGlobalUserHit4 >= DAMAGE_MAX_HIT_4) stairsPanelButtonPlus.removeChild(stairsButtonsPlus[3]);
+		}
+		removeStairsButtonPlus();
 	}
 	if(this.name == "buttonPlus4")
 	{
-		stairsPanelButtonPlus.removeChild(stairsButtonsPlus[4]);
+		if(qGlobalUserHit5 < DAMAGE_MAX_HIT_5){
+			qGlobalUserHit5++;
+			qGlobalExperiencePoints--;
+			stairsUserCharacteres[4].text = "x " + qGlobalUserHit5;	
+			if(qGlobalUserHit5 >= DAMAGE_MAX_HIT_5) stairsPanelButtonPlus.removeChild(stairsButtonsPlus[4]);
+		}
+		removeStairsButtonPlus();
 	}
 	console.log("Stairs click button: " + this.name);
 }
