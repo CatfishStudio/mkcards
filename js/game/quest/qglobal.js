@@ -34,7 +34,7 @@ function qGlobalItinUserFighter()
 	qGlobalUserLife = 200;
 	qGlobalUserContinue = 9;
 	qGlobalTournamentProgress = 12;
-	qGlobalExperiencePoints = 100;
+	qGlobalExperiencePoints = 0;
 	qGlobalTotalPointsPlayerTournament = 0;
 	qGlobalTotalPointsPlayerLevel = 0;
 	console.log("GLOBAL[quest]: user init");

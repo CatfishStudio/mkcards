@@ -1,10 +1,12 @@
-var stairsStage;
-var stairsWindowStage;
-var stairsLeftWindowSprite;
-var stairsRightWindowSprite;
-var stairsButtonsPlus = [];			// кнопки плюс
-var stairsUserCharacteres = [];		// характеристики пользователя для прокачки
-var stairsPanelButtonPlus;
+var stairsStage;					// главный stage
+var stairsWindowStage;				// stage окна
+var stairsLeftWindowSprite;			// левое окно
+var stairsRightWindowSprite;		// правое окно
+var stairsButtonsPlus = [];			// массив кнопок плюс
+var stairsUserCharacteres = [];		// массив характеристик пользователя для прокачки
+var stairsPanelButtonPlus;			// панель кнопок плюс
+var stairsUserIcon;					// иконка бойца пользователя
+var stairsFightersIconsSprite;		// столб иконок противников
 
 var stairsStyleText = {
     font : 'bold 13px Arial',
@@ -22,6 +24,7 @@ function stairsShow()
 	createStairsRightWindow(qGlobalTournamentProgress);
 	createStairsLeftWindow();
 	createStairsButtonPlus();
+	createStairsIcons();
 	stairsMask();
 	
 	stairsTween();
@@ -424,6 +427,17 @@ function onStairsButtonClick()
 		removeStairsButtonPlus();
 	}
 	console.log("Stairs click button: " + this.name);
+}
+
+/* Столбец иконок противников и иконка бойца игрока */
+function createStairsIcons()
+{
+	stairsFightersIconsSprite = new PIXI.Sprite(stairsUpTextures);
+	stairsFightersIconsSprite.position.x = 335;
+	stairsFightersIconsSprite.position.y = 600;
+
+	stairsWindowStage.addChild(stairsFightersIconsSprite);
+	console.log("Stairs Fighters Icons");
 }
 
 /* Выполнение аминации, перемещения */
