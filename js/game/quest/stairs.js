@@ -6,7 +6,7 @@ var stairsButtonsPlus = [];			// массив кнопок плюс
 var stairsUserCharacteres = [];		// массив характеристик пользователя для прокачки
 var stairsPanelButtonPlus;			// панель кнопок плюс
 var stairsUserIcon;					// иконка бойца пользователя
-var stairsFightersIconsSprite;		// столб иконок противников
+var stairsFightersIcons;			// столб иконок противников
 
 var stairsStyleText = {
     font : 'bold 13px Arial',
@@ -21,10 +21,11 @@ function stairsShow()
 
 	stairsBackground();
 	createStairsButton();
+	createStairsIcons();
+	stairsBorder();
 	createStairsRightWindow(qGlobalTournamentProgress);
 	createStairsLeftWindow();
 	createStairsButtonPlus();
-	createStairsIcons();
 	stairsMask();
 	
 	stairsTween();
@@ -64,14 +65,17 @@ function stairsBackground()
 	background.scale.x += 1.0;
 	background.scale.y += 1.35;
 	stairsWindowStage.addChild(background);
+}
 
+function stairsBorder()
+{
 	var border = new PIXI.Sprite(borderTexture);
 	border.name = "stairsBorder";
 	border.position.x = (MAIN_WIDTH - 800) / 2;
 	border.position.y = (MAIN_HEIGH - 600) / 2.5;
-
 	stairsWindowStage.addChild(border);
 }
+
 
 /* Создание правого окна характеристик */
 function createStairsRightWindow(fighterIndex)
@@ -432,17 +436,51 @@ function onStairsButtonClick()
 /* Столбец иконок противников и иконка бойца игрока */
 function createStairsIcons()
 {
-	stairsFightersIconsSprite = new PIXI.Sprite(stairsUpTextures);
-	stairsFightersIconsSprite.position.x = 335;
-	stairsFightersIconsSprite.position.y = 600;
+	stairsFightersIcons = new PIXI.Container();
 
-	stairsWindowStage.addChild(stairsFightersIconsSprite);
+	var icon;
+	var stairsUpSprite;
+	for (var i = 0; i < qGlobalEnemiesAI.length - 1; i++)
+	{
+		icon = new PIXI.Sprite(iconsFightersAll[qGlobalEnemiesAI[i].ai_name]);
+		icon.position.x = 440;
+		icon.position.y = 615 + (95 * i);
+		icon.scale.set(0.85);
+		stairsFightersIcons.addChild(icon);
+
+		stairsUpSprite = new PIXI.Sprite(stairsUpTextures);
+		stairsUpSprite.position.x = 335;
+		stairsUpSprite.position.y = 600  + (95 * i);
+		stairsFightersIcons.addChild(stairsUpSprite);
+	}
+
+	icon = new PIXI.Sprite(iconsFightersAll[qGlobalEnemiesAI[qGlobalEnemiesAI.length - 1].ai_name]);
+	icon.position.x = 440;
+	icon.position.y = 615 + (87.5 * qGlobalEnemiesAI.length);
+	icon.scale.set(0.85);
+	stairsFightersIcons.addChild(icon);
+
+	var stairsDownSprite = new PIXI.Sprite(stairsDownTextures);
+	stairsDownSprite.position.x = 275;
+	stairsDownSprite.position.y = 600  + (87.5 * qGlobalEnemiesAI.length);
+	stairsFightersIcons.addChild(stairsDownSprite);
+
+	stairsWindowStage.addChild(stairsFightersIcons);
+
+	stairsUserIcon = new PIXI.Sprite(iconsFightersAll[qGlobalUserFighterName]);
+	stairsUserIcon.position.x = 360;
+	stairsUserIcon.position.y = 505;
+	stairsUserIcon.scale.set(0.85);
+	stairsWindowStage.addChild(stairsUserIcon);
+
+	
 	console.log("Stairs Fighters Icons");
 }
 
 /* Выполнение аминации, перемещения */
 function stairsTween()
 {
+	// Перемещение левого и правого окна характеристик
 	createjs.Tween.get(stairsRightWindowSprite, {loop: false})
 		.to({x: 580}, 1000, createjs.Ease.getPowInOut(4));
 		//.to({alpha: 0, y: 75}, 500, createjs.Ease.getPowInOut(2))
@@ -451,6 +489,14 @@ function stairsTween()
 		//.to({x: 100}, 800, createjs.Ease.getPowInOut(2));
 	createjs.Tween.get(stairsLeftWindowSprite, {loop: false})
 		.to({x: 75}, 1000, createjs.Ease.getPowInOut(4));
+
+	 // Перемещение лестницы бойцов
+	createjs.Tween.get(stairsFightersIcons, {loop: false})
+		.to({x: 0, y: -1250}, 5000, createjs.Ease.getPowInOut(1));
+
     createjs.Ticker.setFPS(60);
     //createjs.Ticker.addEventListener("tick", stage);
+
+   
+
 }

@@ -21,6 +21,7 @@ var iconScorpionTexture;			// scorpion.png
 var iconShangtsungTexture;			// shamgtsung.png
 var iconShaokahnTexture;			// shaokahn.png
 var iconSubzeroTexture;				// subzero.png
+var iconsFightersAll = new Object();// массив иконок всех бойцов
 var characterHit1;					// character_hit_1.png
 var characterHit2;					// character_hit_2.png
 var characterHit3;					// character_hit_3.png
