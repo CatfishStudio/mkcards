@@ -490,13 +490,12 @@ function stairsTween()
 	createjs.Tween.get(stairsLeftWindowSprite, {loop: false})
 		.to({x: 75}, 1000, createjs.Ease.getPowInOut(4));
 
-	 // Перемещение лестницы бойцов
+	// Перемещение лестницы бойцов
+	var stairsPosition = [[0,-205,-110],[0,-300,-205],[0,-395,-300],[0,-490,-395],[0,-585,-490],[0,-680,-585],[0,-775,-680],[0,-870,-775],[0,-965,-870],[0,-1060,-965],[0,-1155,-1060],[0,-1250,-1155],[0,0,-1250]]; // [x][y][yMove]
+	stairsFightersIcons.position.y = stairsPosition[qGlobalTournamentProgress][1];
 	createjs.Tween.get(stairsFightersIcons, {loop: false})
-		.to({x: 0, y: -1250}, 5000, createjs.Ease.getPowInOut(1));
+		.to({x: stairsPosition[qGlobalTournamentProgress][0], y: stairsPosition[qGlobalTournamentProgress][2]}, 5000, createjs.Ease.getPowInOut(1));
 
     createjs.Ticker.setFPS(60);
     //createjs.Ticker.addEventListener("tick", stage);
-
-   
-
 }
