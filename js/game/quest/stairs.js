@@ -40,7 +40,7 @@ function stairsMask()
 	var posX = (MAIN_WIDTH - 800) / 2;
 	var posY = (MAIN_HEIGH - 600) / 2.5;
 	var thing = new PIXI.Graphics();
-	stage.addChild(thing);
+	//stage.addChild(thing);
 	thing.position.x = 0;
 	thing.position.y = 0;
 	thing.lineStyle(0);
@@ -366,7 +366,7 @@ function onStairsButtonClick()
 	if(this.name == "Back in menu")
 	{
 		stage.removeChild(stairsStage);
-		menuShow(); // MENU SHOW
+		menuShow(); 	// MENU SHOW
 	}
 	if(this.name == "Settings")
 	{
@@ -379,6 +379,7 @@ function onStairsButtonClick()
 	if(this.name == "Fight")
 	{
 		stage.removeChild(stairsStage);
+		levelShow();	// LEVEL SHOW
 	}
 	if(this.name == "buttonPlus0")
 	{
