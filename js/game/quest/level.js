@@ -16,6 +16,7 @@ function levelShow()
 
 	levelBackground();
 	createLevelAnimationFighters();
+	createLevelField();
 	createLevelButton();
 	levelBorder();
 	levelMask();
@@ -105,7 +106,7 @@ function createLevelAnimationFighters()
 	if(aiName == "scorpion") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexScorpionStanceRightToLeft); }
 	if(aiName == "raiden") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexRaidenStanceRightToLeft); }
 	
-	levelAnimationRightFighter.position.x = 725;
+	levelAnimationRightFighter.position.x = 700;
 	levelAnimationRightFighter.position.y = 425;
 	levelAnimationRightFighter.scale.x += 0.5;
 	levelAnimationRightFighter.scale.y += 0.5;
@@ -114,6 +115,20 @@ function createLevelAnimationFighters()
 	levelWindowStage.addChild(levelAnimationRightFighter);
 
 	console.log("level[animation]: " + qGlobalUserFighterName + " vs " + qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name);
+}
+
+/* Создание игрового поля */
+function createLevelField()
+{
+	/*
+	var cell = new MatchCell();
+	cell.setCellType("CELL_TYPE_EMPTY");
+	levelWindowStage.addChild(cell.getCellGraphics());
+	console.log("MATCH: Create cell " + cell.getCellType());
+	*/
+
+	createMatchField(qGlobalLevels[qGlobalTournamentProgress - 1].levelField);
+	levelWindowStage.addChild(matchStage);
 }
 
 /* Создание основных кнопок окна */
