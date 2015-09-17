@@ -122,6 +122,12 @@ function onAssetsLoaded(loader, res)
 	characterHit5 = PIXI.Texture.fromFrame('character_hit_5.png');
 	stairsUpTextures = PIXI.Texture.fromFrame('Stairs_up.png');
 	stairsDownTextures = PIXI.Texture.fromFrame('Stairs_down.png');
+	hit1Texture = PIXI.Texture.fromFrame('hit_1.png');
+	hit2Texture = PIXI.Texture.fromFrame('hit_2.png');
+	hit3Texture = PIXI.Texture.fromFrame('hit_3.png');
+	hit4Texture = PIXI.Texture.fromFrame('hit_4.png');
+	hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
+
 	console.log("Load assets game.json - complete!");
 
 	/* blood.json */

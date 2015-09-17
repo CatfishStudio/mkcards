@@ -84,7 +84,7 @@ function createLevelAnimationFighters()
 	if(qGlobalUserFighterName == "scorpion") { levelAnimationLeftFighter = new PIXI.extras.MovieClip(animTexScorpionStanceLeftToRight); }
 	if(qGlobalUserFighterName == "raiden") { levelAnimationLeftFighter = new PIXI.extras.MovieClip(animTexRaidenStanceLeftToRight); }
 	
-	levelAnimationLeftFighter.position.x = 40;
+	levelAnimationLeftFighter.position.x = 50;
 	levelAnimationLeftFighter.position.y = 425;
 	levelAnimationLeftFighter.scale.x += 0.5;
 	levelAnimationLeftFighter.scale.y += 0.5;

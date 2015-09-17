@@ -29,6 +29,11 @@ var characterHit4;					// character_hit_4.png
 var characterHit5;					// character_hit_5.png
 var stairsUpTextures;				// Stairs_up.png
 var stairsDownTextures;				// Stairs_down.png
+var hit1Texture;					// hit_1.png
+var hit2Texture;					// hit_2.png
+var hit3Texture;					// hit_3.png
+var hit4Texture;					// hit_4.png
+var hit5Texture;					// hit_5.png
 
 /* blood.json */
 var animTexBlood = [];
