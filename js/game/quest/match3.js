@@ -5,6 +5,7 @@ const MATCH_CELL_HEIGHT = 82;
 const MATCH_CELL_TYPE_DROP = "CELL_TYPE_DROP";
 const MATCH_CELL_TYPE_CLEAR = "CELL_TYPE_CLEAR";
 const MATCH_CELL_TYPE_EMPTY = "CELL_TYPE_EMPTY";
+const MATCH_HIT_0 = "HIT_0";
 const MATCH_HIT_1 = "HIT_1";
 const MATCH_HIT_2 = "HIT_2";
 const MATCH_HIT_3 = "HIT_3";
@@ -73,20 +74,23 @@ var MatchUnit = function(uType, uName)
 	var flagRemove = false;
 	var posColumnI = 0;
 	var posRowJ = 0;
-
 	var sprite;
+
+	if(unitType == MATCH_HIT_1) sprite = new PIXI.Sprite(hit1Texture);
+	if(unitType == MATCH_HIT_2) sprite = new PIXI.Sprite(hit2Texture);
+	if(unitType == MATCH_HIT_3) sprite = new PIXI.Sprite(hit3Texture);
+	if(unitType == MATCH_HIT_4) sprite = new PIXI.Sprite(hit4Texture);
+	if(unitType == MATCH_HIT_5) sprite = new PIXI.Sprite(hit5Texture);
+	if(unitType == MATCH_HIT_0) sprite = new PIXI.Sprite(hit1Texture);
 	
+	sprite.name = unitName;
+	sprite.position.x = 0;
+	sprite.position.y = 0;
+	
+
 	var that = {
-		getUnitSprite: function(uType)
+		getUnitSprite: function()
 		{
-			if(unitType == MATCH_HIT_1) sprite = new PIXI.Sprite(hit1Texture);
-			if(unitType == MATCH_HIT_2) sprite = new PIXI.Sprite(hit1Texture);
-			if(unitType == MATCH_HIT_3) sprite = new PIXI.Sprite(hit1Texture);
-			if(unitType == MATCH_HIT_4) sprite = new PIXI.Sprite(hit1Texture);
-			if(unitType == MATCH_HIT_5) sprite = new PIXI.Sprite(hit1Texture);
-			sprite.name = unitName;
-			sprite.position.x = 0;
-			sprite.position.y = 0;
 			return sprite;
 		},
 		getUnitType: function()
@@ -145,7 +149,8 @@ var MatchUnit = function(uType, uName)
 		{
 			sprite.position.y = value;
 		}
-	}
+	};
+	return that;
 }
 
 /* Инициализация матриц позиций */
@@ -157,8 +162,8 @@ function initMatchMatrixPosotion()
 	{
 		for(var j = 0; j < MATCH_ROWS; j++)
 		{
-			matchMatrixFrontPosition["i"+ i + " : j" + j] = [180 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
-			matchMatrixBackPosition["i"+ i + " : j" + j] = [0,0]; // x,y
+			matchMatrixFrontPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
+			matchMatrixBackPosition["i"+i+":j"+j] = [0,0]; // x,y
 		}
 	}
 	console.log("MATCH [M: Front]" + matchMatrixFrontPosition);
@@ -194,8 +199,11 @@ function createMatchField(levelJSON)
 
 			/* Юнит */
 			unit = new MatchUnit(levelJSON.data.Level.cell[index].cellObject, "Unit_I_" + i + "_J_" + j);
+			unit.setUnitPosX(matchMatrixFrontPosition["i"+i+":j"+j][0]);
+			unit.setUnitPosY(matchMatrixFrontPosition["i"+i+":j"+j][1]);
+			matchMatrixUnit.push(unit);
+			matchStage.addChild(matchMatrixUnit[index].getUnitSprite());
 			
-
 
 			index++;
 		}
