@@ -14,115 +14,13 @@ const MATCH_HIT_5 = "HIT_5";
 
 
 var matchStage;						// главный stage
-var matchMatrixCell = [];			// Матрица ячеек игрового поля
+var matchMatrixCell = new Object();	// Матрица ячеек игрового поля
 var matchMatrixUnit = new Object();	// Матрица юнитов на игровом поле
 
 var matchMatrixFrontPosition = new Object();	// Матрица позиций x,y юнитов игрового поля
 var matchMatrixBackPosition = new Object();		// Матрица позиций x,y юнитов за пределами игрового поля
 
-/* Класс ячейки */
-var MatchCell = function()
-{
-	var graphics = new PIXI.Graphics();
-	graphics.lineStyle(2, 0x000000, 1);
-	graphics.beginFill(0x000000, 0.75);
-	graphics.drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
-	graphics.endFill();
-
-	var cellType = MATCH_CELL_TYPE_CLEAR;
-
-	var that = {
-		getCellGraphics: function()
-		{
-			if(cellType == MATCH_CELL_TYPE_DROP) graphics = new PIXI.Graphics();
-			return graphics;
-		},
-		getCellType: function()
-		{
-			return cellType;
-		},
-		setCellType: function(value)
-		{
-			cellType = value;
-		},
-		getX: function()
-		{
-			return graphics.position.x;
-		},
-		setX: function(value)
-		{
-			graphics.position.x = value;
-		},
-		getY: function()
-		{
-			return graphics.position.y;
-		},
-		setY: function(value)
-		{
-			graphics.position.y = value;
-		}
-
-	};
-	return that;
-};
-
-/* Класс юнита */
-var MatchUnit = function(uType, uName, uFlag, colI, RowJ)
-{
-	var unitType = uType;
-	var unitName = uName;
-	var flagRemove = uFlag;
-	var posColumnI = colI;
-	var posRowJ = RowJ;
-		
-	var that = {
-		getUnitType: function()
-		{
-			return unitType;
-		},
-		setUnitType: function(value)
-		{
-			unitType = value;
-		},
-		getUnitName: function()
-		{
-			return unitName;
-		},
-		setUnitName: function(value)
-		{
-			unitName = value;
-		},
-		getUnitFlagRemove: function()
-		{
-			return flagRemove;
-		},
-		setUnitFlagRemove: function(value)
-		{
-			flagRemove = value;
-		},
-		getUnitPosColumnI: function()
-		{
-			return posColumnI;
-		},
-		setUnitPosColumnI: function(value)
-		{
-			posColumnI = value;
-		},
-		getUnitPosRowJ: function()
-		{
-			return posRowJ;
-		},
-		setUnitPosRowJ: function(value)
-		{
-			posRowJ = value;
-		}
-	};
-	return that;
-}
-
-
-
-/* Инициализация матриц позиций */
+/* Инициализация матриц позиций ======================================================================================= */
 function initMatchMatrixPosotion()
 {
 	matchMatrixFrontPosition = new Object();
@@ -141,17 +39,14 @@ function initMatchMatrixPosotion()
 	console.log(matchMatrixBackPosition);
 }
 
-/* Создание игрового поля */
+/* Создание игрового поля ============================================================================================ */
 function createMatchField(levelJSON)
 {
 	initMatchMatrixPosotion();
 
 	matchStage = new PIXI.Container();
-	matchMatrixCell = [];
+	matchMatrixCell = new Object();
 	matchMatrixUnit = new Object();
-
-	var cell;	// ячейка
-	var unit;	// юнит
 
 	var index = 0;
 	for(var i = 0; i < MATCH_COLUMNS; i++)
@@ -159,12 +54,22 @@ function createMatchField(levelJSON)
 		for(var j = 0; j < MATCH_ROWS; j++)
 		{
 			/* ячейка */
-			cell = new MatchCell();
-			cell.setCellType(levelJSON.data.Level.cell[index].cellType);
-			cell.setX(180 + (MATCH_CELL_WIDTH * i));
-			cell.setY(120 + (MATCH_CELL_HEIGHT * j));
-			matchMatrixCell.push(cell);
-			matchStage.addChild(matchMatrixCell[index].getCellGraphics());
+			if(levelJSON.data.Level.cell[index].cellType != MATCH_CELL_TYPE_DROP)
+			{
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x000000, 1);
+				graphics.beginFill(0x000000, 0.75);
+				graphics.drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+				graphics.endFill();
+				graphics.cellType = levelJSON.data.Level.cell[index].cellType;
+				graphics.position.x = matchMatrixFrontPosition["i"+i+":j"+j][0];
+				graphics.position.y = matchMatrixFrontPosition["i"+i+":j"+j][1];
+				matchMatrixCell["i"+i+":j"+j] = graphics;
+				matchStage.addChild(matchMatrixCell["i"+i+":j"+j]);
+			}else{
+				matchMatrixCell["i"+i+":j"+j] = null;
+			}
+			
 
 			/* Юнит */
 			if(levelJSON.data.Level.cell[index].cellObject != MATCH_HIT_0)
@@ -179,15 +84,20 @@ function createMatchField(levelJSON)
 				sprite.position.x = matchMatrixFrontPosition["i"+i+":j"+j][0];
 				sprite.position.y = matchMatrixFrontPosition["i"+i+":j"+j][1];
 				sprite.interactive = true;
+
+				sprite.unitType = levelJSON.data.Level.cell[index].cellObject;
+				sprite.flagRemove = false;
+				sprite.posColumnI = i;
+				sprite.posRowJ = j;
+
 				sprite.click = onMatchUnitClick;
 				sprite.tap = onMatchUnitClick;
 								
-				unit = new MatchUnit(levelJSON.data.Level.cell[index].cellObject, sprite.name, false, i, j);
-				matchMatrixUnit["i"+i+":j"+j] = [sprite, unit];	// спрайт, юнит
-				matchStage.addChild(matchMatrixUnit["i"+i+":j"+j][0]);
-				console.log("MATCH [Unit]: " + matchMatrixUnit["i"+i+":j"+j][1].getUnitName());
+				matchMatrixUnit["i"+i+":j"+j] = sprite;
+				matchStage.addChild(matchMatrixUnit["i"+i+":j"+j]);
+				console.log("MATCH [Unit]: " + matchMatrixUnit["i"+i+":j"+j].name);
 			}else{
-				matchMatrixUnit["i"+i+":j"+j] = [null, null];
+				matchMatrixUnit["i"+i+":j"+j] = null;
 			}
 
 			index++;
@@ -195,7 +105,19 @@ function createMatchField(levelJSON)
 	}
 }
 
+/* Событие: нажатие на юнит */
 function onMatchUnitClick() 
 {
-	console.log("MATCH [Unit Click]: " + this.name);
+	console.log("MATCH [Unit Click]: " + this.unitType);
+	matchCellColorSelect(this.unitType, this.posColumnI, this.posRowJ);
+}
+
+/* Определение цвета ячеек Cell игрового поля ================================================= */
+function matchCellColorSelect(unitType, colI, rowJ)
+{
+	matchMatrixCell["i"+colI+":j"+rowJ].clear();
+	matchMatrixCell["i"+colI+":j"+rowJ].lineStyle(2, 0xFF00FF, 1);
+	matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x447700, 0.75);
+	matchMatrixCell["i"+colI+":j"+rowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+	matchMatrixCell["i"+colI+":j"+rowJ].endFill();
 }
