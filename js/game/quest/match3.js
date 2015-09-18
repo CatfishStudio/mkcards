@@ -20,7 +20,10 @@ var matchMatrixUnit = new Object();	// Матрица юнитов на игро
 var matchMatrixFrontPosition = new Object();	// Матрица позиций x,y юнитов игрового поля
 var matchMatrixBackPosition = new Object();		// Матрица позиций x,y юнитов за пределами игрового поля
 
-/* Инициализация матриц позиций ======================================================================================= */
+var matchSelectUnit1 = null;		// выбранный первый юнит
+var matchSelectUnit2 = null;		// выбран второй юнит
+
+/* Инициализация матриц позиций ================================================================ */
 function initMatchMatrixPosotion()
 {
 	matchMatrixFrontPosition = new Object();
@@ -39,7 +42,7 @@ function initMatchMatrixPosotion()
 	console.log(matchMatrixBackPosition);
 }
 
-/* Создание игрового поля ============================================================================================ */
+/* Создание игрового поля ====================================================================== */
 function createMatchField(levelJSON)
 {
 	initMatchMatrixPosotion();
@@ -108,8 +111,19 @@ function createMatchField(levelJSON)
 /* Событие: нажатие на юнит */
 function onMatchUnitClick() 
 {
-	console.log("MATCH [Unit Click]: " + this.unitType);
 	matchCellColorSelect(this.unitType, this.posColumnI, this.posRowJ);
+	if(matchSelectUnit1 == null) 
+	{
+		matchSelectUnit1 = this;
+	}else{
+		if(matchSelectUnit2 == null) 
+		{
+			matchSelectUnit2 = this;
+			ExchangeUnits(); // меняем юниты местами
+		}
+	}
+
+	console.log("MATCH [Unit Click]: " + this.unitType);
 }
 
 /* Определение цвета ячеек Cell игрового поля ================================================= */
@@ -121,3 +135,44 @@ function matchCellColorSelect(unitType, colI, rowJ)
 	matchMatrixCell["i"+colI+":j"+rowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
 	matchMatrixCell["i"+colI+":j"+rowJ].endFill();
 }
+
+function matchCellColorBack()
+{
+	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].clear();
+	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(2, 0x000000, 1);
+	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x000000, 0.75);
+	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].endFill();
+	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].clear();
+	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(2, 0x000000, 1);
+	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x000000, 0.75);
+	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].endFill();
+}
+
+/* Обмен местами в массиве выбранных пользователем  объектов =================================== */
+function ExchangeUnits()
+{
+	var iUnit1 = matchSelectUnit1.posColumnI;
+	var jUnit1 = matchSelectUnit1.posRowJ;
+	var iUnit2 = matchSelectUnit2.posColumnI;
+	var jUnit2 = matchSelectUnit2.posRowJ;
+
+
+	console.log("MATCH [Unit 1]: I=" + iUnit1 + "   J=" + jUnit1 + "   TYPE="  + matchMatrixUnit["i"+iUnit1+":j"+jUnit1].unitType);
+	matchMatrixUnit["i"+iUnit1+":j"+jUnit1] = matchSelectUnit2;
+	console.log("MATCH [Unit 1]: I=" + iUnit1 + "   J=" + jUnit1 + "   TYPE="  + matchMatrixUnit["i"+iUnit1+":j"+jUnit1].unitType);
+	
+	console.log("MATCH [Unit 2]: I=" + iUnit2 + "   J=" + jUnit2 + "   TYPE="  + matchMatrixUnit["i"+iUnit2+":j"+jUnit2].unitType);
+	matchMatrixUnit["i"+iUnit2+":j"+jUnit2] = matchSelectUnit1;
+	console.log("MATCH [Unit 2]: I=" + iUnit2 + "   J=" + jUnit2 + "   TYPE="  + matchMatrixUnit["i"+iUnit2+":j"+jUnit2].unitType);
+	
+	createjs.Tween.get(matchMatrixUnit["i"+iUnit1+":j"+jUnit1], {loop: false})
+		.to({x: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][0], y: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][1]}, 1000, createjs.Ease.getPowInOut(4));
+	createjs.Tween.get(matchMatrixUnit["i"+iUnit2+":j"+jUnit2], {loop: false})
+		.to({x: matchMatrixFrontPosition["i"+iUnit2+":j"+jUnit2][0], y: matchMatrixFrontPosition["i"+iUnit2+":j"+jUnit2][1]}, 1000, createjs.Ease.getPowInOut(4));
+	createjs.Ticker.setFPS(60);	
+
+	matchCellColorBack();
+}
+
