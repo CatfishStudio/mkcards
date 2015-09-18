@@ -15,7 +15,7 @@ const MATCH_HIT_5 = "HIT_5";
 
 var matchStage;						// главный stage
 var matchMatrixCell = [];			// Матрица ячеек игрового поля
-var matchMatrixUnit = [];			// Матрица юнитов на игровом поле
+var matchMatrixUnit = new Object();	// Матрица юнитов на игровом поле
 
 var matchMatrixFrontPosition = new Object();	// Матрица позиций x,y юнитов игрового поля
 var matchMatrixBackPosition = new Object();		// Матрица позиций x,y юнитов за пределами игрового поля
@@ -67,32 +67,15 @@ var MatchCell = function()
 };
 
 /* Класс юнита */
-var MatchUnit = function(uType, uName)
+var MatchUnit = function(uType, uName, uFlag, colI, RowJ)
 {
 	var unitType = uType;
 	var unitName = uName;
-	var flagRemove = false;
-	var posColumnI = 0;
-	var posRowJ = 0;
-	var sprite;
-
-	if(unitType == MATCH_HIT_1) sprite = new PIXI.Sprite(hit1Texture);
-	if(unitType == MATCH_HIT_2) sprite = new PIXI.Sprite(hit2Texture);
-	if(unitType == MATCH_HIT_3) sprite = new PIXI.Sprite(hit3Texture);
-	if(unitType == MATCH_HIT_4) sprite = new PIXI.Sprite(hit4Texture);
-	if(unitType == MATCH_HIT_5) sprite = new PIXI.Sprite(hit5Texture);
-	if(unitType == MATCH_HIT_0) sprite = new PIXI.Sprite(hit1Texture);
-	
-	sprite.name = unitName;
-	sprite.position.x = 0;
-	sprite.position.y = 0;
-	
-
+	var flagRemove = uFlag;
+	var posColumnI = colI;
+	var posRowJ = RowJ;
+		
 	var that = {
-		getUnitSprite: function()
-		{
-			return sprite;
-		},
 		getUnitType: function()
 		{
 			return unitType;
@@ -132,26 +115,12 @@ var MatchUnit = function(uType, uName)
 		setUnitPosRowJ: function(value)
 		{
 			posRowJ = value;
-		},
-		getUnitPosX: function()
-		{
-			return sprite.position.x;
-		},
-		setUnitPosX: function(value)
-		{
-			sprite.position.x = value;
-		},
-		getUnitPosY: function()
-		{
-			return sprite.position.y;
-		},
-		setUnitPosY: function(value)
-		{
-			sprite.position.y = value;
 		}
 	};
 	return that;
 }
+
+
 
 /* Инициализация матриц позиций */
 function initMatchMatrixPosotion()
@@ -179,7 +148,7 @@ function createMatchField(levelJSON)
 
 	matchStage = new PIXI.Container();
 	matchMatrixCell = [];
-	matchMatrixUnit = [];
+	matchMatrixUnit = new Object();
 
 	var cell;	// ячейка
 	var unit;	// юнит
@@ -198,30 +167,35 @@ function createMatchField(levelJSON)
 			matchStage.addChild(matchMatrixCell[index].getCellGraphics());
 
 			/* Юнит */
-			unit = new MatchUnit(levelJSON.data.Level.cell[index].cellObject, "Unit_I_" + i + "_J_" + j);
-			unit.setUnitPosX(matchMatrixFrontPosition["i"+i+":j"+j][0]);
-			unit.setUnitPosY(matchMatrixFrontPosition["i"+i+":j"+j][1]);
-			matchMatrixUnit.push(unit);
-			matchStage.addChild(matchMatrixUnit[index].getUnitSprite());
-			
+			if(levelJSON.data.Level.cell[index].cellObject != MATCH_HIT_0)
+			{
+				var sprite;
+				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_1) sprite = new PIXI.Sprite(hit1Texture);
+				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_2) sprite = new PIXI.Sprite(hit2Texture);
+				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_3) sprite = new PIXI.Sprite(hit3Texture);
+				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_4) sprite = new PIXI.Sprite(hit4Texture);
+				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_5) sprite = new PIXI.Sprite(hit5Texture);
+				sprite.name = "Unit_I_" + i + "_J_" + j;
+				sprite.position.x = matchMatrixFrontPosition["i"+i+":j"+j][0];
+				sprite.position.y = matchMatrixFrontPosition["i"+i+":j"+j][1];
+				sprite.interactive = true;
+				sprite.click = onMatchUnitClick;
+				sprite.tap = onMatchUnitClick;
+								
+				unit = new MatchUnit(levelJSON.data.Level.cell[index].cellObject, sprite.name, false, i, j);
+				matchMatrixUnit["i"+i+":j"+j] = [sprite, unit];	// спрайт, юнит
+				matchStage.addChild(matchMatrixUnit["i"+i+":j"+j][0]);
+				console.log("MATCH [Unit]: " + matchMatrixUnit["i"+i+":j"+j][1].getUnitName());
+			}else{
+				matchMatrixUnit["i"+i+":j"+j] = [null, null];
+			}
 
 			index++;
 		}
 	}
+}
 
-
-	/*
-	var n = levelJSON.data.Level.cell.length;
-	for(var i = 0; i < n; i++)
-	{
-		cell = new MatchCell();
-		cell.setCellType("CELL_TYPE_EMPTY");
-		matchMatrixCell.push(cell);
-
-		levelWindowStage.addChild(cell.getCellGraphics());
-		console.log("Колонка: " + levelJSON.data.Level.cell[i].cellColumn + "  Столбец: " + levelJSON.data.Level.cell[i].cellRow);		
-	}
-	*/
-
-	console.log(levelJSON.data.Level.LevelNumber);
+function onMatchUnitClick() 
+{
+	console.log("MATCH [Unit Click]: " + this.name);
 }

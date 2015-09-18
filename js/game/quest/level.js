@@ -16,9 +16,10 @@ function levelShow()
 
 	levelBackground();
 	createLevelAnimationFighters();
+	levelBorder();
 	createLevelField();
 	createLevelButton();
-	levelBorder();
+	
 	levelMask();
 
 	levelStage.addChild(levelWindowStage);
