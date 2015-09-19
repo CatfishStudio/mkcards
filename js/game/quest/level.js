@@ -121,13 +121,6 @@ function createLevelAnimationFighters()
 /* Создание игрового поля */
 function createLevelField()
 {
-	/*
-	var cell = new MatchCell();
-	cell.setCellType("CELL_TYPE_EMPTY");
-	levelWindowStage.addChild(cell.getCellGraphics());
-	console.log("MATCH: Create cell " + cell.getCellType());
-	*/
-
 	createMatchField(qGlobalLevels[qGlobalTournamentProgress - 1].levelField);
 	levelWindowStage.addChild(matchStage);
 }
@@ -163,6 +156,7 @@ function createLevelButton()
 		levelSpriteButton.position.x = 35 + (200 * i);
 		levelSpriteButton.position.y = 650;
 		levelSpriteButton.interactive = true;
+		levelSpriteButton.buttonMode = true;
 
 		levelSpriteButton.tap = onLevelButtonClick;
 		levelSpriteButton.click = onLevelButtonClick;

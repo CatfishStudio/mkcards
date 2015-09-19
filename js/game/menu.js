@@ -34,6 +34,7 @@ function menuShow()
 		menuSpriteButton.position.x = (MAIN_WIDTH / 2) - (170 / 2);
 		menuSpriteButton.position.y = (MAIN_HEIGH / 3) + (55 * i);
 		menuSpriteButton.interactive = true;
+		menuSpriteButton.buttonMode = true;
 		menuSpriteButton.tap = onMenuSpriteButtonClick;
 		menuSpriteButton.click = onMenuSpriteButtonClick;
 		menuSpriteButton.on('mousedown', onMenuButtonDown);

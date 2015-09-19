@@ -168,6 +168,7 @@ function createFightersIconButton(xPos, yPos, texture, name)
 	iconButtonSprite.position.x = xPos;
 	iconButtonSprite.position.y = yPos;
 	iconButtonSprite.interactive = true;
+	iconButtonSprite.buttonMode = true;
 	iconButtonSprite.tap = onFightersIconButtonClick;
 	iconButtonSprite.click = onFightersIconButtonClick;
 	iconButtonSprite.on('mousedown', onFightersIconButtonDown);
@@ -238,6 +239,7 @@ function createFightersButton()
 		fightersSpriteButton.position.x = 35 + (200 * i);
 		fightersSpriteButton.position.y = 650;
 		fightersSpriteButton.interactive = true;
+		fightersSpriteButton.buttonMode = true;
 
 		fightersSpriteButton.tap = onFightersButtonClick;
 		fightersSpriteButton.click = onFightersButtonClick;

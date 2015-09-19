@@ -262,6 +262,7 @@ function createStairsButtonPlus()
 			stairsButtonPlus.position.x = 163;
 			stairsButtonPlus.position.y = 12 + (50 * i);
 			stairsButtonPlus.interactive = true;
+			stairsButtonPlus.buttonMode = true;
 
 			stairsButtonPlus.tap = onStairsButtonClick;
 			stairsButtonPlus.click = onStairsButtonClick;
@@ -327,6 +328,7 @@ function createStairsButton()
 		stairsSpriteButton.position.x = 35 + (200 * i);
 		stairsSpriteButton.position.y = 650;
 		stairsSpriteButton.interactive = true;
+		stairsSpriteButton.buttonMode = true;
 
 		stairsSpriteButton.tap = onStairsButtonClick;
 		stairsSpriteButton.click = onStairsButtonClick;
