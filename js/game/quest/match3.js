@@ -20,6 +20,8 @@ var matchMatrixUnit = new Object();	// Матрица юнитов на игро
 var matchMatrixFrontPosition = new Object();	// Матрица позиций x,y юнитов игрового поля
 var matchMatrixBackPosition = new Object();		// Матрица позиций x,y юнитов за пределами игрового поля
 
+var matchMatrixUnitsRemove = [];	// Массив удалённых юнитов с поля
+
 var matchSelectUnit1 = null;		// выбранный первый юнит
 var matchSelectUnit2 = null;		// выбран второй юнит
 
@@ -35,7 +37,7 @@ function initMatchMatrixPosition()
 		for(var j = 0; j < MATCH_ROWS; j++)
 		{
 			matchMatrixFrontPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
-			matchMatrixBackPosition["i"+i+":j"+j] = [0,0]; // x,y
+			matchMatrixBackPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), 38 - (MATCH_CELL_HEIGHT * j)]; // x,y
 		}
 	}
 	console.log("MATCH [M: Front]" + matchMatrixFrontPosition);
@@ -144,7 +146,7 @@ function onMatchUnitClick()
 			}
 		}
 	}
-	console.log("MATCH [Unit Click]: " + this.unitType);
+	console.log("MATCH [Unit Click]["+this.name+"]: " + this.unitType);
 }
 
 /* Определение цвета ячеек Cell игрового поля ================================================= */
@@ -257,7 +259,8 @@ function matchCheckField(afterDown)
 {
 	if(matchCheckFieldFull()) // группы были найдены
 	{
-		///////// !!!! DELETE UNITS
+		///////// !!!! 
+		matchMoveDownUnits();
 		matchSelectUnitsClear();
 	}else{ // группы не найдены
 		if(afterDown == false) // первый спуск юнитов
@@ -273,6 +276,7 @@ function matchCheckField(afterDown)
 function matchCheckFieldFull()
 {
 	var resultCheck = false;
+	matchMatrixUnitsRemove = [];
 	/* i - столбец; j - строка */
 	for(var i = 0; i < MATCH_COLUMNS; i++)
 	{
@@ -421,73 +425,204 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 	{
 		if(hitCount == 3)
 		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+row]);
+			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+1)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+1)+":j"+row]);
+			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+2)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.2;	
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+2)+":j"+row]);
 		}
 		if(hitCount == 4)
 		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+row]);
+			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+1)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+1)+":j"+row]);
+			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+2)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+2)+":j"+row]);
+			matchMatrixUnit["i"+(col+3)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+3)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+3)+":j"+row].alpha = 0.2;	
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+3)+":j"+row]);
 		}
 		if(hitCount == 5)
 		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+row]);
+			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+1)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+1)+":j"+row]);
+			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+2)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+2)+":j"+row]);
+			matchMatrixUnit["i"+(col+3)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+3)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+3)+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+3)+":j"+row]);
+			matchMatrixUnit["i"+(col+4)+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+(col+4)+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+(col+4)+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+(col+4)+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+(col+4)+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+(col+4)+":j"+row]);
 		}
 	}
 	if(check == "col")
 	{
 		if(hitCount == 3)
 		{
+			
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+row]);
+			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+(row+1)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+1)]);
+			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.0;	
 			matchMatrixUnit["i"+col+":j"+(row+2)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.2;	
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+2)]);
 		}
 		if(hitCount == 4)
 		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+row]);
+			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+(row+1)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+1)]);
+			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.0;	
 			matchMatrixUnit["i"+col+":j"+(row+2)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+2)]);
+			matchMatrixUnit["i"+col+":j"+(row+3)].alpha = 0.0;		
 			matchMatrixUnit["i"+col+":j"+(row+3)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+3)].alpha = 0.2;		
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+3)]);
 		}
 		if(hitCount == 5)
 		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+row].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+row].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+row].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+row]);
+			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+(row+1)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+1)]);
+			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.0;	
 			matchMatrixUnit["i"+col+":j"+(row+2)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+2)]);
+			matchMatrixUnit["i"+col+":j"+(row+3)].alpha = 0.0;		
 			matchMatrixUnit["i"+col+":j"+(row+3)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+3)].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+3)]);
+			matchMatrixUnit["i"+col+":j"+(row+4)].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+(row+4)].flagRemove = true;
-			matchMatrixUnit["i"+col+":j"+(row+4)].alpha = 0.2;
+			matchMatrixUnit["i"+col+":j"+(row+4)].position.x = -1000;
+			matchMatrixUnit["i"+col+":j"+(row+4)].position.y = -1000;
+			matchMatrixUnitsRemove.push(matchMatrixUnit["i"+col+":j"+(row+4)]);
 		}
 	}
+}
 
+/* Инициализация новых юнитов */
+function matchInitNewUnits()
+{
+	var n = matchMatrixUnitsRemove.length;
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = 0; j < MATCH_ROWS; j++)
+		{
+
+		}
+	}
+}
+
+
+/* Спуск юнитов вниз на свободные позиции */
+function matchMoveDownUnits()
+{
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = MATCH_ROWS-1; j >= 0; j--)
+		{
+			//console.log("i"+i+":j"+j + "  -  " + matchMatrixUnit["i"+i+":j"+j].flagRemove);
+			if(matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+			{
+				for(var k = j; k >= 0; k--)
+				{
+					if(matchMatrixUnit["i"+i+":j"+k].flagRemove == false && matchMatrixUnit["i"+i+":j"+k].unitType != MATCH_HIT_0)
+					{
+						console.log("MATCH [MOVE]: " + matchMatrixUnit["i"+i+":j"+j].name);
+
+						var removeUnit = matchMatrixUnit["i"+i+":j"+j];
+
+						matchMatrixUnit["i"+i+":j"+j] = matchMatrixUnit["i"+i+":j"+k];
+						matchMatrixUnit["i"+i+":j"+j].name = "i"+i+":j"+j;
+						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+						matchMatrixUnit["i"+i+":j"+j].posColumnI = i;
+						matchMatrixUnit["i"+i+":j"+j].posRowJ = j;
+
+						matchMatrixUnit["i"+i+":j"+k] = removeUnit;
+						/*
+						matchMatrixUnit["i"+i+":j"+k].name = "i"+i+":j"+k;
+						matchMatrixUnit["i"+i+":j"+k].flagRemove = true;
+						matchMatrixUnit["i"+i+":j"+k].posColumnI = i;
+						matchMatrixUnit["i"+i+":j"+k].posRowJ = k;
+						*/
+
+						createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
+							.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4));
+						createjs.Ticker.setFPS(60);
+
+						console.log("MATCH [MOVE]: " + matchMatrixUnit["i"+i+":j"+j].name);
+						break;
+					}
+				}
+			}
+		}
+	}
 }
