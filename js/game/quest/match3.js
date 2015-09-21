@@ -37,11 +37,14 @@ function initMatchMatrixPosition()
 		for(var j = 0; j < MATCH_ROWS; j++)
 		{
 			matchMatrixFrontPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
+			matchMatrixBackPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), -372 + (MATCH_CELL_HEIGHT * j)]; // x,y
 		}
+		/*
 		for(var k = MATCH_ROWS-1; k >= 0; k--)
 		{
 			matchMatrixBackPosition["i"+i+":j"+k] = [180 + (MATCH_CELL_WIDTH * i), 38 - (MATCH_CELL_HEIGHT * k)]; // x,y
 		}
+		*/
 	}
 	console.log("MATCH [M: Front]" + matchMatrixFrontPosition);
 	console.log(matchMatrixFrontPosition);
