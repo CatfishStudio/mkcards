@@ -39,12 +39,6 @@ function initMatchMatrixPosition()
 			matchMatrixFrontPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
 			matchMatrixBackPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), -372 + (MATCH_CELL_HEIGHT * j)]; // x,y
 		}
-		/*
-		for(var k = MATCH_ROWS-1; k >= 0; k--)
-		{
-			matchMatrixBackPosition["i"+i+":j"+k] = [180 + (MATCH_CELL_WIDTH * i), 38 - (MATCH_CELL_HEIGHT * k)]; // x,y
-		}
-		*/
 	}
 	console.log("MATCH [M: Front]" + matchMatrixFrontPosition);
 	console.log(matchMatrixFrontPosition);
@@ -606,8 +600,37 @@ function matchMoveDownUnits()
 				}
 			}
 
+			/* Меняем свойства помеченного юнита (текстура и тип) */
 			if(matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
 			{
+				var indexRandom = Math.random() / 0.1;
+				var index = Math.round(indexRandom);
+				if (index > 0 && index <= 2) 
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
+				}
+				if (index > 2 && index <= 4)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
+				}
+				if (index > 4 && index <= 6)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
+				}
+				if (index > 6 && index <= 8)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
+				}
+				if (index > 8 && index <= 10)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
+				}
+				
 				/* Спускаем удалённые юниты */
 				createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
 					.to({alpha: 1.0}, 500)
@@ -616,14 +639,4 @@ function matchMoveDownUnits()
 			}
 		}
 	}
-
-	/*
-	for(var iN = 0; iN < MATCH_COLUMNS; iN++)
-	{
-		for(var jN = MATCH_ROWS-1; jN >= 0; jN--)
-		{
-
-		}
-	}
-	*/
 }
