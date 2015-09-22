@@ -146,7 +146,7 @@ function onMatchUnitClick()
 			}
 		}
 	}
-	console.log("MATCH [Unit Click]["+this.name+"]: " + this.unitType);
+	console.log("MATCH [Unit Click]["+this.name+"]: " + this.unitType + " | " + this.flagRemove);
 }
 
 /* Определение цвета ячеек Cell игрового поля ================================================= */
@@ -257,6 +257,7 @@ function matchSelectUnitsClear()
 /* Поиск групп ============================================================================== */
 function matchCheckField(afterDown)
 {
+	matchMoveDownProcesses = new Object();
 	if(matchCheckFieldFull()) // группы были найдены
 	{
 		matchMoveDownUnits();
@@ -274,7 +275,7 @@ function matchCheckField(afterDown)
 function matchCheckFieldFull()
 {
 	var resultCheck = false;
-	matchMoveDownProcesses = new Object();
+	//matchMoveDownProcesses = new Object();
 	/* i - столбец; j - строка */
 	for(var i = 0; i < MATCH_COLUMNS; i++)
 	{
@@ -589,7 +590,7 @@ function matchMoveDownUnits()
 						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
 						matchMatrixUnit["i"+i+":j"+j].posColumnI = i;
 						matchMatrixUnit["i"+i+":j"+j].posRowJ = j;
-						matchMoveDownProcesses["i"+i+":j"+j] = false;
+						matchMoveDownProcesses["i"+i+":j"+j] = true;
 
 						console.log("MATCH [UNIT-MOVE]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType);
 
@@ -601,66 +602,93 @@ function matchMoveDownUnits()
 						matchMoveDownProcesses["i"+i+":j"+k] = true;
 						
 						/* Спускаем не удалённые юниты */
-						createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
-							.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4));
-						createjs.Ticker.setFPS(60);
+						//createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
+						//	.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+						//	.call(onCompleteMatchMoveDownUnits, this); // событие выполнено
+						//createjs.Ticker.setFPS(60);
 
 						console.log("MATCH [UNIT-REMOVE]: " + matchMatrixUnit["i"+i+":j"+k].name + " COL: " + matchMatrixUnit["i"+i+":j"+k].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+k].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+k].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+k].unitType);
 						break;
 					}
 				}
 			}
+		}
+	}
+	matchMoveDownNewUnits();
+}
 
-			/* Меняем свойства помеченного юнита (текстура и тип) */
-			if(matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+function onCompleteMatchMoveDownUnits()
+{
+	matchMoveDownNewUnits();
+}
+
+function matchMoveDownNewUnits()
+{
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = MATCH_ROWS-1; j >= 0; j--)
+		{
+			if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == false && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
 			{
-				var indexRandom = Math.random() / 0.1;
-				var index = Math.round(indexRandom);
-				if (index > 0 && index <= 2) 
-				{
-					matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
-					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
-					matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
-				}
-				if (index > 2 && index <= 4)
-				{
-					matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
-					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
-					matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
-				}
-				if (index > 4 && index <= 6)
-				{
-					matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
-					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
-					matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
-				}
-				if (index > 6 && index <= 8)
-				{
-					matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
-					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
-					matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
-				}
-				if (index > 8 && index <= 10)
-				{
-					matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
-					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
-					matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
-				}
-				
+				matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
 				/* Спускаем удалённые юниты */
 				createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
 					.to({alpha: 1.0}, 500)
 					.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
-					.call(onCompleteMatchMoveDownUnits, this); // событие выполнено
-				createjs.Ticker.setFPS(60);
+					.call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
+				createjs.Ticker.setFPS(60);	
+			}else{
+				if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+				{
+					var indexRandom = Math.random() / 0.1;
+					var index = Math.round(indexRandom);
+					if (index > 0 && index <= 2) 
+					{
+						matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
+						matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
+						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+					}
+					if (index > 2 && index <= 4)
+					{
+						matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
+						matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
+						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+					}
+					if (index > 4 && index <= 6)
+					{
+						matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
+						matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
+						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+					}
+					if (index > 6 && index <= 8)
+					{
+						matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
+						matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
+						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+					}
+					if (index > 8 && index <= 10)
+					{
+						matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
+						matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
+						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+					}
+				
+					/* Спускаем удалённые юниты */
+					createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
+						.to({alpha: 1.0}, 500)
+						.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+						.call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
+					createjs.Ticker.setFPS(60);
+				}else{
+					matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+				}
 			}
 		}
 	}
 }
 
-function onCompleteMatchMoveDownUnits()
+function onCompleteMatchMoveDownNewUnits()
 {
-	//matchCheckField(true);
 	var result = false;
 	matchMoveDownProcesses[this.name] = false;
 	for(var key in matchMoveDownProcesses)
