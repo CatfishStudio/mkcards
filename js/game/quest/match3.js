@@ -601,12 +601,7 @@ function matchMoveDownUnits()
 						matchMatrixUnit["i"+i+":j"+k].posRowJ = k;
 						matchMoveDownProcesses["i"+i+":j"+k] = true;
 						
-						/* Спускаем не удалённые юниты */
-						//createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
-						//	.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
-						//	.call(onCompleteMatchMoveDownUnits, this); // событие выполнено
-						//createjs.Ticker.setFPS(60);
-
+						
 						console.log("MATCH [UNIT-REMOVE]: " + matchMatrixUnit["i"+i+":j"+k].name + " COL: " + matchMatrixUnit["i"+i+":j"+k].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+k].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+k].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+k].unitType);
 						break;
 					}
@@ -630,6 +625,8 @@ function matchMoveDownNewUnits()
 		{
 			if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == false && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
 			{
+				console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
+				
 				matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
 				/* Спускаем удалённые юниты */
 				createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
@@ -640,9 +637,11 @@ function matchMoveDownNewUnits()
 			}else{
 				if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
 				{
+					console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
+					
 					var indexRandom = Math.random() / 0.1;
 					var index = Math.round(indexRandom);
-					if (index > 0 && index <= 2) 
+					if (index >= 0 && index <= 2) 
 					{
 						matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
 						matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
@@ -679,8 +678,6 @@ function matchMoveDownNewUnits()
 						.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
 						.call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
 					createjs.Ticker.setFPS(60);
-				}else{
-					matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
 				}
 			}
 		}
@@ -693,7 +690,7 @@ function onCompleteMatchMoveDownNewUnits()
 	matchMoveDownProcesses[this.name] = false;
 	for(var key in matchMoveDownProcesses)
 	{
-		console.log("NAME: " + this.name + " | " + key + " = " + matchMoveDownProcesses[key]);	
+		console.log("NAME: " + this.name + " FLAG:" + this.flagRemove + " | KEY:" + key + " = " + matchMoveDownProcesses[key]);	
 		if(matchMoveDownProcesses[key] == true){
 			result = true;
 			break;	
