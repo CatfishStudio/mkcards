@@ -192,5 +192,8 @@ function onLevelButtonUp()
 
 function onLevelButtonClick() 
 {
-
+	if(this.name == "Settings")
+	{
+		console.log(matchCheckCombinations());
+	}
 }
