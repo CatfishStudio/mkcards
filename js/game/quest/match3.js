@@ -690,7 +690,7 @@ function onCompleteMatchMoveDownNewUnits()
 	matchMoveDownProcesses[this.name] = false;
 	for(var key in matchMoveDownProcesses)
 	{
-		console.log("NAME: " + this.name + " FLAG:" + this.flagRemove + " | KEY:" + key + " = " + matchMoveDownProcesses[key]);	
+		console.log("MATCH [Unit MoveDown] NAME: " + this.name + " FLAG:" + this.flagRemove + " | KEY:" + key + " = " + matchMoveDownProcesses[key]);	
 		if(matchMoveDownProcesses[key] == true){
 			result = true;
 			break;	
@@ -703,8 +703,7 @@ function onCompleteMatchMoveDownNewUnits()
 		{
 			matchCheckField(true);	// проверка групп 3-и в ряд
 		}else{	// нет возможности ходов
-			// обновление игрового поля
-			console.log("MATCH [FIELD]: UPDATE!");
+			matchUpdateField(); // обновление игрового поля
 		}
 	}
 }
@@ -946,4 +945,62 @@ function matchCheckCombinations()
 		}
 	}
 	return false;
+}
+
+/* Обновление игрового поля если нет комбинаций ===================================================== */
+function matchUpdateField()
+{
+	matchMoveDownProcesses = new Object();
+
+	var index = 0;
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = 0; j < MATCH_ROWS; j++)
+		{
+			if(qGlobalLevels[qGlobalTournamentProgress - 1].levelField.data.Level.cell[index].cellObject != MATCH_HIT_0)
+			{
+				//matchMatrixUnit["i"+i+":j"+j].alpha = 0.0;
+				matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+				matchMatrixUnit["i"+i+":j"+j].position.x = matchMatrixBackPosition["i"+i+":j"+j][0];
+				matchMatrixUnit["i"+i+":j"+j].position.y = matchMatrixBackPosition["i"+i+":j"+j][1];
+				matchMoveDownProcesses["i"+i+":j"+j] = true;
+				
+				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_1)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
+				}
+				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_2)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
+				}
+				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_3)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
+				}
+				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_4)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
+				}
+				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_5)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
+				}
+				
+				/* Спускаем удалённые юниты */
+				createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
+					.to({alpha: 1.0}, 500)
+					.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+					.call(onCompleteMatchMoveDownNewUnits, matchMatrixUnit["i"+i+":j"+j]); // событие выполнено
+				createjs.Ticker.setFPS(60);
+			}
+			console.log("MATCH [FIELD][Unit Update]["+matchMatrixUnit["i"+i+":j"+j].name+"]: " + matchMatrixUnit["i"+i+":j"+j].unitType + " | " + matchMatrixUnit["i"+i+":j"+j].flagRemove);
+			index++;
+		}
+	}
+	console.log("MATCH [FIELD]: UPDATE!");
 }
