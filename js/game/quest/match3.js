@@ -27,6 +27,8 @@ var matchSelectUnit2 = null;		// выбран второй юнит
 
 var matchFieldBlocked = false;		// блокирование игрового поля
 
+var modeAI = false;					// режим искуственного интелекта (по умолчанию отключен в начале)
+
 /* Инициализация матриц позиций ================================================================ */
 function initMatchMatrixPosition()
 {
@@ -165,16 +167,22 @@ function matchCellColorSelect(unitType, colI, rowJ)
 
 function matchCellColorBack()
 {
-	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].clear();
-	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(2, 0x000000, 1);
-	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x000000, 0.75);
-	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
-	matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].endFill();
-	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].clear();
-	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(2, 0x000000, 1);
-	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x000000, 0.75);
-	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
-	matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].endFill();
+	if(matchSelectUnit1 != null)
+	{
+		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].clear();
+		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(2, 0x000000, 1);
+		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x000000, 0.75);
+		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].endFill();
+	}
+	if(matchSelectUnit2 != null)
+	{
+		matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].clear();
+		matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(2, 0x000000, 1);
+		matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x000000, 0.75);
+		matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+		matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].endFill();
+	}
 }
 
 /* Обмен местами в массиве выбранных пользователем  объектов =================================== */
@@ -260,13 +268,15 @@ function matchCheckField(afterDown)
 	matchMoveDownProcesses = new Object();
 	if(matchCheckFieldFull()) // группы были найдены
 	{
-		matchMoveDownUnits();
+		timerStop();			// останавливаем таймер
+		matchMoveDownUnits();	// спускаем юниты
 	}else{ // группы не найдены
 		if(afterDown == false) // первый спуск юнитов
 		{
-			matchBackExchangeUnits(); // возвращаем выбранные юниты на места
+			matchBackExchangeUnits(); 	// возвращаем выбранные юниты на места
 		}else{ 
-			matchSelectUnitsClear();
+			matchSelectUnitsClear();	// очистка и разблокиров поля
+			timerStart();				// запускаем таймер
 		}
 	}
 }
@@ -275,7 +285,6 @@ function matchCheckField(afterDown)
 function matchCheckFieldFull()
 {
 	var resultCheck = false;
-	//matchMoveDownProcesses = new Object();
 	/* i - столбец; j - строка */
 	for(var i = 0; i < MATCH_COLUMNS; i++)
 	{
