@@ -19,7 +19,7 @@ function levelShow()
 	levelBorder();
 	createLevelField();
 	createLevelButton();
-	timerShow(levelWindowStage, (MAIN_WIDTH / 2 - 25), 65, 0x000000, 0x000000, 0xFFFFFF);
+	qtimerShow(levelWindowStage, (MAIN_WIDTH / 2 - 25), 65, 0x000000, 0x000000, 0xFFFFFF);
 
 	levelMask();
 

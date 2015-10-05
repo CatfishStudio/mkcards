@@ -268,7 +268,7 @@ function matchCheckField(afterDown)
 	matchMoveDownProcesses = new Object();
 	if(matchCheckFieldFull()) // группы были найдены
 	{
-		timerStop();			// останавливаем таймер
+		qtimerStop();			// останавливаем таймер
 		matchMoveDownUnits();	// спускаем юниты
 	}else{ // группы не найдены
 		if(afterDown == false) // первый спуск юнитов
@@ -276,7 +276,7 @@ function matchCheckField(afterDown)
 			matchBackExchangeUnits(); 	// возвращаем выбранные юниты на места
 		}else{ 
 			matchSelectUnitsClear();	// очистка и разблокиров поля
-			timerStart();				// запускаем таймер
+			qtimerStart();				// запускаем таймер
 		}
 	}
 }
@@ -1012,4 +1012,269 @@ function matchUpdateField()
 		}
 	}
 	console.log("MATCH [FIELD]: UPDATE!");
+}
+
+/* Ход искусственного интеллекта ============================================================== */
+function matchGetPriorityUnit(unitType)
+{
+	if(unitType == MATCH_HIT_1) {return 1;}
+	if(unitType == MATCH_HIT_2) {return 2;}
+	if(unitType == MATCH_HIT_3)
+	{
+		var typeRandom = Math.random() / 0.1;
+		var uType = Math.round(indexRandom);
+		return uType;
+	}
+	if(unitType == MATCH_HIT_4) {return 4;}
+	if(unitType == MATCH_HIT_5) {return 5;}
+	return 0;
+}
+
+function matchActionAI()
+{
+	/*	   0  1  2  3  4  5
+	* 	0:[0][0][0][0][1][0]
+		1:[0][0][1][1][0][1]
+		2:[0][0][0][0][1][0]
+		3:[0][0][0][0][0][0]
+		4:[0][0][0][0][0][0]
+		5:[0][0][0][0][0][0]
+	 * */
+	 var priorityUnit = 0;
+	 var lastpriorityUnit = 0;
+
+	// Проверка строк и колонок
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = 0; j < MATCH_ROWS; j++)
+		{
+			if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+			{
+				// ПРОВЕРКА СТРОКИ
+				if(j == 0)
+				{
+					//[1][1][X][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+3)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][X][1][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][X][1]
+					//[0][0][1][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][1][X]
+					//[0][0][0][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+						}
+					}
+					//[0][X][1][1]
+					//[0][1][0][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+				}else{
+					//[1][1][X][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[1][X][1][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][1][X]
+					//[0][0][0][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+						}
+					}
+					//[0][0][0][1]
+					//[0][1][1][X]
+					if((i + 2) < MATCH_COLUMNS && (j - 1) >=0){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType) { return true; }
+						}
+					}
+					//[0][X][1][1]
+					//[0][1][0][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][0][0]
+					//[0][X][1][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+						}
+					}
+					//[0][0][1][0]
+					//[0][1][X][1]
+					if((i + 2) < MATCH_COLUMNS && (j - 1) >= 0){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][X][1]
+					//[0][0][1][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+				}
+
+				// ПРОВЕРКА КОЛОНКИ
+				if(i == 0)
+				{
+					//[1]
+					//[1]
+					//[X]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1]
+					//[X]
+					//[1]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[X][1]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[1][0]
+					//[X][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[X][1]
+					//[1][0]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+				}else{
+					//[1]
+					//[1]
+					//[X]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1]
+					//[X]
+					//[1]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[X][1]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[0][1]
+					//[1][X]
+					//[0][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[1][0]
+					//[X][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[X][1]
+					//[1][0]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[0][1]
+					//[0][1]
+					//[1][X]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[1][X]
+					//[0][1]
+					//[0][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+				}
+			}
+		}
+	}
 }
