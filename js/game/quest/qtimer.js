@@ -45,7 +45,7 @@ function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 function onQTimerComplete()
 {
 	if(qtimerCount == Q_TIMER_MIN_VALUE){	// таймер = минимум
-		if(matchFieldBlocked == true)
+		if(modeAI == true)
 		{
 			matchFieldBlocked = false; 	// поле разблокированно
 			modeAI = false;				// ИИ отключен
@@ -69,18 +69,18 @@ function onQTimerComplete()
 
 function qtimerStart()
 {
-	if(matchFieldBlocked == true)
+	if(modeAI == true)
 	{
 		matchFieldBlocked = false; 	// поле разблокированно
 		modeAI = false;				// ИИ отключен
-		console.log("[HIT]: USER наносит удар!");
+		console.log("[HIT START]: USER наносит удар!");
 	}else{
 		matchFieldBlocked = true;	// поле заблокированно
 		modeAI = true;				// ИИ включен
 		matchCellColorBack();
 		matchSelectUnit1 = null;
 		matchSelectUnit2 = null;
-		console.log("[HIT]: AI наносит удар!");
+		console.log("[HIT START]: AI наносит удар!");
 	}
 	qtimerCount = Q_TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 	qtimerText.text = qtimerCount;	// показываем секунды

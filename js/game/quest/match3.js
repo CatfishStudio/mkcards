@@ -1022,7 +1022,7 @@ function matchGetPriorityUnit(unitType)
 	if(unitType == MATCH_HIT_3)
 	{
 		var typeRandom = Math.random() / 0.1;
-		var uType = Math.round(indexRandom);
+		var uType = Math.round(typeRandom);
 		return uType;
 	}
 	if(unitType == MATCH_HIT_4) {return 4;}
@@ -1071,83 +1071,191 @@ function matchActionAI()
 					//[1][X][1][1]
 					if((i + 3) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{ 
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][1][X][1]
 					//[0][0][1][0]
 					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][1][1][X]
 					//[0][0][0][1]
 					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+2)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][X][1][1]
 					//[0][1][0][0]
 					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+(j+1)].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 				}else{
 					//[1][1][X][1]
 					if((i + 3) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+3)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1][X][1][1]
 					if((i + 3) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][1][1][X]
 					//[0][0][0][1]
 					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+2)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][0][0][1]
 					//[0][1][1][X]
 					if((i + 2) < MATCH_COLUMNS && (j - 1) >=0){
 						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+(j-1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][X][1][1]
 					//[0][1][0][0]
 					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+(j+1)].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][1][0][0]
 					//[0][X][1][1]
 					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][0][1][0]
 					//[0][1][X][1]
 					if((i + 2) < MATCH_COLUMNS && (j - 1) >= 0){
 						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+1)+":j"+(j-1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][1][X][1]
 					//[0][0][1][0]
 					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 				}
@@ -1161,7 +1269,16 @@ function matchActionAI()
 					//[1]
 					if((j + 3) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+3)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1]
@@ -1170,7 +1287,16 @@ function matchActionAI()
 					//[1]
 					if((j + 3) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1][0]
@@ -1179,7 +1305,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1][0]
@@ -1188,7 +1323,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+2)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[X][1]
@@ -1197,7 +1341,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+(i+1)+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 				}else{
@@ -1207,7 +1360,16 @@ function matchActionAI()
 					//[1]
 					if((j + 3) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+3)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1]
@@ -1216,7 +1378,16 @@ function matchActionAI()
 					//[1]
 					if((j + 3) < MATCH_ROWS){
 						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1][0]
@@ -1225,7 +1396,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][1]
@@ -1234,7 +1414,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
 						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i-1)+":j"+(j+1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1][0]
@@ -1243,7 +1432,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+2)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[X][1]
@@ -1252,7 +1450,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
 						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+(i+1)+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[0][1]
@@ -1261,7 +1468,16 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
 						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i-1)+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 					//[1][X]
@@ -1270,11 +1486,28 @@ function matchActionAI()
 					//[0][0]
 					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
 						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
-							if(matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+							if(matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+(i-1)+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i-1)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+
+	if(matchSelectUnit1 != null && matchSelectUnit2 != null)
+	{
+		matchExchangeUnits(); // меняем юниты местами
+	}else{
+		matchActionAI();
+	}
+
 }
