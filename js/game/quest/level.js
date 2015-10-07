@@ -3,6 +3,14 @@ var levelWindowStage;			// stage окна
 var levelAnimationLeftFighter;	// Анимация левого бойца (пользователь)
 var levelAnimationRightFighter;	// Анимация правого бойца (ИИ)
 
+var levelAIName = null;
+var	levelAIHit1 = 0;
+var	levelAIHit1 = 0;
+var	levelAIHit1 = 0;
+var	levelAIHit1 = 0;
+var	levelAIHit1 = 0;
+var	levelAILife = 0;
+
 var levelStyleText = {
     font : 'bold 13px Arial',
     fill : '#FFFFFF'
@@ -14,7 +22,10 @@ function levelShow()
 	levelStage = new PIXI.Container();
 	levelWindowStage = new PIXI.Container();
 
+	levelInitFighters();
+
 	levelBackground();
+	qlifebarShow(levelWindowStage, 0, 0);
 	createLevelAnimationFighters();
 	levelBorder();
 	createLevelField();
@@ -26,6 +37,18 @@ function levelShow()
 	levelStage.addChild(levelWindowStage);
 	stage.addChild(levelStage);
 	console.log("Create window: level");
+}
+
+/* Инициализация характеристик бойцов */
+function levelInitFighters()
+{
+	levelAIName = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name;
+	levelAIHit1 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_1;
+	levelAIHit2 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_2;
+	levelAIHit3 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_3;
+	levelAIHit4 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_4;
+	levelAIHit5 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_5;
+	levelAILife = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_life;
 }
 
 /* Наложение маски */
@@ -94,19 +117,18 @@ function createLevelAnimationFighters()
 	levelAnimationLeftFighter.animationSpeed = 0.2;
 	levelWindowStage.addChild(levelAnimationLeftFighter);
 
-	var aiName = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name;
-	if(aiName == "liukang") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexLiukangStanceRightToLeft); }
-	if(aiName == "kunglao") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexKunglaoStanceRightToLeft); }
-	if(aiName == "johnnycage") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexJohnnycageStanceRightToLeft); }
-	if(aiName == "reptile") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexReptileStanceRightToLeft); }
-	if(aiName == "subzero") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexSubzeroStanceRightToLeft); }
-	if(aiName == "shangtsung") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexShangtsungStanceRightToLeft); }
-	if(aiName == "kitana") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexKitanaStanceRightToLeft); }
-	if(aiName == "jax") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexJaxStanceRightToLeft); }
-	if(aiName == "mileena") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexMileenaStanceRightToLeft); }
-	if(aiName == "baraka") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexBarakaStanceRightToLeft); }
-	if(aiName == "scorpion") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexScorpionStanceRightToLeft); }
-	if(aiName == "raiden") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexRaidenStanceRightToLeft); }
+	if(levelAIName == "liukang") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexLiukangStanceRightToLeft); }
+	if(levelAIName == "kunglao") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexKunglaoStanceRightToLeft); }
+	if(levelAIName == "johnnycage") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexJohnnycageStanceRightToLeft); }
+	if(levelAIName == "reptile") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexReptileStanceRightToLeft); }
+	if(levelAIName == "subzero") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexSubzeroStanceRightToLeft); }
+	if(levelAIName == "shangtsung") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexShangtsungStanceRightToLeft); }
+	if(levelAIName == "kitana") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexKitanaStanceRightToLeft); }
+	if(levelAIName == "jax") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexJaxStanceRightToLeft); }
+	if(levelAIName == "mileena") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexMileenaStanceRightToLeft); }
+	if(levelAIName == "baraka") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexBarakaStanceRightToLeft); }
+	if(levelAIName == "scorpion") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexScorpionStanceRightToLeft); }
+	if(levelAIName == "raiden") { levelAnimationRightFighter = new PIXI.extras.MovieClip(animTexRaidenStanceRightToLeft); }
 	
 	levelAnimationRightFighter.position.x = 700;
 	levelAnimationRightFighter.position.y = 425;

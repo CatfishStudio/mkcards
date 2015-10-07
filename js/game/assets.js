@@ -34,6 +34,7 @@ var hit2Texture;					// hit_2.png
 var hit3Texture;					// hit_3.png
 var hit4Texture;					// hit_4.png
 var hit5Texture;					// hit_5.png
+var lifebarTexture;					// lifebar.png
 
 /* blood.json */
 var animTexBlood = [];

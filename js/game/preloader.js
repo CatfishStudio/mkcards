@@ -127,6 +127,7 @@ function onAssetsLoaded(loader, res)
 	hit3Texture = PIXI.Texture.fromFrame('hit_3.png');
 	hit4Texture = PIXI.Texture.fromFrame('hit_4.png');
 	hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
+	lifebarTexture = PIXI.Texture.fromFrame('lifebar.png');
 
 	console.log("Load assets game.json - complete!");
 
