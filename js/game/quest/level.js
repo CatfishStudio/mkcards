@@ -220,3 +220,39 @@ function onLevelButtonClick()
 		matchUpdateField();
 	}
 }
+
+/* Уменьшение значений LifeBars */
+function levelReduceLifeBar(hitType, hitCount, hitModeAI) 
+{
+	var hitOne = (200 / qGlobalUserLife);
+	var hitPlus = hitOne * (hitCount - 3);
+	console.log("[LIFEBAR]: " + qGlobalUserFighterName);
+
+	if(hitType == MATCH_HIT_1)
+	{
+		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_1) + hitPlus);
+		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_1) + hitPlus);
+	}
+	if(hitType == MATCH_HIT_2)
+	{
+		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_2) + hitPlus);
+		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_2) + hitPlus);
+	}
+	if(hitType == MATCH_HIT_3)
+	{
+		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_3) + hitPlus);
+		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_3) + hitPlus);
+	}
+	if(hitType == MATCH_HIT_4)
+	{
+		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_4) + hitPlus);
+		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_4) + hitPlus);
+	}
+	if(hitType == MATCH_HIT_5)
+	{
+		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_5) + hitPlus);
+		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_5) + hitPlus);
+	}
+
+	
+}

@@ -42,10 +42,12 @@ function initMatchMatrixPosition()
 			matchMatrixBackPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), -372 + (MATCH_CELL_HEIGHT * j)]; // x,y
 		}
 	}
+	/*
 	console.log("MATCH [M: Front]" + matchMatrixFrontPosition);
 	console.log(matchMatrixFrontPosition);
 	console.log("MATCH [M: Back]" + matchMatrixBackPosition);
 	console.log(matchMatrixBackPosition);
+	*/
 }
 
 /* Создание игрового поля ====================================================================== */
@@ -148,7 +150,7 @@ function onMatchUnitClick()
 			}
 		}
 	}
-	console.log("MATCH [Unit Click]["+this.name+"]: " + this.unitType + " | " + this.flagRemove);
+	//console.log("MATCH [Unit Click]["+this.name+"]: " + this.unitType + " | " + this.flagRemove);
 }
 
 /* Определение цвета ячеек Cell игрового поля ================================================= */
@@ -197,19 +199,19 @@ function matchExchangeUnits()
 
 	if(iUnit2 > (iUnit1 - 2) && iUnit2 < (iUnit1 + 2) && jUnit2 > (jUnit1 - 2) && jUnit2 < (jUnit1 + 2) && ((iUnit2 == iUnit1 && jUnit2 != jUnit1) || (jUnit2 == jUnit1 && iUnit2 != iUnit1)))
 	{
-		console.log("MATCH [Unit 1]: I=" + iUnit1 + "   J=" + jUnit1 + "   TYPE="  + matchMatrixUnit["i"+iUnit1+":j"+jUnit1].unitType);
+		//console.log("MATCH [Unit 1]: I=" + iUnit1 + "   J=" + jUnit1 + "   TYPE="  + matchMatrixUnit["i"+iUnit1+":j"+jUnit1].unitType);
 		matchMatrixUnit["i"+iUnit1+":j"+jUnit1] = matchSelectUnit2;
 		matchMatrixUnit["i"+iUnit1+":j"+jUnit1].posColumnI = iUnit1;
 		matchMatrixUnit["i"+iUnit1+":j"+jUnit1].posRowJ = jUnit1;
 		matchMatrixUnit["i"+iUnit1+":j"+jUnit1].name = "i"+iUnit1+":j"+jUnit1;
-		console.log("MATCH [Unit 1]: I=" + iUnit1 + "   J=" + jUnit1 + "   TYPE="  + matchMatrixUnit["i"+iUnit1+":j"+jUnit1].unitType);
+		//console.log("MATCH [Unit 1]: I=" + iUnit1 + "   J=" + jUnit1 + "   TYPE="  + matchMatrixUnit["i"+iUnit1+":j"+jUnit1].unitType);
 	
-		console.log("MATCH [Unit 2]: I=" + iUnit2 + "   J=" + jUnit2 + "   TYPE="  + matchMatrixUnit["i"+iUnit2+":j"+jUnit2].unitType);
+		//console.log("MATCH [Unit 2]: I=" + iUnit2 + "   J=" + jUnit2 + "   TYPE="  + matchMatrixUnit["i"+iUnit2+":j"+jUnit2].unitType);
 		matchMatrixUnit["i"+iUnit2+":j"+jUnit2] = matchSelectUnit1;
 		matchMatrixUnit["i"+iUnit2+":j"+jUnit2].posColumnI = iUnit2;
 		matchMatrixUnit["i"+iUnit2+":j"+jUnit2].posRowJ = jUnit2;
 		matchMatrixUnit["i"+iUnit2+":j"+jUnit2].name = "i"+iUnit2+":j"+jUnit2;
-		console.log("MATCH [Unit 2]: I=" + iUnit2 + "   J=" + jUnit2 + "   TYPE="  + matchMatrixUnit["i"+iUnit2+":j"+jUnit2].unitType);
+		//console.log("MATCH [Unit 2]: I=" + iUnit2 + "   J=" + jUnit2 + "   TYPE="  + matchMatrixUnit["i"+iUnit2+":j"+jUnit2].unitType);
 	
 		createjs.Tween.get(matchMatrixUnit["i"+iUnit1+":j"+jUnit1], {loop: false})
 			.to({x: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][0], y: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][1]}, 500, createjs.Ease.getPowInOut(4));
@@ -406,27 +408,8 @@ function matchCheckRow(row)
 /* Удаление юнитов */
 function matchRemoveUnit(col, row, check, hitType, hitCount)
 {
-	/* Определяем тип собранной группы */
-	if(hitType == MATCH_HIT_1)
-	{
-		///////// !!!!
-	}
-	if(hitType == MATCH_HIT_2)
-	{
-		///////// !!!!
-	}
-	if(hitType == MATCH_HIT_3)
-	{
-		///////// !!!!
-	}
-	if(hitType == MATCH_HIT_4)
-	{
-		///////// !!!!
-	}
-	if(hitType == MATCH_HIT_5)
-	{
-		///////// !!!!
-	}
+	/* Обрабтка LifeBar */
+	levelReduceLifeBar(hitType, hitCount, modeAI);
 
 	/*Отмечаем юниты для удаления */
 	if(check == "row")
@@ -590,7 +573,7 @@ function matchMoveDownUnits()
 				{
 					if(matchMatrixUnit["i"+i+":j"+k].flagRemove == false && matchMatrixUnit["i"+i+":j"+k].unitType != MATCH_HIT_0)
 					{
-						console.log("MATCH [UNIT-REMOVE]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType);
+						//console.log("MATCH [UNIT-REMOVE]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType);
 
 						var removeUnit = matchMatrixUnit["i"+i+":j"+j]; // удалённый юнит
 
@@ -601,7 +584,7 @@ function matchMoveDownUnits()
 						matchMatrixUnit["i"+i+":j"+j].posRowJ = j;
 						matchMoveDownProcesses["i"+i+":j"+j] = true;
 
-						console.log("MATCH [UNIT-MOVE]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType);
+						//console.log("MATCH [UNIT-MOVE]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType);
 
 						matchMatrixUnit["i"+i+":j"+k] = removeUnit;	// удалённый юнит ставим на место перемещённой
 						matchMatrixUnit["i"+i+":j"+k].name = "i"+i+":j"+k;
@@ -611,7 +594,7 @@ function matchMoveDownUnits()
 						matchMoveDownProcesses["i"+i+":j"+k] = true;
 						
 						
-						console.log("MATCH [UNIT-REMOVE]: " + matchMatrixUnit["i"+i+":j"+k].name + " COL: " + matchMatrixUnit["i"+i+":j"+k].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+k].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+k].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+k].unitType);
+						//console.log("MATCH [UNIT-REMOVE]: " + matchMatrixUnit["i"+i+":j"+k].name + " COL: " + matchMatrixUnit["i"+i+":j"+k].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+k].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+k].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+k].unitType);
 						break;
 					}
 				}
@@ -634,7 +617,7 @@ function matchMoveDownNewUnits()
 		{
 			if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == false && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
 			{
-				console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
+				//console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
 				
 				matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
 				/* Спускаем удалённые юниты */
@@ -646,7 +629,7 @@ function matchMoveDownNewUnits()
 			}else{
 				if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
 				{
-					console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
+					//console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
 					
 					var indexRandom = Math.random() / 0.1;
 					var index = Math.round(indexRandom);
@@ -699,7 +682,7 @@ function onCompleteMatchMoveDownNewUnits()
 	matchMoveDownProcesses[this.name] = false;
 	for(var key in matchMoveDownProcesses)
 	{
-		console.log("MATCH [Unit MoveDown] NAME: " + this.name + " FLAG:" + this.flagRemove + " | KEY:" + key + " = " + matchMoveDownProcesses[key]);	
+		//console.log("MATCH [Unit MoveDown] NAME: " + this.name + " FLAG:" + this.flagRemove + " | KEY:" + key + " = " + matchMoveDownProcesses[key]);	
 		if(matchMoveDownProcesses[key] == true){
 			result = true;
 			break;	
@@ -707,7 +690,7 @@ function onCompleteMatchMoveDownNewUnits()
 	}
 	if(result == false) // анимация завершена
 	{
-		console.log("MATCH [MOVE DOWN]: Complete!");
+		//console.log("MATCH [MOVE DOWN]: Complete!");
 		if(matchCheckCombinations() == true) // Возможные ходы определены
 		{
 			matchCheckField(true);	// проверка групп 3-и в ряд
@@ -1007,11 +990,11 @@ function matchUpdateField()
 					.call(onCompleteMatchMoveDownNewUnits, matchMatrixUnit["i"+i+":j"+j]); // событие выполнено
 				createjs.Ticker.setFPS(60);
 			}
-			console.log("MATCH [FIELD][Unit Update]["+matchMatrixUnit["i"+i+":j"+j].name+"]: " + matchMatrixUnit["i"+i+":j"+j].unitType + " | " + matchMatrixUnit["i"+i+":j"+j].flagRemove);
+			//console.log("MATCH [FIELD][Unit Update]["+matchMatrixUnit["i"+i+":j"+j].name+"]: " + matchMatrixUnit["i"+i+":j"+j].unitType + " | " + matchMatrixUnit["i"+i+":j"+j].flagRemove);
 			index++;
 		}
 	}
-	console.log("MATCH [FIELD]: UPDATE!");
+	//console.log("MATCH [FIELD]: UPDATE!");
 }
 
 /* Ход искусственного интеллекта ============================================================== */
