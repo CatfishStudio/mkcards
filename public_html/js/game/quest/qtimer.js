@@ -1,5 +1,5 @@
-const Q_TIMER_MAX_VALUE = 10;
-const Q_TIMER_MIN_VALUE = 0;
+var Q_TIMER_MAX_VALUE = 10;
+var Q_TIMER_MIN_VALUE = 0;
 
 var qtimerStage;
 var qtimerText;
