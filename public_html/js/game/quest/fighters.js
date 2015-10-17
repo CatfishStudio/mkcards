@@ -32,18 +32,7 @@ function createFightersLeftWindow(fighterName)
 	fightersLeftWindowSprite.position.y = (MAIN_HEIGH / 2.9);
 
 	var animationFighter;
-	if(fighterName == "liukang") { animationFighter = new PIXI.extras.MovieClip(animTexLiukangStanceLeftToRight); }
-	if(fighterName == "kunglao") { animationFighter = new PIXI.extras.MovieClip(animTexKunglaoStanceLeftToRight); }
-	if(fighterName == "johnnycage") { animationFighter = new PIXI.extras.MovieClip(animTexJohnnycageStanceLeftToRight); }
-	if(fighterName == "reptile") { animationFighter = new PIXI.extras.MovieClip(animTexReptileStanceLeftToRight); }
-	if(fighterName == "subzero") { animationFighter = new PIXI.extras.MovieClip(animTexSubzeroStanceLeftToRight); }
-	if(fighterName == "shangtsung") { animationFighter = new PIXI.extras.MovieClip(animTexShangtsungStanceLeftToRight); }
-	if(fighterName == "kitana") { animationFighter = new PIXI.extras.MovieClip(animTexKitanaStanceLeftToRight); }
-	if(fighterName == "jax") { animationFighter = new PIXI.extras.MovieClip(animTexJaxStanceLeftToRight); }
-	if(fighterName == "mileena") { animationFighter = new PIXI.extras.MovieClip(animTexMileenaStanceLeftToRight); }
-	if(fighterName == "baraka") { animationFighter = new PIXI.extras.MovieClip(animTexBarakaStanceLeftToRight); }
-	if(fighterName == "scorpion") { animationFighter = new PIXI.extras.MovieClip(animTexScorpionStanceLeftToRight); }
-	if(fighterName == "raiden") { animationFighter = new PIXI.extras.MovieClip(animTexRaidenStanceLeftToRight); }
+	animationFighter = new PIXI.extras.MovieClip(animFightersTextures[fighterName + ":STANCE:LEFT_TO_RIGHT"]);
 	animationFighter.position.x = 40;
 	animationFighter.position.y = 30;
 	animationFighter.scale.x += 0.5;
