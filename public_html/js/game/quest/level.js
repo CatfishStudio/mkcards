@@ -96,20 +96,28 @@ function levelBorder()
 /* Создание анимации бойцов */
 function createLevelAnimationFighters()
 {
+	var leftFighterWidth = animFightersTextures[qGlobalUserFighterName + ":STANCE:LEFT_TO_RIGHT"][0].width;
+	var leftFighterHeight = animFightersTextures[qGlobalUserFighterName + ":STANCE:LEFT_TO_RIGHT"][0].height;
+
 	levelAnimationLeftFighter = new PIXI.extras.MovieClip(animFightersTextures[qGlobalUserFighterName + ":STANCE:LEFT_TO_RIGHT"]);
-	levelAnimationLeftFighter.position.x = 50;
-	levelAnimationLeftFighter.position.y = 425;
+	levelAnimationLeftFighter.position.x = 125 - leftFighterWidth;
+	levelAnimationLeftFighter.position.y = MAIN_HEIGH - leftFighterHeight - 180;
 	levelAnimationLeftFighter.scale.x += 0.5;
 	levelAnimationLeftFighter.scale.y += 0.5;
+	levelAnimationLeftFighter.loop = true;
 	levelAnimationLeftFighter.play();
 	levelAnimationLeftFighter.animationSpeed = 0.2;
 	levelWindowStage.addChild(levelAnimationLeftFighter);
 
+	var rightFighterWidth = animFightersTextures[levelAIName + ":STANCE:LEFT_TO_RIGHT"][0].width;
+	var rightFighterHeight = animFightersTextures[levelAIName + ":STANCE:LEFT_TO_RIGHT"][0].height;
+
 	levelAnimationRightFighter = new PIXI.extras.MovieClip(animFightersTextures[levelAIName + ":STANCE:RIGHT_TO_LEFT"]);
-	levelAnimationRightFighter.position.x = 700;
-	levelAnimationRightFighter.position.y = 425;
+	levelAnimationRightFighter.position.x = MAIN_WIDTH - rightFighterWidth - 100;
+	levelAnimationRightFighter.position.y = MAIN_HEIGH - rightFighterHeight - 180;
 	levelAnimationRightFighter.scale.x += 0.5;
 	levelAnimationRightFighter.scale.y += 0.5;
+	levelAnimationRightFighter.loop = true;
 	levelAnimationRightFighter.play();
 	levelAnimationRightFighter.animationSpeed = 0.2;
 	levelWindowStage.addChild(levelAnimationRightFighter);
@@ -120,29 +128,23 @@ function createLevelAnimationFighters()
 /* Обновление анимации после хода */
 function updateLevelAnimationLeftFighter(typeAnimation)
 {
-	levelWindowStage.removeChild(levelAnimationLeftFighter);
-	
-	levelAnimationLeftFighter = new PIXI.extras.MovieClip(animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"]);
-	levelAnimationLeftFighter.position.x = 50;
-	levelAnimationLeftFighter.position.y = 425;
-	levelAnimationLeftFighter.scale.x += 0.5;
-	levelAnimationLeftFighter.scale.y += 0.5;
-	levelAnimationLeftFighter.play();
-	levelAnimationLeftFighter.animationSpeed = 0.2;
+	var leftFighterWidth = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"][0].width;
+	var leftFighterHeight = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"][0].height;
+
+	levelAnimationLeftFighter.textures = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"];
+	levelAnimationLeftFighter.position.x = 125 - leftFighterWidth;
+	levelAnimationLeftFighter.position.y = MAIN_HEIGH - leftFighterHeight - 180;
 	levelWindowStage.addChild(levelAnimationLeftFighter);
 }
 
 function updateLevelAnimationRightFighter(typeAnimation)
 {
-	levelWindowStage.removeChild(levelAnimationRightFighter);
-	
-	levelAnimationRightFighter = new PIXI.extras.MovieClip(animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"]);
-	levelAnimationRightFighter.position.x = 700;
-	levelAnimationRightFighter.position.y = 425;
-	levelAnimationRightFighter.scale.x += 0.5;
-	levelAnimationRightFighter.scale.y += 0.5;
-	levelAnimationRightFighter.play();
-	levelAnimationRightFighter.animationSpeed = 0.2;
+	var rightFighterWidth = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"][0].width;
+	var rightFighterHeight = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"][0].height;
+
+	levelAnimationRightFighter.textures = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"];
+	levelAnimationRightFighter.position.x = MAIN_WIDTH - rightFighterWidth - 100;
+	levelAnimationRightFighter.position.y = MAIN_HEIGH - rightFighterHeight - 180;
 	levelWindowStage.addChild(levelAnimationRightFighter);
 }
 
