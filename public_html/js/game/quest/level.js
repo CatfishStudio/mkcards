@@ -117,6 +117,36 @@ function createLevelAnimationFighters()
 	console.log("level[animation]: " + qGlobalUserFighterName + " vs " + qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name);
 }
 
+/* Обновление анимации после хода */
+function updateLevelAnimationLeftFighter(typeAnimation)
+{
+	levelWindowStage.removeChild(levelAnimationLeftFighter);
+	
+	levelAnimationLeftFighter = new PIXI.extras.MovieClip(animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"]);
+	levelAnimationLeftFighter.position.x = 50;
+	levelAnimationLeftFighter.position.y = 425;
+	levelAnimationLeftFighter.scale.x += 0.5;
+	levelAnimationLeftFighter.scale.y += 0.5;
+	levelAnimationLeftFighter.play();
+	levelAnimationLeftFighter.animationSpeed = 0.2;
+	levelWindowStage.addChild(levelAnimationLeftFighter);
+}
+
+function updateLevelAnimationRightFighter(typeAnimation)
+{
+	levelWindowStage.removeChild(levelAnimationRightFighter);
+	
+	levelAnimationRightFighter = new PIXI.extras.MovieClip(animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"]);
+	levelAnimationRightFighter.position.x = 700;
+	levelAnimationRightFighter.position.y = 425;
+	levelAnimationRightFighter.scale.x += 0.5;
+	levelAnimationRightFighter.scale.y += 0.5;
+	levelAnimationRightFighter.play();
+	levelAnimationRightFighter.animationSpeed = 0.2;
+	levelWindowStage.addChild(levelAnimationRightFighter);
+}
+
+
 /* Создание игрового поля */
 function createLevelField()
 {
