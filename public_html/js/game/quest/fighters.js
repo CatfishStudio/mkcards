@@ -104,7 +104,7 @@ function createFightersRightWindow(fighterName)
 
 	for (var i = 0; i < 5; i++)
 	{
-		if(language == "rus")
+		if(language === "rus")
 		{
 			fightersTextRightWindow = new PIXI.Text(fightersTextRus[i], fightersStyleText);
 			fightersTextRightWindow.x = 60;

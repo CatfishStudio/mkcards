@@ -111,7 +111,7 @@ function qGlobalInitEnemiesAI()
 
 	for (var i = 0; i < fightersName.length; i++)
 	{
-		if(fightersName[i] != qGlobalUserFighterName)
+		if(fightersName[i] !== qGlobalUserFighterName)
 		{
 			qGE = new qGlobalEnemy();
 			qGE.ai_name = fightersName[i];
@@ -165,7 +165,7 @@ function qGlobalRandomIndexEnemies(_count)
 {
 	var index = qGlobalRandomIndex();
 	var result = Math.round((index * _count) * 0.1);
-	if(result == _count) result--;
+	if(result === _count) result--;
 	return result;
 }
 
@@ -181,11 +181,11 @@ function qGlobalInitEnemiesCharacteristics()
 		for(var j = 0; j < experiencePoints; j++)
 		{
 			index = qGlobalRandomIndexEnemiesCharacteristics();
-			if (index == 1) qGlobalEnemiesAI[i].ai_hit_1++;
-			if (index == 2) qGlobalEnemiesAI[i].ai_hit_2++;
-			if (index == 3) qGlobalEnemiesAI[i].ai_hit_3++;
-			if (index == 4) qGlobalEnemiesAI[i].ai_hit_4++;
-			if (index == 5) qGlobalEnemiesAI[i].ai_hit_5++;
+			if (index === 1) qGlobalEnemiesAI[i].ai_hit_1++;
+			if (index === 2) qGlobalEnemiesAI[i].ai_hit_2++;
+			if (index === 3) qGlobalEnemiesAI[i].ai_hit_3++;
+			if (index === 4) qGlobalEnemiesAI[i].ai_hit_4++;
+			if (index === 5) qGlobalEnemiesAI[i].ai_hit_5++;
 		}
 		console.log("GLOBAL[quest][AI][Characteristics ++ " + experiencePoints + " ]: " + qGlobalEnemiesAI[i].ai_name + "  HIT1:" + qGlobalEnemiesAI[i].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[i].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[i].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[i].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[i].ai_hit_5);
 	}
@@ -255,7 +255,7 @@ function qGlobalRandomIndexLevels(_count)
 {
 	var index = qGlobalRandomIndex();
 	var result = Math.round((index * _count) * 0.1);
-	if(result == _count) result--;
+	if(result === _count) result--;
 	return result;
 }
 

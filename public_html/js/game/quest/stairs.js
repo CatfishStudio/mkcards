@@ -129,7 +129,7 @@ function createStairsRightWindow(fighterIndex)
 
 	for (var i = 0; i < 5; i++)
 	{
-		if(language == "rus")
+		if(language === "rus")
 		{
 			stairsTextRightWindow = new PIXI.Text(fightersTextRus[i], stairsStyleText);
 			stairsTextRightWindow.x = 60;
@@ -211,14 +211,14 @@ function createStairsLeftWindow()
 	var stairsTextLeftWindow;
 	for (var i = 0; i < 5; i++)
 	{
-		if(language == "rus")
+		if(language === "rus")
 		{
 			stairsTextLeftWindow = new PIXI.Text(fightersTextRus[i], stairsStyleText);
 			stairsTextLeftWindow.x = 55;
 			stairsTextLeftWindow.y = 25 + (50 * i);
 			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
 
-			if(qGlobalExperiencePoints == 0) stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			if(qGlobalExperiencePoints === 0) stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
 			else stairsTextLeftWindow = new PIXI.Text(fightersHitsUpdate[i], stairsStyleText);
 			stairsTextLeftWindow.x = 140;
 			stairsTextLeftWindow.y = 25 + (50 * i);
@@ -230,7 +230,7 @@ function createStairsLeftWindow()
 			stairsTextLeftWindow.y = 25 + (50 * i);
 			stairsLeftWindowSprite.addChild(stairsTextLeftWindow);
 
-			if(qGlobalExperiencePoints == 0) stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
+			if(qGlobalExperiencePoints === 0) stairsTextLeftWindow = new PIXI.Text(fightersHits[i], stairsStyleText);
 			else stairsTextLeftWindow = new PIXI.Text(fightersHitsUpdate[i], stairsStyleText);
 			stairsTextLeftWindow.x = 140;
 			stairsTextLeftWindow.y = 25 + (50 * i);
@@ -249,7 +249,7 @@ function createStairsLeftWindow()
 /* Создание панели кнопок плюс для левого окна характеристик */
 function createStairsButtonPlus()
 {
-	if(qGlobalExperiencePoints != 0) 
+	if(qGlobalExperiencePoints !== 0) 
 	{
 		stairsPanelButtonPlus = new PIXI.Container();
 		stairsButtonsPlus = [];
@@ -274,11 +274,11 @@ function createStairsButtonPlus()
 			stairsButtonPlus.on('touchendoutside', onStairsButtonUp);
 
 			stairsButtonsPlus.push(stairsButtonPlus);
-			if(i==0 & qGlobalUserHit1 < DAMAGE_MAX_HIT_1) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
-			if(i==1 & qGlobalUserHit2 < DAMAGE_MAX_HIT_2) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
-			if(i==2 & qGlobalUserHit3 < DAMAGE_MAX_HIT_3) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
-			if(i==3 & qGlobalUserHit4 < DAMAGE_MAX_HIT_4) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
-			if(i==4 & qGlobalUserHit5 < DAMAGE_MAX_HIT_5) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i===0 & qGlobalUserHit1 < DAMAGE_MAX_HIT_1) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i===1 & qGlobalUserHit2 < DAMAGE_MAX_HIT_2) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i===2 & qGlobalUserHit3 < DAMAGE_MAX_HIT_3) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i===3 & qGlobalUserHit4 < DAMAGE_MAX_HIT_4) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
+			if(i===4 & qGlobalUserHit5 < DAMAGE_MAX_HIT_5) stairsPanelButtonPlus.addChild(stairsButtonsPlus[stairsButtonsPlus.length -1]);
 		}
 		stairsLeftWindowSprite.addChild(stairsPanelButtonPlus);
 	}
@@ -287,7 +287,7 @@ function createStairsButtonPlus()
 function removeStairsButtonPlus()
 {
 	var hits = ["5  x " + qGlobalUserHit1, "3  x " + qGlobalUserHit2, "3  x " + qGlobalUserHit3, "6  x " + qGlobalUserHit4, "10  x " + qGlobalUserHit5];
-	if(qGlobalExperiencePoints == 0 || (qGlobalUserHit1 + qGlobalUserHit2 + qGlobalUserHit3 + qGlobalUserHit4 + qGlobalUserHit5) == 38)
+	if(qGlobalExperiencePoints === 0 || (qGlobalUserHit1 + qGlobalUserHit2 + qGlobalUserHit3 + qGlobalUserHit4 + qGlobalUserHit5) === 38)
 	{
 		stairsLeftWindowSprite.removeChild(stairsPanelButtonPlus);
 		for(var i = 0; i < hits.length; i++)
@@ -314,7 +314,7 @@ function createStairsButton()
 	};
 	for(var i = 0; i < 4; i++)
 	{
-		if(language == "rus")
+		if(language === "rus")
 		{
 			stairsTextButton = new PIXI.Text(textStairsButtonsRus[i], stairsStyleTextButton);
 		}else{
@@ -365,25 +365,25 @@ function onStairsButtonUp()
 
 function onStairsButtonClick() 
 {
-	if(this.name == "Back in menu")
+	if(this.name === "Back in menu")
 	{
 		stage.removeChild(stairsStage);
 		menuShow(); 	// MENU SHOW
 	}
-	if(this.name == "Settings")
+	if(this.name === "Settings")
 	{
 		
 	}
-	if(this.name == "Invite")
+	if(this.name === "Invite")
 	{
 		
 	}
-	if(this.name == "Fight")
+	if(this.name === "Fight")
 	{
 		stage.removeChild(stairsStage);
 		levelShow();	// LEVEL SHOW
 	}
-	if(this.name == "buttonPlus0")
+	if(this.name === "buttonPlus0")
 	{
 		if(qGlobalUserHit1 < DAMAGE_MAX_HIT_1){
 			qGlobalUserHit1++;
@@ -393,7 +393,7 @@ function onStairsButtonClick()
 		}
 		removeStairsButtonPlus();
 	}
-	if(this.name == "buttonPlus1")
+	if(this.name === "buttonPlus1")
 	{
 		if(qGlobalUserHit2 < DAMAGE_MAX_HIT_2){
 			qGlobalUserHit2++;
@@ -403,7 +403,7 @@ function onStairsButtonClick()
 		}
 		removeStairsButtonPlus();
 	}
-	if(this.name == "buttonPlus2")
+	if(this.name === "buttonPlus2")
 	{
 		if(qGlobalUserHit3 < DAMAGE_MAX_HIT_3){
 			qGlobalUserHit3++;
@@ -413,7 +413,7 @@ function onStairsButtonClick()
 		}
 		removeStairsButtonPlus();
 	}
-	if(this.name == "buttonPlus3")
+	if(this.name === "buttonPlus3")
 	{
 		if(qGlobalUserHit4 < DAMAGE_MAX_HIT_4){
 			qGlobalUserHit4++;
@@ -423,7 +423,7 @@ function onStairsButtonClick()
 		}
 		removeStairsButtonPlus();
 	}
-	if(this.name == "buttonPlus4")
+	if(this.name === "buttonPlus4")
 	{
 		if(qGlobalUserHit5 < DAMAGE_MAX_HIT_5){
 			qGlobalUserHit5++;

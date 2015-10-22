@@ -65,7 +65,7 @@ function createMatchField(levelJSON)
 	{
 		for(var jCell = 0; jCell < MATCH_ROWS; jCell++)
 		{
-			if(levelJSON.data.Level.cell[index].cellType != MATCH_CELL_TYPE_DROP)
+			if(levelJSON.data.Level.cell[index].cellType !== MATCH_CELL_TYPE_DROP)
 			{
 				var graphics = new PIXI.Graphics();
 				graphics.lineStyle(2, 0x000000, 1);
@@ -91,13 +91,13 @@ function createMatchField(levelJSON)
 	{
 		for(var jUnit = 0; jUnit < MATCH_ROWS; jUnit++)
 		{
-			if(levelJSON.data.Level.cell[index].cellObject != MATCH_HIT_0)
+			if(levelJSON.data.Level.cell[index].cellObject !== MATCH_HIT_0)
 			{
-				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_1) sprite = new PIXI.Sprite(hit1Texture);
-				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_2) sprite = new PIXI.Sprite(hit2Texture);
-				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_3) sprite = new PIXI.Sprite(hit3Texture);
-				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_4) sprite = new PIXI.Sprite(hit4Texture);
-				if(levelJSON.data.Level.cell[index].cellObject == MATCH_HIT_5) sprite = new PIXI.Sprite(hit5Texture);
+				if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_1) sprite = new PIXI.Sprite(hit1Texture);
+				if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_2) sprite = new PIXI.Sprite(hit2Texture);
+				if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_3) sprite = new PIXI.Sprite(hit3Texture);
+				if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_4) sprite = new PIXI.Sprite(hit4Texture);
+				if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_5) sprite = new PIXI.Sprite(hit5Texture);
 				sprite.name = "i"+iUnit+":j"+jUnit;
 				sprite.position.x = matchMatrixFrontPosition["i"+iUnit+":j"+jUnit][0];
 				sprite.position.y = matchMatrixFrontPosition["i"+iUnit+":j"+jUnit][1];
@@ -136,14 +136,14 @@ function createMatchField(levelJSON)
 /* Событие: нажатие на юнит */
 function onMatchUnitClick() 
 {
-	if(matchFieldBlocked == false)
+	if(matchFieldBlocked === false)
 	{
 		matchCellColorSelect(this.unitType, this.posColumnI, this.posRowJ);
-		if(matchSelectUnit1 == null) 
+		if(matchSelectUnit1 === null) 
 		{
 			matchSelectUnit1 = this;
 		}else{
-			if(matchSelectUnit2 == null) 
+			if(matchSelectUnit2 === null) 
 			{
 				matchSelectUnit2 = this;
 				matchExchangeUnits(); // меняем юниты местами
@@ -158,18 +158,18 @@ function matchCellColorSelect(unitType, colI, rowJ)
 {
 	matchMatrixCell["i"+colI+":j"+rowJ].clear();
 	matchMatrixCell["i"+colI+":j"+rowJ].lineStyle(2, 0x000000, 1);
-	if(unitType == MATCH_HIT_1) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFFFF80, 0.50);
-	if(unitType == MATCH_HIT_2) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF0000, 0.50);
-	if(unitType == MATCH_HIT_3) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF00FF, 0.50);
-	if(unitType == MATCH_HIT_4) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x0080FF, 0.50);
-	if(unitType == MATCH_HIT_5) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x00FF80, 0.50);
+	if(unitType === MATCH_HIT_1) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFFFF80, 0.50);
+	if(unitType === MATCH_HIT_2) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF0000, 0.50);
+	if(unitType === MATCH_HIT_3) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF00FF, 0.50);
+	if(unitType === MATCH_HIT_4) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x0080FF, 0.50);
+	if(unitType === MATCH_HIT_5) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x00FF80, 0.50);
 	matchMatrixCell["i"+colI+":j"+rowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
 	matchMatrixCell["i"+colI+":j"+rowJ].endFill();
 }
 
 function matchCellColorBack()
 {
-	if(matchSelectUnit1 != null)
+	if(matchSelectUnit1 !== null)
 	{
 		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].clear();
 		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(2, 0x000000, 1);
@@ -177,7 +177,7 @@ function matchCellColorBack()
 		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
 		matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].endFill();
 	}
-	if(matchSelectUnit2 != null)
+	if(matchSelectUnit2 !== null)
 	{
 		matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].clear();
 		matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(2, 0x000000, 1);
@@ -197,7 +197,7 @@ function matchExchangeUnits()
 	var iUnit2 = matchSelectUnit2.posColumnI;
 	var jUnit2 = matchSelectUnit2.posRowJ;
 
-	if(iUnit2 > (iUnit1 - 2) && iUnit2 < (iUnit1 + 2) && jUnit2 > (jUnit1 - 2) && jUnit2 < (jUnit1 + 2) && ((iUnit2 == iUnit1 && jUnit2 != jUnit1) || (jUnit2 == jUnit1 && iUnit2 != iUnit1)))
+	if(iUnit2 > (iUnit1 - 2) && iUnit2 < (iUnit1 + 2) && jUnit2 > (jUnit1 - 2) && jUnit2 < (jUnit1 + 2) && ((iUnit2 === iUnit1 && jUnit2 !== jUnit1) || (jUnit2 === jUnit1 && iUnit2 !== iUnit1)))
 	{
 		//console.log("MATCH [Unit 1]: I=" + iUnit1 + "   J=" + jUnit1 + "   TYPE="  + matchMatrixUnit["i"+iUnit1+":j"+jUnit1].unitType);
 		matchMatrixUnit["i"+iUnit1+":j"+jUnit1] = matchSelectUnit2;
@@ -273,7 +273,7 @@ function matchCheckField(afterDown)
 		qtimerStop();			// останавливаем таймер
 		matchMoveDownUnits();	// спускаем юниты
 	}else{ // группы не найдены
-		if(afterDown == false) // первый спуск юнитов
+		if(afterDown === false) // первый спуск юнитов
 		{
 			matchBackExchangeUnits(); 	// возвращаем выбранные юниты на места
 		}else{ 
@@ -290,11 +290,11 @@ function matchCheckFieldFull()
 	/* i - столбец; j - строка */
 	for(var i = 0; i < MATCH_COLUMNS; i++)
 	{
-		if(matchCheckColumn(i) == true) resultCheck = true;
+		if(matchCheckColumn(i) === true) resultCheck = true;
 	}
 	for(var j = 0; j < MATCH_ROWS; j++)
 	{
-		if(matchCheckRow(j) == true) resultCheck = true;	
+		if(matchCheckRow(j) === true) resultCheck = true;	
 	}
 	return resultCheck;
 }
@@ -308,22 +308,22 @@ function matchCheckColumn(column)
 	{
 		if(j < MATCH_ROWS - 2)
 		{
-			if(matchMatrixUnit["i"+column+":j"+j].unitType != MATCH_HIT_0)
+			if(matchMatrixUnit["i"+column+":j"+j].unitType !== MATCH_HIT_0)
 			{
 				/* Группа из 3-х объектов */
-				if(matchMatrixUnit["i"+column+":j"+j].unitType == matchMatrixUnit["i"+column+":j"+(j+1)].unitType && matchMatrixUnit["i"+column+":j"+j].unitType == matchMatrixUnit["i"+column+":j"+(j+2)].unitType)
+				if(matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+1)].unitType && matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+2)].unitType)
 				{
 					resultCheckColumn = true;
 
 					/* Группа из 4-х кристалов */
 					if(j < MATCH_ROWS - 3)
 					{
-						if(matchMatrixUnit["i"+column+":j"+j].unitType == matchMatrixUnit["i"+column+":j"+(j+3)].unitType)
+						if(matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+3)].unitType)
 						{
 							/* Группа из 5-ти кристалов */
 							if(j < MATCH_ROWS - 4)
 							{
-								if(matchMatrixUnit["i"+column+":j"+j].unitType == matchMatrixUnit["i"+column+":j"+(j+4)].unitType)
+								if(matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+4)].unitType)
 								{
 									/* Удаляем группу из 5 юнитов */
 									matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 5);
@@ -361,22 +361,22 @@ function matchCheckRow(row)
 	{
 		if(i < MATCH_COLUMNS - 2)
 		{
-			if(matchMatrixUnit["i"+i+":j"+row].unitType != MATCH_HIT_0)
+			if(matchMatrixUnit["i"+i+":j"+row].unitType !== MATCH_HIT_0)
 			{
 				/* Группа из 3-х объектов */
-				if(matchMatrixUnit["i"+i+":j"+row].unitType == matchMatrixUnit["i"+(i+1)+":j"+row].unitType && matchMatrixUnit["i"+i+":j"+row].unitType == matchMatrixUnit["i"+(i+2)+":j"+row].unitType)
+				if(matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+1)+":j"+row].unitType && matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+2)+":j"+row].unitType)
 				{
 					resultCheckRow = true;
 
 					/* Группа из 4-х кристалов */
 					if(i < MATCH_COLUMNS - 3)
 					{
-						if(matchMatrixUnit["i"+i+":j"+row].unitType == matchMatrixUnit["i"+(i+3)+":j"+row].unitType)
+						if(matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+3)+":j"+row].unitType)
 						{
 							/* Группа из 5-ти кристалов */
 							if(i < MATCH_COLUMNS - 4)
 							{
-								if(matchMatrixUnit["i"+i+":j"+row].unitType == matchMatrixUnit["i"+(i+4)+":j"+row].unitType)
+								if(matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+4)+":j"+row].unitType)
 								{
 									/* Удаляем группу из 5 юнитов */
 									matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 5);
@@ -415,9 +415,9 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 	updateLevelAnimationRightFighter(hitType);
 
 	/*Отмечаем юниты для удаления */
-	if(check == "row")
+	if(check === "row")
 	{
-		if(hitCount == 3)
+		if(hitCount === 3)
 		{
 			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
@@ -435,7 +435,7 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 			matchMatrixUnit["i"+(col+2)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+2)+":j"+row][1];
 			matchMoveDownProcesses["i"+(col+2)+":j"+row] = true;
 		}
-		if(hitCount == 4)
+		if(hitCount === 4)
 		{
 			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
@@ -458,7 +458,7 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 			matchMatrixUnit["i"+(col+3)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+3)+":j"+row][1];
 			matchMoveDownProcesses["i"+(col+3)+":j"+row] = true;
 		}
-		if(hitCount == 5)
+		if(hitCount === 5)
 		{
 			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
@@ -487,9 +487,9 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 			matchMoveDownProcesses["i"+(col+4)+":j"+row] = true;
 		}
 	}
-	if(check == "col")
+	if(check === "col")
 	{
-		if(hitCount == 3)
+		if(hitCount === 3)
 		{
 			
 			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
@@ -508,7 +508,7 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 			matchMatrixUnit["i"+col+":j"+(row+2)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+2)][1];
 			matchMoveDownProcesses["i"+col+":j"+(row+2)] = true;
 		}
-		if(hitCount == 4)
+		if(hitCount === 4)
 		{
 			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
@@ -531,7 +531,7 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 			matchMatrixUnit["i"+col+":j"+(row+3)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+3)][1];
 			matchMoveDownProcesses["i"+col+":j"+(row+3)] = true;
 		}
-		if(hitCount == 5)
+		if(hitCount === 5)
 		{
 			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
 			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
@@ -569,12 +569,12 @@ function matchMoveDownUnits()
 	{
 		for(var j = MATCH_ROWS-1; j >= 0; j--)
 		{
-			if(matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+			if(matchMatrixUnit["i"+i+":j"+j].flagRemove === true && matchMatrixUnit["i"+i+":j"+j].unitType !== MATCH_HIT_0)
 			{
 				/* Спускаем вниз оставщиеся юниты */
 				for(var k = j; k >= 0; k--)
 				{
-					if(matchMatrixUnit["i"+i+":j"+k].flagRemove == false && matchMatrixUnit["i"+i+":j"+k].unitType != MATCH_HIT_0)
+					if(matchMatrixUnit["i"+i+":j"+k].flagRemove === false && matchMatrixUnit["i"+i+":j"+k].unitType !== MATCH_HIT_0)
 					{
 						//console.log("MATCH [UNIT-REMOVE]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType);
 
@@ -618,7 +618,7 @@ function matchMoveDownNewUnits()
 	{
 		for(var j = MATCH_ROWS-1; j >= 0; j--)
 		{
-			if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == false && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+			if(matchMoveDownProcesses["i"+i+":j"+j] === true && matchMatrixUnit["i"+i+":j"+j].flagRemove === false && matchMatrixUnit["i"+i+":j"+j].unitType !== MATCH_HIT_0)
 			{
 				//console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
 				
@@ -630,7 +630,7 @@ function matchMoveDownNewUnits()
 					.call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
 				createjs.Ticker.setFPS(60);	
 			}else{
-				if(matchMoveDownProcesses["i"+i+":j"+j] == true && matchMatrixUnit["i"+i+":j"+j].flagRemove == true && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+				if(matchMoveDownProcesses["i"+i+":j"+j] === true && matchMatrixUnit["i"+i+":j"+j].flagRemove === true && matchMatrixUnit["i"+i+":j"+j].unitType !== MATCH_HIT_0)
 				{
 					//console.log("MATCH [UNIT MOVEDOWN]: " + matchMatrixUnit["i"+i+":j"+j].name + " COL: " + matchMatrixUnit["i"+i+":j"+j].posColumnI + " ROW: " + matchMatrixUnit["i"+i+":j"+j].posRowJ + " FLAG: " + matchMatrixUnit["i"+i+":j"+j].flagRemove + " TYPE: " + matchMatrixUnit["i"+i+":j"+j].unitType + " PROGRESS: " + matchMoveDownProcesses["i"+i+":j"+j]);
 					
@@ -686,7 +686,7 @@ function onCompleteMatchMoveDownNewUnits()
 	for(var key in matchMoveDownProcesses)
 	{
 		//console.log("MATCH [Unit MoveDown] NAME: " + this.name + " FLAG:" + this.flagRemove + " | KEY:" + key + " = " + matchMoveDownProcesses[key]);	
-		if(matchMoveDownProcesses[key] == true){
+		if(matchMoveDownProcesses[key] === true){
 			result = true;
 			break;	
 		} 
@@ -694,7 +694,7 @@ function onCompleteMatchMoveDownNewUnits()
 	if(result == false) // анимация завершена
 	{
 		//console.log("MATCH [MOVE DOWN]: Complete!");
-		if(matchCheckCombinations() == true) // Возможные ходы определены
+		if(matchCheckCombinations() === true) // Возможные ходы определены
 		{
 			matchCheckField(true);	// проверка групп 3-и в ряд
 		}else{	// нет возможности ходов
@@ -952,7 +952,7 @@ function matchUpdateField()
 	{
 		for(var j = 0; j < MATCH_ROWS; j++)
 		{
-			if(qGlobalLevels[qGlobalTournamentProgress - 1].levelField.data.Level.cell[index].cellObject != MATCH_HIT_0)
+			if(qGlobalLevels[qGlobalTournamentProgress - 1].levelField.data.Level.cell[index].cellObject !== MATCH_HIT_0)
 			{
 				//matchMatrixUnit["i"+i+":j"+j].alpha = 0.0;
 				matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
@@ -960,27 +960,27 @@ function matchUpdateField()
 				matchMatrixUnit["i"+i+":j"+j].position.y = matchMatrixBackPosition["i"+i+":j"+j][1];
 				matchMoveDownProcesses["i"+i+":j"+j] = true;
 				
-				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_1)
+				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_1)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_2)
+				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_2)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_3)
+				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_3)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_4)
+				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_4)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject == MATCH_HIT_5)
+				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_5)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
@@ -1003,16 +1003,16 @@ function matchUpdateField()
 /* Ход искусственного интеллекта ============================================================== */
 function matchGetPriorityUnit(unitType)
 {
-	if(unitType == MATCH_HIT_1) {return 1;}
-	if(unitType == MATCH_HIT_2) {return 2;}
-	if(unitType == MATCH_HIT_3)
+	if(unitType === MATCH_HIT_1) {return 1;}
+	if(unitType === MATCH_HIT_2) {return 2;}
+	if(unitType === MATCH_HIT_3)
 	{
 		var typeRandom = Math.random() / 0.1;
 		var uType = Math.round(typeRandom);
 		return uType;
 	}
-	if(unitType == MATCH_HIT_4) {return 4;}
-	if(unitType == MATCH_HIT_5) {return 5;}
+	if(unitType === MATCH_HIT_4) {return 4;}
+	if(unitType === MATCH_HIT_5) {return 5;}
 	return 0;
 }
 
@@ -1489,7 +1489,7 @@ function matchActionAI()
 		}
 	}
 
-	if(matchSelectUnit1 != null && matchSelectUnit2 != null)
+	if(matchSelectUnit1 !== null && matchSelectUnit2 !== null)
 	{
 		matchExchangeUnits(); // меняем юниты местами
 	}else{

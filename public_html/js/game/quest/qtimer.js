@@ -44,8 +44,8 @@ function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 
 function onQTimerComplete()
 {
-	if(qtimerCount == Q_TIMER_MIN_VALUE){	// таймер = минимум
-		if(modeAI == true)
+	if(qtimerCount === Q_TIMER_MIN_VALUE){	// таймер = минимум
+		if(modeAI === true)
 		{
 			matchFieldBlocked = false; 	// поле разблокированно
 			modeAI = false;				// ИИ отключен
@@ -63,13 +63,13 @@ function onQTimerComplete()
 	}else{
 		qtimerCount--;						// уменьшение таймера
 		qtimerText.text = " " + qtimerCount;	// показываем секунды
-		if(modeAI == true && qtimerCount == 8) { matchActionAI(); }
+		if(modeAI === true && qtimerCount === 8) { matchActionAI(); }
 	}
 }
 
 function qtimerStart()
 {
-	if(modeAI == true)
+	if(modeAI === true)
 	{
 		matchFieldBlocked = false; 	// поле разблокированно
 		modeAI = false;				// ИИ отключен

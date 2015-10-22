@@ -20,7 +20,7 @@ function menuShow()
 	
 	for(var i = 0; i < menuTextButtonsRus.length; i++)
 	{
-		if(language == "rus")
+		if(language === "rus")
 		{
 			menuTextButton = new PIXI.Text(menuTextButtonsRus[i], menuStyleTextButton);
 		}else{
@@ -72,7 +72,7 @@ function onMenuButtonUp()
 
 function onMenuSpriteButtonClick() 
 {
-	if(this.name == "menuSpriteButton0")
+	if(this.name === "menuSpriteButton0")
 	{
 		stage.removeChild(menuStage);
 		fightersShow(); // FIGHTERS SHOW

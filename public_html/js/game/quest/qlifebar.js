@@ -53,20 +53,20 @@ function qlifebarBackground()
 
 function qlifebarGetFighterName(fighterName)
 {
-	if(fighterName == "shaokahn") return "Shao Kahn";
-	if(fighterName == "goro") return "Goro";
-	if(fighterName == "liukang") return "Liu Kang";
-	if(fighterName == "kunglao") return "Kung Lao";
-	if(fighterName == "johnnycage") return "Johnny Cage";
-	if(fighterName == "reptile") return "Reptile";
-	if(fighterName == "subzero") return "Sub-Zero";
-	if(fighterName == "shangtsung") return "Shang Tsung";
-	if(fighterName == "kitana") return "Kitana";
-	if(fighterName == "jax") return "Jax";
-	if(fighterName == "mileena") return "Mileena";
-	if(fighterName == "baraka") return "Baraka";
-	if(fighterName == "scorpion") return "Scorpion";
-	if(fighterName == "raiden") return "Raiden";
+	if(fighterName === "shaokahn") return "Shao Kahn";
+	if(fighterName === "goro") return "Goro";
+	if(fighterName === "liukang") return "Liu Kang";
+	if(fighterName === "kunglao") return "Kung Lao";
+	if(fighterName === "johnnycage") return "Johnny Cage";
+	if(fighterName === "reptile") return "Reptile";
+	if(fighterName === "subzero") return "Sub-Zero";
+	if(fighterName === "shangtsung") return "Shang Tsung";
+	if(fighterName === "kitana") return "Kitana";
+	if(fighterName === "jax") return "Jax";
+	if(fighterName === "mileena") return "Mileena";
+	if(fighterName === "baraka") return "Baraka";
+	if(fighterName === "scorpion") return "Scorpion";
+	if(fighterName === "raiden") return "Raiden";
 }
 
 function qlifebarCreateLeftBar()

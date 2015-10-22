@@ -190,7 +190,7 @@ function createLevelButton()
 	};
 	for(var i = 0; i < 4; i++)
 	{
-		if(language == "rus")
+		if(language === "rus")
 		{
 			levelTextButton = new PIXI.Text(textLevelButtonsRus[i], levelStyleTextButton);
 		}else{
@@ -240,7 +240,7 @@ function onLevelButtonUp()
 
 function onLevelButtonClick() 
 {
-	if(this.name == "Settings")
+	if(this.name === "Settings")
 	{
 		matchUpdateField();
 	}
@@ -253,29 +253,29 @@ function levelReduceLifeBar(hitType, hitCount, hitModeAI)
 	var hitPlus = hitOne * (hitCount - 3);
 	console.log("[LIFEBAR]: " + qGlobalUserFighterName);
 
-	if(hitType == MATCH_HIT_1)
+	if(hitType === MATCH_HIT_1)
 	{
-		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_1) + hitPlus);
+		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_1) + hitPlus);
 		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_1) + hitPlus);
 	}
-	if(hitType == MATCH_HIT_2)
+	if(hitType === MATCH_HIT_2)
 	{
-		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_2) + hitPlus);
+		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_2) + hitPlus);
 		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_2) + hitPlus);
 	}
-	if(hitType == MATCH_HIT_3)
+	if(hitType === MATCH_HIT_3)
 	{
-		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_3) + hitPlus);
+		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_3) + hitPlus);
 		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_3) + hitPlus);
 	}
-	if(hitType == MATCH_HIT_4)
+	if(hitType === MATCH_HIT_4)
 	{
-		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_4) + hitPlus);
+		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_4) + hitPlus);
 		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_4) + hitPlus);
 	}
-	if(hitType == MATCH_HIT_5)
+	if(hitType === MATCH_HIT_5)
 	{
-		if(hitModeAI == false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_5) + hitPlus);
+		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_5) + hitPlus);
 		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_5) + hitPlus);
 	}
 
