@@ -57,4 +57,4 @@ var fieldLevels = [];
  * kitana.json, kunglao.json, liukang.json, mileena.json, reptile.json
  * scorpion.json, shangtsung.json, shaokahn.json, subzero.json
 */
-var animFightersTextures = Object();
+var animFightersTextures = new Object();

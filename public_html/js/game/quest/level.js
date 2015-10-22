@@ -104,9 +104,11 @@ function createLevelAnimationFighters()
 	levelAnimationLeftFighter.position.y = MAIN_HEIGH - leftFighterHeight - 180;
 	levelAnimationLeftFighter.scale.x += 0.5;
 	levelAnimationLeftFighter.scale.y += 0.5;
-	levelAnimationLeftFighter.loop = true;
-	levelAnimationLeftFighter.play();
+	levelAnimationLeftFighter.loop = false;
 	levelAnimationLeftFighter.animationSpeed = 0.2;
+	levelAnimationLeftFighter.onComplete = onLevelAnimationLeftFighterComplete;
+	levelAnimationLeftFighter.play();
+		
 	levelWindowStage.addChild(levelAnimationLeftFighter);
 
 	var rightFighterWidth = animFightersTextures[levelAIName + ":STANCE:LEFT_TO_RIGHT"][0].width;
@@ -117,9 +119,11 @@ function createLevelAnimationFighters()
 	levelAnimationRightFighter.position.y = MAIN_HEIGH - rightFighterHeight - 180;
 	levelAnimationRightFighter.scale.x += 0.5;
 	levelAnimationRightFighter.scale.y += 0.5;
-	levelAnimationRightFighter.loop = true;
-	levelAnimationRightFighter.play();
+	levelAnimationRightFighter.loop = false;
 	levelAnimationRightFighter.animationSpeed = 0.2;
+	levelAnimationRightFighter.onComplete = onLevelAnimationRightFighterComplete;
+	levelAnimationRightFighter.play();
+
 	levelWindowStage.addChild(levelAnimationRightFighter);
 
 	console.log("level[animation]: " + qGlobalUserFighterName + " vs " + qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name);
@@ -131,10 +135,11 @@ function updateLevelAnimationLeftFighter(typeAnimation)
 	var leftFighterWidth = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"][0].width;
 	var leftFighterHeight = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"][0].height;
 
+	levelAnimationLeftFighter.stop();
 	levelAnimationLeftFighter.textures = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"];
 	levelAnimationLeftFighter.position.x = 125 - leftFighterWidth;
 	levelAnimationLeftFighter.position.y = MAIN_HEIGH - leftFighterHeight - 180;
-	levelWindowStage.addChild(levelAnimationLeftFighter);
+	levelAnimationLeftFighter.gotoAndPlay(0);
 }
 
 function updateLevelAnimationRightFighter(typeAnimation)
@@ -142,12 +147,24 @@ function updateLevelAnimationRightFighter(typeAnimation)
 	var rightFighterWidth = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"][0].width;
 	var rightFighterHeight = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"][0].height;
 
+	levelAnimationRightFighter.stop();
 	levelAnimationRightFighter.textures = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"];
 	levelAnimationRightFighter.position.x = MAIN_WIDTH - rightFighterWidth - 100;
 	levelAnimationRightFighter.position.y = MAIN_HEIGH - rightFighterHeight - 180;
-	levelWindowStage.addChild(levelAnimationRightFighter);
+	levelAnimationRightFighter.gotoAndPlay(0);
 }
 
+function onLevelAnimationLeftFighterComplete()
+{
+	levelAnimationLeftFighter.stop();
+	updateLevelAnimationLeftFighter("STANCE");
+}
+
+function onLevelAnimationRightFighterComplete()
+{
+	levelAnimationRightFighter.stop();
+	updateLevelAnimationRightFighter("STANCE");
+}
 
 /* Создание игрового поля */
 function createLevelField()
