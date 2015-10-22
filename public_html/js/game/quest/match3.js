@@ -410,9 +410,8 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 {
 	/* Обрабтка LifeBar */
 	levelReduceLifeBar(hitType, hitCount, modeAI);
-	/* Анимация бойца */
-	updateLevelAnimationLeftFighter(hitType);
-	updateLevelAnimationRightFighter(hitType);
+	/* Анимация бойцов */
+	levelUpdateAnimation(modeAI, hitType);
 
 	/*Отмечаем юниты для удаления */
 	if(check === "row")

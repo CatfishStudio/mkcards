@@ -105,6 +105,7 @@ function createLevelAnimationFighters()
 	levelAnimationLeftFighter.scale.x += 0.5;
 	levelAnimationLeftFighter.scale.y += 0.5;
 	levelAnimationLeftFighter.loop = false;
+	levelAnimationLeftFighter.typeAnimation = "STANCE";
 	levelAnimationLeftFighter.animationSpeed = 0.2;
 	levelAnimationLeftFighter.onComplete = onLevelAnimationLeftFighterComplete;
 	levelAnimationLeftFighter.play();
@@ -120,6 +121,7 @@ function createLevelAnimationFighters()
 	levelAnimationRightFighter.scale.x += 0.5;
 	levelAnimationRightFighter.scale.y += 0.5;
 	levelAnimationRightFighter.loop = false;
+	levelAnimationRightFighter.typeAnimation = "STANCE";
 	levelAnimationRightFighter.animationSpeed = 0.2;
 	levelAnimationRightFighter.onComplete = onLevelAnimationRightFighterComplete;
 	levelAnimationRightFighter.play();
@@ -127,6 +129,20 @@ function createLevelAnimationFighters()
 	levelWindowStage.addChild(levelAnimationRightFighter);
 
 	console.log("level[animation]: " + qGlobalUserFighterName + " vs " + qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name);
+}
+
+/* Выполнение анимации удара, клока, урона */
+function levelUpdateAnimation(modeAI, hitType)
+{
+	if(modeAI === false) // удар наносит пользователь
+	{
+		updateLevelAnimationLeftFighter(hitType);
+		updateLevelAnimationRightFighter("DAMAGE");
+	}else{ // удар наносит ИИ
+		updateLevelAnimationLeftFighter("DAMAGE");
+		updateLevelAnimationRightFighter(hitType);
+	}
+
 }
 
 /* Обновление анимации после хода */
@@ -139,6 +155,7 @@ function updateLevelAnimationLeftFighter(typeAnimation)
 	levelAnimationLeftFighter.textures = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"];
 	levelAnimationLeftFighter.position.x = 125 - leftFighterWidth;
 	levelAnimationLeftFighter.position.y = MAIN_HEIGH - leftFighterHeight - 180;
+	levelAnimationLeftFighter.typeAnimation = typeAnimation;
 	levelAnimationLeftFighter.gotoAndPlay(0);
 }
 
@@ -151,19 +168,21 @@ function updateLevelAnimationRightFighter(typeAnimation)
 	levelAnimationRightFighter.textures = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"];
 	levelAnimationRightFighter.position.x = MAIN_WIDTH - rightFighterWidth - 100;
 	levelAnimationRightFighter.position.y = MAIN_HEIGH - rightFighterHeight - 180;
+	levelAnimationRightFighter.typeAnimation = typeAnimation;
 	levelAnimationRightFighter.gotoAndPlay(0);
 }
 
+/* События: завершена анимация */
 function onLevelAnimationLeftFighterComplete()
 {
 	levelAnimationLeftFighter.stop();
-	updateLevelAnimationLeftFighter("STANCE");
+	if(this.typeAnimation !== MATCH_HIT_3) updateLevelAnimationLeftFighter("STANCE");
 }
 
 function onLevelAnimationRightFighterComplete()
 {
 	levelAnimationRightFighter.stop();
-	updateLevelAnimationRightFighter("STANCE");
+	if(this.typeAnimation !== MATCH_HIT_3) updateLevelAnimationRightFighter("STANCE");
 }
 
 /* Создание игрового поля */
@@ -278,6 +297,4 @@ function levelReduceLifeBar(hitType, hitCount, hitModeAI)
 		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_5) + hitPlus);
 		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_5) + hitPlus);
 	}
-
-	
 }

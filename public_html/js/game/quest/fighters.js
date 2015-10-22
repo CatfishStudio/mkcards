@@ -1,6 +1,7 @@
 var fightersStage;
 var fightersLeftWindowSprite;
 var fightersRightWindowSprite;
+var fightersAnimation;
 
 var fightersStyleText = {
     font : 'bold 13px Arial',
@@ -31,15 +32,15 @@ function createFightersLeftWindow(fighterName)
 	fightersLeftWindowSprite.position.x = (MAIN_WIDTH / 25);
 	fightersLeftWindowSprite.position.y = (MAIN_HEIGH / 2.9);
 
-	var animationFighter;
-	animationFighter = new PIXI.extras.MovieClip(animFightersTextures[fighterName + ":STANCE:LEFT_TO_RIGHT"]);
-	animationFighter.position.x = 40;
-	animationFighter.position.y = 30;
-	animationFighter.scale.x += 0.5;
-	animationFighter.scale.y += 0.5;
-	animationFighter.play();
-	animationFighter.animationSpeed = 0.2;
-	fightersLeftWindowSprite.addChild(animationFighter);
+	fightersAnimation = new PIXI.extras.MovieClip(animFightersTextures[fighterName + ":STANCE:LEFT_TO_RIGHT"]);
+	fightersAnimation.position.x = 40;
+	fightersAnimation.position.y = 30;
+	fightersAnimation.scale.x += 0.5;
+	fightersAnimation.scale.y += 0.5;
+	fightersAnimation.loop = true;
+	fightersAnimation.play();
+	fightersAnimation.animationSpeed = 0.2;
+	fightersLeftWindowSprite.addChild(fightersAnimation);
 
 	var borderSprite = new PIXI.Sprite(borderCharacterWindowTexture);
 	borderSprite.name = "fightersLeftWindowBorder";
@@ -112,6 +113,7 @@ function createFightersRightWindow(fighterName)
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
 			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + qGlobalFightersCharacteristics[qGlobalUserFighterName][i], fightersStyleText);
+			fightersTextRightWindow.name = fightersTextEng[i];
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
@@ -122,6 +124,7 @@ function createFightersRightWindow(fighterName)
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
 
 			fightersTextRightWindow = new PIXI.Text(fightersHits[i] + qGlobalFightersCharacteristics[qGlobalUserFighterName][i], fightersStyleText);
+			fightersTextRightWindow.name = fightersTextEng[i];
 			fightersTextRightWindow.x = 150;
 			fightersTextRightWindow.y = 25 + (50 * i);
 			fightersRightWindowSprite.addChild(fightersTextRightWindow);
@@ -191,8 +194,7 @@ function onFightersIconButtonClick()
 {
 	fightersStage.removeChild(fightersRightWindowSprite);
 	createFightersRightWindow(this.name);
-	fightersStage.removeChild(fightersLeftWindowSprite);
-	createFightersLeftWindow(this.name);
+	fightersAnimation.textures = animFightersTextures[this.name + ":STANCE:LEFT_TO_RIGHT"];
 
 	console.log("Fighters click icon button: " + this.name);
 }
@@ -283,6 +285,7 @@ function onFightersButtonClick()
 		qGlobalInitEnemiesAI();				// инициализация всех протичников
 		qGlobalInitEnemiesCharacteristics();// инициализация прокачки характеристик врагов
 		qGlobalInitLevels();				// инициализация уровней
+		fightersAnimation.stop();			// останавливаем анимацию
 		stage.removeChild(fightersStage);
 		stairsShow();						// STAIRS SHOW
 	}
