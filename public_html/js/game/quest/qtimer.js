@@ -39,7 +39,7 @@ function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 
 	qtimer = setInterval(onQTimerComplete, 1000);
 
-	console.log("[TIMER] Create timer!");
+	// console.log("[TIMER] Create timer!");
 }
 
 function onQTimerComplete()
@@ -49,21 +49,21 @@ function onQTimerComplete()
 		{
 			matchFieldBlocked = false; 	// поле разблокированно
 			modeAI = false;				// ИИ отключен
-			console.log("[HIT]: USER наносит удар!");
+			// console.log("[HIT]: USER наносит удар!");
 		}else{
 			matchFieldBlocked = true;	// поле заблокированно
 			modeAI = true;				// ИИ включен
 			matchCellColorBack();
 			matchSelectUnit1 = null;
 			matchSelectUnit2 = null;
-			console.log("[HIT]: AI наносит удар!");
+			// console.log("[HIT]: AI наносит удар!");
 		}
 		qtimerCount = Q_TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 		qtimerText.text = qtimerCount;	// показываем секунды
 	}else{
 		qtimerCount--;						// уменьшение таймера
 		qtimerText.text = " " + qtimerCount;	// показываем секунды
-		if(modeAI === true && qtimerCount === 8) { matchActionAI(); }
+		if(modeAI === true && qtimerCount === 8) { matchActionAI();}
 	}
 }
 
@@ -73,14 +73,14 @@ function qtimerStart()
 	{
 		matchFieldBlocked = false; 	// поле разблокированно
 		modeAI = false;				// ИИ отключен
-		console.log("[HIT START]: USER наносит удар!");
+		// console.log("[HIT START]: USER наносит удар!");
 	}else{
 		matchFieldBlocked = true;	// поле заблокированно
 		modeAI = true;				// ИИ включен
 		matchCellColorBack();
 		matchSelectUnit1 = null;
 		matchSelectUnit2 = null;
-		console.log("[HIT START]: AI наносит удар!");
+		// console.log("[HIT START]: AI наносит удар!");
 	}
 	qtimerCount = Q_TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 	qtimerText.text = qtimerCount;	// показываем секунды

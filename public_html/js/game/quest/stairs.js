@@ -31,7 +31,7 @@ function stairsShow()
 	stairsTween();
 
 	stage.addChild(stairsStage);
-	console.log("Create window: stairs");
+	// console.log("Create window: stairs");
 }
 
 /* Наложение маски */
@@ -154,7 +154,7 @@ function createStairsRightWindow(fighterIndex)
 	}
 
 	stairsWindowStage.addChild(stairsRightWindowSprite);
-	console.log("Stairs Enemy (Right window): " + qGlobalEnemiesAI[fighterIndex].ai_name);
+	// console.log("Stairs Enemy (Right window): " + qGlobalEnemiesAI[fighterIndex].ai_name);
 }
 
 /* Создание левого окна характеристик */
@@ -243,7 +243,7 @@ function createStairsLeftWindow()
 
 	stairsWindowStage.addChild(stairsLeftWindowSprite);
 	stairsStage.addChild(stairsWindowStage);
-	console.log("Stairs User (Left window): " + qGlobalUserFighterName);
+	// console.log("Stairs User (Left window): " + qGlobalUserFighterName);
 }
 
 /* Создание панели кнопок плюс для левого окна характеристик */
@@ -433,7 +433,7 @@ function onStairsButtonClick()
 		}
 		removeStairsButtonPlus();
 	}
-	console.log("Stairs click button: " + this.name);
+	// console.log("Stairs click button: " + this.name);
 }
 
 /* Столбец иконок противников и иконка бойца игрока */
@@ -477,7 +477,7 @@ function createStairsIcons()
 	stairsWindowStage.addChild(stairsUserIcon);
 
 	
-	console.log("Stairs Fighters Icons");
+	// console.log("Stairs Fighters Icons");
 }
 
 /* Выполнение аминации, перемещения */

@@ -4,19 +4,22 @@ var levelAnimationLeftFighter;	// Анимация левого бойца (по
 var levelAnimationRightFighter;	// Анимация правого бойца (ИИ)
 
 var levelAIName = null;
-var	levelAIHit1 = 0;
-var	levelAIHit1 = 0;
-var	levelAIHit1 = 0;
-var	levelAIHit1 = 0;
-var	levelAIHit1 = 0;
-var	levelAILife = 0;
+var levelAIHit1 = 0;
+var levelAIHit1 = 0;
+var levelAIHit1 = 0;
+var levelAIHit1 = 0;
+var levelAIHit1 = 0;
+var levelAILife = 0;
+
+var levelUserBlock = false;
+var levelAIBlock = false; 
 
 var levelStyleText = {
     font : 'bold 13px Arial',
     fill : '#FFFFFF'
 };
 
-/* Главная функция */
+/* Главная функция =============================================================== */
 function levelShow()
 {
 	levelStage = new PIXI.Container();
@@ -36,10 +39,11 @@ function levelShow()
 
 	levelStage.addChild(levelWindowStage);
 	stage.addChild(levelStage);
-	console.log("Create window: level");
+	// console.log("Create window: level");
 }
+/* =========================================================================== */
 
-/* Инициализация характеристик бойцов */
+/* Инициализация характеристик бойцов ================================================= */
 function levelInitFighters()
 {
 	levelAIName = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name;
@@ -50,8 +54,9 @@ function levelInitFighters()
 	levelAIHit5 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_5;
 	levelAILife = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_life;
 }
+/* =========================================================================== */
 
-/* Наложение маски */
+/* Наложение маски =============================================================== */
 function levelMask()
 {
 	var posX = (MAIN_WIDTH - 800) / 2;
@@ -71,8 +76,9 @@ function levelMask()
         
 	levelWindowStage.mask = thing;
 }
+/* =========================================================================== */
 
-/* Наложение фоновой картинки и рамки */
+/* Наложение фоновой картинки и рамки ================================================= */
 function levelBackground()
 {
 	var background = new PIXI.Sprite(qGlobalLevels[qGlobalTournamentProgress - 1].backgroundTexture);
@@ -92,8 +98,9 @@ function levelBorder()
 	border.position.y = (MAIN_HEIGH - 600) / 2.5;
 	levelWindowStage.addChild(border);
 }
+/* =========================================================================== */
 
-/* Создание анимации бойцов */
+/* Создание анимации бойцов ======================================================== */
 function createLevelAnimationFighters()
 {
 	var leftFighterWidth = animFightersTextures[qGlobalUserFighterName + ":STANCE:LEFT_TO_RIGHT"][0].width;
@@ -128,21 +135,21 @@ function createLevelAnimationFighters()
 
 	levelWindowStage.addChild(levelAnimationRightFighter);
 
-	console.log("level[animation]: " + qGlobalUserFighterName + " vs " + qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name);
+	// console.log("level[animation]: " + qGlobalUserFighterName + " vs " + qGlobalEnemiesAI[qGlobalTournamentProgress].ai_name);
 }
+/* =========================================================================== */
 
-/* Выполнение анимации удара, клока, урона */
+/* АНИМАЦИЯ: Выполнение анимации удара, клока, урона ===================================== */
 function levelUpdateAnimation(modeAI, hitType)
 {
-	if(modeAI === false) // удар наносит пользователь
+	if(modeAI === false) 																					// удар наносит пользователь
 	{
-		updateLevelAnimationLeftFighter(hitType);
-		updateLevelAnimationRightFighter("DAMAGE");
-	}else{ // удар наносит ИИ
-		updateLevelAnimationLeftFighter("DAMAGE");
-		updateLevelAnimationRightFighter(hitType);
+		updateLevelAnimationLeftFighter(hitType);													// анимация пользователя
+		if(levelAIBlock === false && hitType !== MATCH_HIT_3) updateLevelAnimationRightFighter("DAMAGE");	// ИИ получает повреждения только если не в блоке
+	}else{ 																											// удар наносит ИИ
+		updateLevelAnimationRightFighter(hitType);													// анимация ИИ
+		if(levelUserBlock === false && hitType !== MATCH_HIT_3) updateLevelAnimationLeftFighter("DAMAGE"); 	// Пользователь получает повреждения только если не в блоке
 	}
-
 }
 
 /* Обновление анимации после хода */
@@ -151,6 +158,8 @@ function updateLevelAnimationLeftFighter(typeAnimation)
 	var leftFighterWidth = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"][0].width;
 	var leftFighterHeight = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"][0].height;
 
+	if(typeAnimation === MATCH_HIT_3) levelUserBlock = true;	// включаем блок Пользователю
+	
 	levelAnimationLeftFighter.stop();
 	levelAnimationLeftFighter.textures = animFightersTextures[qGlobalUserFighterName + ":" + typeAnimation + ":LEFT_TO_RIGHT"];
 	levelAnimationLeftFighter.position.x = 125 - leftFighterWidth;
@@ -163,6 +172,8 @@ function updateLevelAnimationRightFighter(typeAnimation)
 {
 	var rightFighterWidth = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"][0].width;
 	var rightFighterHeight = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"][0].height;
+	
+	if(typeAnimation === MATCH_HIT_3) levelAIBlock = true;	// включаем блок ИИ
 
 	levelAnimationRightFighter.stop();
 	levelAnimationRightFighter.textures = animFightersTextures[levelAIName + ":"+ typeAnimation +":RIGHT_TO_LEFT"];
@@ -176,23 +187,38 @@ function updateLevelAnimationRightFighter(typeAnimation)
 function onLevelAnimationLeftFighterComplete()
 {
 	levelAnimationLeftFighter.stop();
-	if(this.typeAnimation !== MATCH_HIT_3) updateLevelAnimationLeftFighter("STANCE");
+	if(levelUserBlock === false) updateLevelAnimationLeftFighter("STANCE");		// возвращаемся в анимацию стойки если не активизирован блок
+	else {
+		if(this.typeAnimation !== MATCH_HIT_3) updateLevelAnimationLeftFighter("HIT_3");
+	}
 }
 
 function onLevelAnimationRightFighterComplete()
 {
 	levelAnimationRightFighter.stop();
-	if(this.typeAnimation !== MATCH_HIT_3) updateLevelAnimationRightFighter("STANCE");
+	if(levelAIBlock === false) updateLevelAnimationRightFighter("STANCE");			// возвращаемся в анимацию стойки если не активизирован блок
+	else {
+		if(this.typeAnimation !== MATCH_HIT_3) updateLevelAnimationRightFighter("HIT_3");
+	}
 }
 
-/* Создание игрового поля */
+function levelResetBlock()
+{
+	levelUserBlock = false;
+	levelAIBlock = false;
+	// console.log("level[blocks]: CLEAR!");
+}
+/* =========================================================================== */
+
+/* Создание игрового поля ========================================================== */
 function createLevelField()
 {
 	createMatchField(qGlobalLevels[qGlobalTournamentProgress - 1].levelField);
 	levelWindowStage.addChild(matchStage);
 }
+/* =========================================================================== */
 
-/* Создание основных кнопок окна */
+/* Создание основных кнопок окна ===================================================== */
 function createLevelButton()
 {
 	var levelSpriteButton;
@@ -264,13 +290,14 @@ function onLevelButtonClick()
 		matchUpdateField();
 	}
 }
+/* =========================================================================== */
 
-/* Уменьшение значений LifeBars */
+/* ПРОГРЕСС: Уменьшение значений LifeBars ====================================================== */
 function levelReduceLifeBar(hitType, hitCount, hitModeAI) 
 {
 	var hitOne = (200 / qGlobalUserLife);
 	var hitPlus = hitOne * (hitCount - 3);
-	console.log("[LIFEBAR]: " + qGlobalUserFighterName);
+	// console.log("[LIFEBAR]: " + qGlobalUserFighterName);
 
 	if(hitType === MATCH_HIT_1)
 	{
@@ -298,3 +325,4 @@ function levelReduceLifeBar(hitType, hitCount, hitModeAI)
 		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_5) + hitPlus);
 	}
 }
+/* =========================================================================== */

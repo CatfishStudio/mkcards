@@ -20,7 +20,7 @@ function onPreloaderLoaded(loader, res)
 
 	stage.addChild(bgPreloaderSprite);
 
-	console.log("Preloader: show");
+	// console.log("Preloader: show");
 
 	loadAssets();		// LOAD ASSETS
 }
@@ -72,7 +72,7 @@ function loadAssets()
 
 function onProgressLoad()
 {
-	console.log("Progress load!");
+	// console.log("Progress load!");
 }
 
 function onAssetsLoaded(loader, res) 
@@ -81,7 +81,7 @@ function onAssetsLoaded(loader, res)
 	buttonTexture = res.buttonImage.texture; /* button.png */
 	borderTexture = res.borderImage.texture; /* border_screen.png */
 	blueportalTexture = res.blueportalImage.texture; /* blueportalImage.png */
-	console.log("Load assets textures - complete!");
+	// console.log("Load assets textures - complete!");
 
 	/* game.json */
 	buttonPlusTextures = PIXI.Texture.fromFrame('character_button_plus.png');
@@ -129,24 +129,24 @@ function onAssetsLoaded(loader, res)
 	hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
 	lifebarTexture = PIXI.Texture.fromFrame('lifebar.png');
 
-	console.log("Load assets game.json - complete!");
+	// console.log("Load assets game.json - complete!");
 
 	/* blood.json */
 	animTexBlood = loadAnimationTextures(13, 'blood_');
-	console.log("Load assets blood.json - complete!");
+	// console.log("Load assets blood.json - complete!");
 
 	/* drugon.json */
 	animTexDrugonLeft = loadAnimationTextures(20, 'drugon_left_');
 	animTexDrugonRight = loadAnimationTextures(20, 'drugon_right_');
-	console.log("Load assets drugon.json - complete!");
+	// console.log("Load assets drugon.json - complete!");
 
 	/* flash.json */
 	animTexFlash = loadAnimationTextures(11, 'flash_');
-	console.log("Load assets flash.json - complete!");
+	// console.log("Load assets flash.json - complete!");
 
 	/* levels.json */
 	texuresLevels = loadAnimationTextures(13, 'level_');
-	console.log("Load assets levels.json - complete!");
+	// console.log("Load assets levels.json - complete!");
 
 	/* baraka.json */
 	animFightersTextures["baraka:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'baraka_damage_left_to_right_');
@@ -165,7 +165,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["baraka:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(9, 'baraka_stance_left_to_right_');
 	animFightersTextures["baraka:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(9, 'baraka_stance_right_to_left_');
 	animFightersTextures["baraka:VICTORY"] = loadAnimationTextures(10, 'baraka_victory_');
-	console.log("Load assets baraka.json - complete!");
+	// console.log("Load assets baraka.json - complete!");
 
 	/* goro.json */
 	animFightersTextures["goro:DAMAGE:RIGHT_TO_LEFT"] = loadAnimationTextures(4, 'goro_damage_right_to_left_');;
@@ -177,7 +177,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["goro:LOST"] = loadAnimationTextures(6, 'goro_lost_');
 	animFightersTextures["goro:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'goro_stance_right_to_left_');
 	animFightersTextures["goro:VICTORY"] = loadAnimationTextures(3, 'goro_victory_');
-	console.log("Load assets goro.json - complete!");
+	// console.log("Load assets goro.json - complete!");
 
 	/* jax.json */
 	animFightersTextures["jax:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'jax_damage_left_to_right_');
@@ -196,7 +196,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["jax:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'jax_stance_left_to_right_');
 	animFightersTextures["jax:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'jax_stance_right_to_left_');
 	animFightersTextures["jax:VICTORY"] = loadAnimationTextures(7, 'jax_victory_');
-	console.log("Load assets jax.json - complete!");
+	// console.log("Load assets jax.json - complete!");
 
 	/* johnnycage.json */
 	animFightersTextures["johnnycage:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'johnnycage_damage_left_to_right_');
@@ -215,7 +215,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["johnnycage:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'johnnycage_stance_left_to_right_');
 	animFightersTextures["johnnycage:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'johnnycage_stance_right_to_left_');
 	animFightersTextures["johnnycage:VICTORY"] = loadAnimationTextures(14, 'johnnycage_victory_');
-	console.log("Load assets johnnycage.json - complete!");
+	// console.log("Load assets johnnycage.json - complete!");
 
 	/* kitana.json */
 	animFightersTextures["kitana:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'kitana_damage_left_to_right_');
@@ -234,7 +234,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["kitana:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(6, 'kitana_stance_left_to_right_');
 	animFightersTextures["kitana:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(6, 'kitana_stance_right_to_left_');
 	animFightersTextures["kitana:VICTORY"] = loadAnimationTextures(12, 'kitana_victory_');
-	console.log("Load assets kitana.json - complete!");
+	// console.log("Load assets kitana.json - complete!");
 
 	/* kunglao.json */
 	animFightersTextures["kunglao:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'kunglao_damage_left_to_right_');
@@ -253,7 +253,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["kunglao:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'kunglao_stance_left_to_right_');
 	animFightersTextures["kunglao:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(8, 'kunglao_stance_right_to_left_');
 	animFightersTextures["kunglao:VICTORY"] = loadAnimationTextures(8, 'kunglao_victory_');
-	console.log("Load assets kunglao.json - complete!");
+	// console.log("Load assets kunglao.json - complete!");
 
 	/* liukang.json */
 	animFightersTextures["liukang:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'liukang_damage_left_to_right_');
@@ -272,7 +272,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["liukang:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'liukang_stance_left_to_right_');
 	animFightersTextures["liukang:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'liukang_stance_right_to_left_');
 	animFightersTextures["liukang:VICTORY"] = loadAnimationTextures(8, 'liukang_victory_');
-	console.log("Load assets liukang.json - complete!");
+	// console.log("Load assets liukang.json - complete!");
 
 	/* mileena.json */
 	animFightersTextures["mileena:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'mileena_damage_left_to_right_');
@@ -291,7 +291,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["mileena:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(12, 'mileena_stance_left_to_right_');
 	animFightersTextures["mileena:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(12, 'mileena_stance_right_to_left_');
 	animFightersTextures["mileena:VICTORY"] = loadAnimationTextures(12, 'mileena_victory_');
-	console.log("Load assets mileena.json - complete!");
+	// console.log("Load assets mileena.json - complete!");
 
 	/* raiden.json */
 	animFightersTextures["raiden:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'raiden_damage_left_to_right_');
@@ -310,7 +310,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["raiden:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(10, 'raiden_stance_left_to_right_');
 	animFightersTextures["raiden:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(10, 'raiden_stance_right_to_left_');
 	animFightersTextures["raiden:VICTORY"] = loadAnimationTextures(9, 'raiden_victory_');
-	console.log("Load assets raiden.json - complete!");
+	// console.log("Load assets raiden.json - complete!");
 
 	/* reptile.json */
 	animFightersTextures["reptile:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'reptile_damage_left_to_right_');
@@ -329,7 +329,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["reptile:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'reptile_stance_left_to_right_');
 	animFightersTextures["reptile:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'reptile_stance_right_to_left_');
 	animFightersTextures["reptile:VICTORY"] = loadAnimationTextures(4, 'reptile_victory_');
-	console.log("Load assets reptile.json - complete!");
+	// console.log("Load assets reptile.json - complete!");
 
 	/* scorpion.json */
 	animFightersTextures["scorpion:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'scorpion_damage_left_to_right_');
@@ -348,7 +348,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["scorpion:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'scorpion_stance_left_to_right_');
 	animFightersTextures["scorpion:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'scorpion_stance_right_to_left_');
 	animFightersTextures["scorpion:VICTORY"] = loadAnimationTextures(3, 'scorpion_victory_');
-	console.log("Load assets scorpion.json - complete!");
+	// console.log("Load assets scorpion.json - complete!");
 
 	/* shangtsung.json */
 	animFightersTextures["shangtsung:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'shangtsung_damage_left_to_right_');
@@ -367,7 +367,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["shangtsung:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'shangtsung_stance_left_to_right_');
 	animFightersTextures["shangtsung:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'shangtsung_stance_right_to_left_');
 	animFightersTextures["shangtsung:VICTORY"] = loadAnimationTextures(5, 'shangtsung_victory_');
-	console.log("Load assets shangtsung.json - complete!");
+	// console.log("Load assets shangtsung.json - complete!");
 
 	/* shaokahn.json */
 	animFightersTextures["shaokahn:DAMAGE:RIGHT_TO_LEFT"] = loadAnimationTextures(3, 'shaokahn_damage_right_to_left_');;
@@ -379,7 +379,7 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["shaokahn:LOST"] = loadAnimationTextures(11, 'shaokahn_lost_');
 	animFightersTextures["shaokahn:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'shaokahn_stance_right_to_left_');
 	animFightersTextures["shaokahn:VICTORY"] = loadAnimationTextures(3, 'shaokahn_victory_');
-	console.log("Load assets shaokahn.json - complete!");
+	// console.log("Load assets shaokahn.json - complete!");
 
 	/* subzero.json */
 	animFightersTextures["subzero:DAMAGE:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'subzero_damage_left_to_right_');
@@ -398,26 +398,26 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["subzero:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(12, 'subzero_stance_left_to_right_');
 	animFightersTextures["subzero:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(12, 'subzero_stance_right_to_left_');
 	animFightersTextures["subzero:VICTORY"] = loadAnimationTextures(3, 'subzero_victory_');
-	console.log("Load assets subzero.json - complete!");
+	// console.log("Load assets subzero.json - complete!");
 
 	/* levels */
-	fieldLevels.push(res.level1); /* level1.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level2); /* level2.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level3); /* level3.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level4); /* level4.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level5); /* level5.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level6); /* level6.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level7); /* level7.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level8); /* level8.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level9); /* level9.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level10); /* level10.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level11); /* level11.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level12); /* level12.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level13); /* level13.json */	console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
-	fieldLevels.push(res.level0); /* level0.json */ console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level1); /* level1.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level2); /* level2.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level3); /* level3.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level4); /* level4.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level5); /* level5.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level6); /* level6.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level7); /* level7.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level8); /* level8.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level9); /* level9.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level10); /* level10.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level11); /* level11.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level12); /* level12.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level13); /* level13.json */	// console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
+	fieldLevels.push(res.level0); /* level0.json */ // console.log("Load assets level" + fieldLevels[fieldLevels.length - 1].data.Level.LevelNumber + ".json - complete!");
 	
 
-	console.log("Load all assets - complete!");
+	// console.log("Load all assets - complete!");
 	
 	bgShow();		// GAME BACKGROUND SHOW
 	stage.removeChild(bgPreloaderSprite);
@@ -450,7 +450,7 @@ function bgShow()
 
 	stage.addChild(bgSprite);
 
-	console.log("Create game background");
+	// console.log("Create game background");
 
 	menuShow();			// MENU SHOW
 }

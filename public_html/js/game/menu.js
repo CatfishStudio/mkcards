@@ -50,7 +50,7 @@ function menuShow()
 	
 
 	stage.addChild(menuStage);
-	console.log("Create window: menu");
+	// console.log("Create window: menu");
 }
 
 function onMenuButtonDown()
@@ -77,5 +77,5 @@ function onMenuSpriteButtonClick()
 		stage.removeChild(menuStage);
 		fightersShow(); // FIGHTERS SHOW
 	}
-	console.log("Menu click button: " + this.name);
+	// console.log("Menu click button: " + this.name);
 }

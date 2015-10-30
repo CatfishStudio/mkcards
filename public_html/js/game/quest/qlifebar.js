@@ -48,7 +48,7 @@ function qlifebarBackground()
 	lbText.y = 65;
 	qlifebarStage.addChild(lbText);
 
-	console.log("[LIFEBAR] Create lifebar!");
+	// console.log("[LIFEBAR] Create lifebar!");
 }
 
 function qlifebarGetFighterName(fighterName)

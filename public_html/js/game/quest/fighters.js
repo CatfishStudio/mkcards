@@ -21,7 +21,7 @@ function fightersShow()
 	createFightersButton();
 
 	stage.addChild(fightersStage);
-	console.log("Create window: fighters");
+	// console.log("Create window: fighters");
 }
 
 /* LEFT WINDOW */
@@ -196,7 +196,7 @@ function onFightersIconButtonClick()
 	createFightersRightWindow(this.name);
 	fightersAnimation.textures = animFightersTextures[this.name + ":STANCE:LEFT_TO_RIGHT"];
 
-	console.log("Fighters click icon button: " + this.name);
+	// console.log("Fighters click icon button: " + this.name);
 }
 
 
@@ -289,5 +289,5 @@ function onFightersButtonClick()
 		stage.removeChild(fightersStage);
 		stairsShow();						// STAIRS SHOW
 	}
-	console.log("Fighters click button: " + this.name);
+	// console.log("Fighters click button: " + this.name);
 }

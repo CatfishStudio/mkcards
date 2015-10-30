@@ -37,7 +37,7 @@ function qGlobalItinUserFighter()
 	qGlobalExperiencePoints = 0;
 	qGlobalTotalPointsPlayerTournament = 0;
 	qGlobalTotalPointsPlayerLevel = 0;
-	console.log("GLOBAL[quest]: user init");
+	// console.log("GLOBAL[quest]: user init");
 }
 
 /* Очистка характеристик пользователя */
@@ -55,7 +55,7 @@ function qGlobalClearUser()
 	qGlobalExperiencePoints = 0;
 	qGlobalTotalPointsPlayerTournament = 0;
 	qGlobalTotalPointsPlayerLevel = 0;
-	console.log("GLOBAL[quest]: user clear");
+	// console.log("GLOBAL[quest]: user clear");
 }
 /*======================================================================================================================*/
 
@@ -81,7 +81,7 @@ function qGlobalInitFightersCharacteristics()
 	qGlobalFightersCharacteristics["baraka"] = [1,1,1,1,3,200];
 	qGlobalFightersCharacteristics["scorpion"] = [3,1,1,1,1,200];
 	qGlobalFightersCharacteristics["raiden"] = [2,1,2,1,2,200];
-	console.log("GLOBAL[quest]: init fighters characteristics");
+	// console.log("GLOBAL[quest]: init fighters characteristics");
 }
 /*======================================================================================================================*/
 
@@ -122,7 +122,7 @@ function qGlobalInitEnemiesAI()
 			qGE.ai_hit_5 = qGlobalFightersCharacteristics[fightersName[i]][4];
 			qGE.ai_life = qGlobalFightersCharacteristics[fightersName[i]][5];
 			EnemiesAI.push(qGE);
-			console.log("GLOBAL[quest][AI][EnemiesAI]: " + EnemiesAI[EnemiesAI.length - 1].ai_name + " LIFE: " + EnemiesAI[EnemiesAI.length - 1].ai_life);
+			// console.log("GLOBAL[quest][AI][EnemiesAI]: " + EnemiesAI[EnemiesAI.length - 1].ai_name + " LIFE: " + EnemiesAI[EnemiesAI.length - 1].ai_life);
 		}
 	}
 
@@ -137,7 +137,7 @@ function qGlobalInitEnemiesAI()
 	qGE.ai_hit_5 = qGlobalFightersCharacteristics["shaokahn"][4];
 	qGE.ai_life = qGlobalFightersCharacteristics["shaokahn"][5];
 	qGlobalEnemiesAI.push(qGE);
-	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[0].ai_name + " LIFE: " + qGlobalEnemiesAI[0].ai_life + "  HIT1:" + qGlobalEnemiesAI[0].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[0].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[0].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[0].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[0].ai_hit_5);
+	// console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[0].ai_name + " LIFE: " + qGlobalEnemiesAI[0].ai_life + "  HIT1:" + qGlobalEnemiesAI[0].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[0].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[0].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[0].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[0].ai_hit_5);
 
 	qGE = new qGlobalEnemy();
 	qGE.ai_name = "goro";
@@ -148,14 +148,14 @@ function qGlobalInitEnemiesAI()
 	qGE.ai_hit_5 = qGlobalFightersCharacteristics["goro"][4];
 	qGE.ai_life = qGlobalFightersCharacteristics["goro"][5];
 	qGlobalEnemiesAI.push(qGE);
-	console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[1].ai_name + " LIFE: " + qGlobalEnemiesAI[1].ai_life + "  HIT1:" + qGlobalEnemiesAI[1].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[1].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[1].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[1].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[1].ai_hit_5);
+	// console.log("GLOBAL[quest][AI][qGlobalEnemiesAI]: " + qGlobalEnemiesAI[1].ai_name + " LIFE: " + qGlobalEnemiesAI[1].ai_life + "  HIT1:" + qGlobalEnemiesAI[1].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[1].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[1].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[1].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[1].ai_hit_5);
 
 	for (var k = EnemiesAI.length; k > 0 ; k--)
 	{
 		var index = qGlobalRandomIndexEnemies(k);
 		EnemiesAI[index].ai_life += 50 * (k - 1) *2;
 		qGlobalEnemiesAI.push(EnemiesAI[index]);
-		console.log("GLOBAL[quest][AI][EnemiesAI -> qGlobalEnemiesAI]: " + EnemiesAI[index].ai_name + " LIFE: " + EnemiesAI[index].ai_life + "  HIT1:" + EnemiesAI[index].ai_hit_1+ "  HIT2:" + EnemiesAI[index].ai_hit_2+ "  HIT3:" + EnemiesAI[index].ai_hit_3+ "  HIT4:" + EnemiesAI[index].ai_hit_4+ "  HIT5:" + EnemiesAI[index].ai_hit_5);
+		// console.log("GLOBAL[quest][AI][EnemiesAI -> qGlobalEnemiesAI]: " + EnemiesAI[index].ai_name + " LIFE: " + EnemiesAI[index].ai_life + "  HIT1:" + EnemiesAI[index].ai_hit_1+ "  HIT2:" + EnemiesAI[index].ai_hit_2+ "  HIT3:" + EnemiesAI[index].ai_hit_3+ "  HIT4:" + EnemiesAI[index].ai_hit_4+ "  HIT5:" + EnemiesAI[index].ai_hit_5);
 		EnemiesAI.splice(index, 1);
 	}
 }
@@ -187,7 +187,7 @@ function qGlobalInitEnemiesCharacteristics()
 			if (index === 4) qGlobalEnemiesAI[i].ai_hit_4++;
 			if (index === 5) qGlobalEnemiesAI[i].ai_hit_5++;
 		}
-		console.log("GLOBAL[quest][AI][Characteristics ++ " + experiencePoints + " ]: " + qGlobalEnemiesAI[i].ai_name + "  HIT1:" + qGlobalEnemiesAI[i].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[i].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[i].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[i].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[i].ai_hit_5);
+		// console.log("GLOBAL[quest][AI][Characteristics ++ " + experiencePoints + " ]: " + qGlobalEnemiesAI[i].ai_name + "  HIT1:" + qGlobalEnemiesAI[i].ai_hit_1+ "  HIT2:" + qGlobalEnemiesAI[i].ai_hit_2+ "  HIT3:" + qGlobalEnemiesAI[i].ai_hit_3+ "  HIT4:" + qGlobalEnemiesAI[i].ai_hit_4+ "  HIT5:" + qGlobalEnemiesAI[i].ai_hit_5);
 	}
 }
 
@@ -241,12 +241,12 @@ function qGlobalInitLevels()
 		tLevels.splice(index, 1);
 
 		qGlobalLevels.push(qGL);
-		console.log("GLOBAL[quest][Levels] Level : " + qGlobalLevels[qGlobalLevels.length - 1].levelField.data.Level.LevelNumber + "  Background : " + index);
+		// console.log("GLOBAL[quest][Levels] Level : " + qGlobalLevels[qGlobalLevels.length - 1].levelField.data.Level.LevelNumber + "  Background : " + index);
 	}
 
 	/*
-	console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.LevelType);
-	console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.cell[0].cellObject);
+	// console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.LevelType);
+	// console.log("SUPER " + fieldLevels[fieldLevels.length - 1].data.Level.cell[0].cellObject);
 	*/
 }
 
