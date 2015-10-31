@@ -45,6 +45,9 @@ function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 function onQTimerComplete()
 {
 	if(qtimerCount === Q_TIMER_MIN_VALUE){	// таймер = минимум
+	
+		levelResetBlock("ALL");
+	
 		if(modeAI === true)
 		{
 			matchFieldBlocked = false; 	// поле разблокированно
@@ -72,11 +75,13 @@ function qtimerStart()
 	if(modeAI === true)
 	{
 		matchFieldBlocked = false; 	// поле разблокированно
-		modeAI = false;				// ИИ отключен
+		modeAI = false;					// ИИ отключен
+		levelResetBlock("USER");		// убираем блок с Пользователя
 		// console.log("[HIT START]: USER наносит удар!");
 	}else{
-		matchFieldBlocked = true;	// поле заблокированно
-		modeAI = true;				// ИИ включен
+		matchFieldBlocked = true;		// поле заблокированно
+		modeAI = true;					// ИИ включен
+		levelResetBlock("AI");			// убираем блок с ИИЫ
 		matchCellColorBack();
 		matchSelectUnit1 = null;
 		matchSelectUnit2 = null;

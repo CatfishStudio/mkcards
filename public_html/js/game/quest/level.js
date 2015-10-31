@@ -202,10 +202,18 @@ function onLevelAnimationRightFighterComplete()
 	}
 }
 
-function levelResetBlock()
+function levelResetBlock(targetName)
 {
-	levelUserBlock = false;
-	levelAIBlock = false;
+	if(targetName === "USER" || targetName === "ALL")
+	{
+		levelUserBlock = false;
+		updateLevelAnimationLeftFighter("STANCE");
+	}
+	if(targetName === "AI" || targetName === "ALL")
+	{
+		levelAIBlock = false;
+		updateLevelAnimationRightFighter("STANCE");	
+	}
 	// console.log("level[blocks]: CLEAR!");
 }
 /* =========================================================================== */
