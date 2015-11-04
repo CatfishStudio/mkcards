@@ -145,10 +145,16 @@ function levelUpdateAnimation(modeAI, hitType)
 	if(modeAI === false) 																					// удар наносит пользователь
 	{
 		updateLevelAnimationLeftFighter(hitType);													// анимация пользователя
-		if(levelAIBlock === false && hitType !== MATCH_HIT_3) updateLevelAnimationRightFighter("DAMAGE");	// ИИ получает повреждения только если не в блоке
+		if(levelAIBlock === false && hitType !== MATCH_HIT_3){
+			updateLevelAnimationRightFighter("DAMAGE");	// ИИ получает повреждения только если не в блоке
+			levelBloodAnimation(levelAnimationRightFighter, "FIGHTER_RIGHT");
+		}
 	}else{ 																											// удар наносит ИИ
 		updateLevelAnimationRightFighter(hitType);													// анимация ИИ
-		if(levelUserBlock === false && hitType !== MATCH_HIT_3) updateLevelAnimationLeftFighter("DAMAGE"); 	// Пользователь получает повреждения только если не в блоке
+		if(levelUserBlock === false && hitType !== MATCH_HIT_3) {
+			updateLevelAnimationLeftFighter("DAMAGE"); 	// Пользователь получает повреждения только если не в блоке
+			levelBloodAnimation(levelAnimationLeftFighter, "FIGHTER_LEFT");
+		}
 	}
 }
 
@@ -215,6 +221,32 @@ function levelResetBlock(targetName)
 		updateLevelAnimationRightFighter("STANCE");	
 	}
 	// console.log("level[blocks]: CLEAR!");
+}
+
+/* Анимация крови */
+function levelBloodAnimation(fighter, type)
+{
+	var anim = new PIXI.extras.MovieClip(animTexBlood);
+	if(type === "FIGHTER_LEFT")
+	{
+		anim.position.x = fighter.position.x - 75;
+		anim.position.y = fighter.position.y - 45;
+	}
+	if(type === "FIGHTER_RIGHT")
+	{
+		anim.position.x = fighter.position.x - 50;
+		anim.position.y = fighter.position.y - 45;
+	}
+	anim.loop = false;
+	anim.animationSpeed = 0.2;
+	anim.onComplete = onLevelAnimationBloodComplete;
+	anim.play();
+	levelStage.addChild(anim);
+}
+
+function onLevelAnimationBloodComplete()
+{
+	levelStage.removeChild(this);
 }
 /* =========================================================================== */
 
