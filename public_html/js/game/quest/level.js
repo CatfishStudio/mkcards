@@ -5,14 +5,16 @@ var levelAnimationRightFighter;	// Анимация правого бойца (�
 
 var levelAIName = null;
 var levelAIHit1 = 0;
-var levelAIHit1 = 0;
-var levelAIHit1 = 0;
-var levelAIHit1 = 0;
-var levelAIHit1 = 0;
+var levelAIHit2 = 0;
+var levelAIHit3 = 0;
+var levelAIHit4 = 0;
+var levelAIHit5 = 0;
 var levelAILife = 0;
 
 var levelUserBlock = false;
+var levelUserBlockPoints = 0;
 var levelAIBlock = false; 
+var levelAIBlockPoints = 0;
 
 var levelStyleText = {
     font : 'bold 13px Arial',
@@ -146,13 +148,13 @@ function levelUpdateAnimation(modeAI, hitType)
 	{
 		updateLevelAnimationLeftFighter(hitType);													// анимация пользователя
 		if(levelAIBlock === false && hitType !== MATCH_HIT_3){
-			updateLevelAnimationRightFighter("DAMAGE");	// ИИ получает повреждения только если не в блоке
+			updateLevelAnimationRightFighter("DAMAGE");											// ИИ получает повреждения только если не в блоке
 			levelBloodAnimation(levelAnimationRightFighter, "FIGHTER_RIGHT");
 		}
 	}else{ 																											// удар наносит ИИ
 		updateLevelAnimationRightFighter(hitType);													// анимация ИИ
 		if(levelUserBlock === false && hitType !== MATCH_HIT_3) {
-			updateLevelAnimationLeftFighter("DAMAGE"); 	// Пользователь получает повреждения только если не в блоке
+			updateLevelAnimationLeftFighter("DAMAGE"); 											// Пользователь получает повреждения только если не в блоке
 			levelBloodAnimation(levelAnimationLeftFighter, "FIGHTER_LEFT");
 		}
 	}
@@ -213,11 +215,13 @@ function levelResetBlock(targetName)
 	if(targetName === "USER" || targetName === "ALL")
 	{
 		levelUserBlock = false;
+		levelUserBlockPoints = 0;
 		updateLevelAnimationLeftFighter("STANCE");
 	}
 	if(targetName === "AI" || targetName === "ALL")
 	{
 		levelAIBlock = false;
+		levelAIBlockPoints = 0;
 		updateLevelAnimationRightFighter("STANCE");	
 	}
 	// console.log("level[blocks]: CLEAR!");
@@ -337,32 +341,78 @@ function levelReduceLifeBar(hitType, hitCount, hitModeAI)
 {
 	var hitOne = (200 / qGlobalUserLife);
 	var hitPlus = hitOne * (hitCount - 3);
+	var damage = 0;
 	// console.log("[LIFEBAR]: " + qGlobalUserFighterName);
 
 	if(hitType === MATCH_HIT_1)
 	{
-		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_1) + hitPlus);
-		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_1) + hitPlus);
+		if(hitModeAI === false) 
+		{
+			damage = ((DAMAGE_HIT_1 * qGlobalUserHit1) + hitPlus) - levelAIBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceRightBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationRightFighter.position.x+35), (levelAnimationRightFighter.position.y), (levelAnimationRightFighter.position.x+35), 100, levelAIBlockPoints);
+		} else {
+			damage = ((DAMAGE_HIT_1 * levelAIHit1) + hitPlus) - levelUserBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceLeftBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationLeftFighter.position.x+25), (levelAnimationLeftFighter.position.y), (levelAnimationLeftFighter.position.x+25), 100, levelUserBlockPoints);
+		}
 	}
 	if(hitType === MATCH_HIT_2)
 	{
-		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_2) + hitPlus);
-		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_2) + hitPlus);
+		if(hitModeAI === false) 
+		{
+			damage = ((DAMAGE_HIT_2 * qGlobalUserHit2) + hitPlus) - levelAIBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceRightBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationRightFighter.position.x+35), (levelAnimationRightFighter.position.y), (levelAnimationRightFighter.position.x+35), 100, levelAIBlockPoints);
+		} else {
+			damage = ((DAMAGE_HIT_2 * levelAIHit2) + hitPlus) - levelUserBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceLeftBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationLeftFighter.position.x+25), (levelAnimationLeftFighter.position.y), (levelAnimationLeftFighter.position.x+25), 100, levelUserBlockPoints);
+		}
 	}
 	if(hitType === MATCH_HIT_3)
 	{
-		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_3) + hitPlus);
-		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_3) + hitPlus);
+		points = (DAMAGE_HIT_3 + (hitCount - 3));
+		if(hitModeAI === false)
+		{
+			if(levelUserBlockPoints < points) levelUserBlockPoints = points; 
+		} else {
+			if(levelAIBlockPoints < points) levelAIBlockPoints = 	points;
+		}
 	}
 	if(hitType === MATCH_HIT_4)
 	{
-		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_4) + hitPlus);
-		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_4) + hitPlus);
+		if(hitModeAI === false) 
+		{
+			damage = ((DAMAGE_HIT_4 * qGlobalUserHit4) + hitPlus) - levelAIBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceRightBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationRightFighter.position.x+35), (levelAnimationRightFighter.position.y), (levelAnimationRightFighter.position.x+35), 100, levelAIBlockPoints);
+		} else {
+			damage = ((DAMAGE_HIT_4 * levelAIHit4) + hitPlus) - levelUserBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceLeftBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationLeftFighter.position.x+25), (levelAnimationLeftFighter.position.y), (levelAnimationLeftFighter.position.x+25), 100, levelUserBlockPoints);
+		}
 	}
 	if(hitType === MATCH_HIT_5)
 	{
-		if(hitModeAI === false) qlifebarReduceRightBar((hitOne * DAMAGE_HIT_5) + hitPlus);
-		else qlifebarReduceLeftBar((hitOne * DAMAGE_HIT_5) + hitPlus);
+		if(hitModeAI === false)
+		{
+			damage = ((DAMAGE_HIT_5 * qGlobalUserHit5) + hitPlus) - levelAIBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceRightBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationRightFighter.position.x+35), (levelAnimationRightFighter.position.y), (levelAnimationRightFighter.position.x+35), 100, levelAIBlockPoints);
+		} else {
+			damage = ((DAMAGE_HIT_5 * levelAIHit5) + hitPlus) - levelUserBlockPoints;
+			if(damage <= 0) damage = 0;
+			qlifebarReduceLeftBar(hitOne * damage);
+			qdamageTextCreate(damage, (levelAnimationLeftFighter.position.x+25), (levelAnimationLeftFighter.position.y), (levelAnimationLeftFighter.position.x+25), 100, levelUserBlockPoints);
+		}
 	}
 }
 /* =========================================================================== */
