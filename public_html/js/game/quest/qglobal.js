@@ -11,17 +11,17 @@ function qGlobalRandomIndex()
 /*======================================================================================================================*/
 /* ХАРАКТЕРИСТИКИ ПОЛЬЗОВАТЕЛЯ */
 var qGlobalUserFighterName;					// Имя бойца пользователя
-var qGlobalUserHit1 = 0;					// Удар ногой
-var qGlobalUserHit2 = 0;					// Удар рукой
-var qGlobalUserHit3 = 0;					// Блок
-var qGlobalUserHit4 = 0;					// Апперкот
-var qGlobalUserHit5 = 0;					// С разворота
+var qGlobalUserHit1 = 0;						// Удар ногой
+var qGlobalUserHit2 = 0;						// Удар рукой
+var qGlobalUserHit3 = 0;						// Блок
+var qGlobalUserHit4 = 0;						// Апперкот
+var qGlobalUserHit5 = 0;						// С разворота
 var qGlobalUserLife = 200;					// количество жизни
 var qGlobalUserContinue = 9;				// количество повторов
-var qGlobalTournamentProgress = 12;			// Прогресс прохождения турника (индекс врага) с конца в начало
+var qGlobalTournamentProgress = 12;	// Прогресс прохождения турника (индекс врага) с конца в начало
 var qGlobalExperiencePoints = 0;			// Очки опыта
 var qGlobalTotalPointsPlayerTournament = 0;	// Общие очки игрока за весь турнир
-var qGlobalTotalPointsPlayerLevel = 0;		// Общие очки игрока за уровень
+var qGlobalTotalPointsPlayerLevel = 0;	// Общие очки игрока за уровень
 
 /* Инициализация характеристик выбранного бойца */
 function qGlobalItinUserFighter()

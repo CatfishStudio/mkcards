@@ -3,6 +3,7 @@ var levelWindowStage;			// stage окна
 var levelAnimationLeftFighter;	// Анимация левого бойца (пользователь)
 var levelAnimationRightFighter;	// Анимация правого бойца (ИИ)
 
+/* Характеристики ИИ */
 var levelAIName = null;
 var levelAIHit1 = 0;
 var levelAIHit2 = 0;
@@ -10,6 +11,9 @@ var levelAIHit3 = 0;
 var levelAIHit4 = 0;
 var levelAIHit5 = 0;
 var levelAILife = 0;
+
+var levelAILifeFromBattle = 0;		// количество оставшегося здоровья в битве у ИИ
+var levelUserLifeFromBattle = 0;	// количество оставшегося здоровья в битве у Пользователя
 
 var levelUserBlock = false;
 var levelUserBlockPoints = 0;
@@ -55,6 +59,9 @@ function levelInitFighters()
 	levelAIHit4 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_4;
 	levelAIHit5 = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_hit_5;
 	levelAILife = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_life;
+	
+	levelAILifeFromBattle = qGlobalEnemiesAI[qGlobalTournamentProgress].ai_life;
+	levelUserLifeFromBattle = qGlobalUserLife;
 }
 /* =========================================================================== */
 
@@ -339,10 +346,19 @@ function onLevelButtonClick()
 /* ПРОГРЕСС: Уменьшение значений LifeBars ====================================================== */
 function levelReduceLifeBar(hitType, hitCount, hitModeAI) 
 {
-	var hitOne = (200 / qGlobalUserLife);
-	var hitPlus = hitOne * (hitCount - 3);
+	var hitOne = 0;
+	var hitPlus = 0;
 	var damage = 0;
-	// console.log("[LIFEBAR]: " + qGlobalUserFighterName);
+	
+	if(hitModeAI === false) 						// удар пользователя
+	{
+		var hitOne = (200 / qGlobalUserLife);
+		var hitPlus = hitOne * (hitCount - 3);
+	}else{ 													// удар ИИ
+		var hitOne = (200 / levelAILife);
+		var hitPlus = hitOne * (hitCount - 3);
+	}
+	
 
 	if(hitType === MATCH_HIT_1)
 	{
@@ -413,6 +429,18 @@ function levelReduceLifeBar(hitType, hitCount, hitModeAI)
 			qlifebarReduceLeftBar(hitOne * damage);
 			qdamageTextCreate(damage, (levelAnimationLeftFighter.position.x+25), (levelAnimationLeftFighter.position.y), (levelAnimationLeftFighter.position.x+25), 100, levelUserBlockPoints);
 		}
+	}
+	
+	levelReduceLife(hitModeAI, damage);	// уменьшение количества жизни
+}
+
+function levelReduceLife(hitModeAI, damage)
+{
+	if(hitModeAI === false) 						// удар пользователя
+	{
+		levelAILifeFromBattle -= damage;		// уменишение жизни у ИИ
+	}else{ 													// удар ИИ
+		levelUserLifeFromBattle -= damage; 	// уменишение жизни у Пользователя
 	}
 }
 /* =========================================================================== */
