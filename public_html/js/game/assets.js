@@ -7,6 +7,8 @@ var blueportalTexture;			// blueportalImage.png
 var buttonPlusTextures;			// character_button_plus.png
 var bgCharacterWindowTexture;		// character_background_small.png
 var borderCharacterWindowTexture;	// character_border_small.png
+var borderWindowTexture;				// window_border.png
+var bgWindowTexture;				// window_background.png
 var iconBarakaTexture;			// baraka.png
 var iconGoroTexture;			// goro.png
 var iconJaxTexture;			// jax.png

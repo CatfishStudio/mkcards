@@ -87,6 +87,8 @@ function onAssetsLoaded(loader, res)
 	buttonPlusTextures = PIXI.Texture.fromFrame('character_button_plus.png');
 	bgCharacterWindowTexture = PIXI.Texture.fromFrame('character_background_small.png');
 	borderCharacterWindowTexture = PIXI.Texture.fromFrame('character_border_small.png');
+	borderWindowTexture = PIXI.Texture.fromFrame('window_border.png');
+	bgWindowTexture = PIXI.Texture.fromFrame('window_background.png');
 	iconBarakaTexture = PIXI.Texture.fromFrame('baraka.png');
 	iconsFightersAll["baraka"] = iconBarakaTexture;
 	iconGoroTexture = PIXI.Texture.fromFrame('goro.png');

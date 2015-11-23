@@ -338,7 +338,7 @@ function onLevelButtonClick()
 {
 	if(this.name === "Settings")
 	{
-		matchUpdateField();
+		qwindowCreate(QWINDOW_TYPE_EXIT_BATTLE);
 	}
 }
 /* =========================================================================== */
