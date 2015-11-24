@@ -95,12 +95,15 @@ function qlifebarCreateRightBar()
 
 function qlifebarReduceLeftBar(valueReduce)
 {
-	qlifebarGraphicsLeft.width -= valueReduce;
+	if((qlifebarGraphicsLeft.width - valueReduce) > 0) qlifebarGraphicsLeft.width -= valueReduce;
+	else qlifebarGraphicsLeft.width = 0;
 }
 
 function qlifebarReduceRightBar(valueReduce)
 {
 	var posWidth = qlifebarGraphicsRigth.width;
-	qlifebarGraphicsRigth.width -= valueReduce;
+	if((qlifebarGraphicsRigth.width - valueReduce) > 0) qlifebarGraphicsRigth.width -= valueReduce;
+	else qlifebarGraphicsRigth.width = 0;
 	qlifebarGraphicsRigth.x += (posWidth - qlifebarGraphicsRigth.width);
+	
 }

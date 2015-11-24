@@ -28,6 +28,8 @@ var levelStyleText = {
 /* Главная функция =============================================================== */
 function levelShow()
 {
+	qGlobalTotalPointsPlayerLevel = 0;
+	
 	levelStage = new PIXI.Container();
 	levelWindowStage = new PIXI.Container();
 
@@ -338,7 +340,7 @@ function onLevelButtonClick()
 {
 	if(this.name === "Settings")
 	{
-		qwindowCreate(QWINDOW_TYPE_EXIT_BATTLE);
+		qwindowCreate(QWINDOW_TYPE_WIN);
 	}
 }
 /* =========================================================================== */
@@ -439,6 +441,7 @@ function levelReduceLife(hitModeAI, damage)
 	if(hitModeAI === false) 						// удар пользователя
 	{
 		levelAILifeFromBattle -= damage;		// уменишение жизни у ИИ
+		qGlobalTotalPointsPlayerLevel += (damage * 10);
 	}else{ 													// удар ИИ
 		levelUserLifeFromBattle -= damage; 	// уменишение жизни у Пользователя
 	}
