@@ -56,11 +56,15 @@ function qwindowRemove()
 function qwindowGlobalBackground()
 {
 	var graphics = new PIXI.Graphics();
+	graphics.hitArea = new PIXI.Rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGH);
+	graphics.interactive = true;			// ОЧЕНЬ ВАЖНО!!! Необходимо для отключения интерактивности находящихся внизу объектов
 	graphics.lineStyle(2, 0x000000, 1);
-	graphics.beginFill(0x000000, 0.75);
+	graphics.beginFill(0x000000, 0.25);
 	graphics.drawRect(0, 0, MAIN_WIDTH, MAIN_HEIGH);
 	graphics.endFill();
 	qwindowStage.addChild(graphics);
+	
+	
 }
 
 /* картинка фона окна */
@@ -79,9 +83,8 @@ function qwindowBackgroundGraphicsRed()
 	graphics.position.x = MAIN_WIDTH / 4;
 	graphics.position.y = MAIN_HEIGH / 4;
 	graphics.lineStyle(2, 0x620000, 1);
-	graphics.clear();
 	graphics.beginFill(0x620000, 0.8);
-	graphics.drawRoundedRect(0, 0, 400, 253, 15);
+	graphics.drawRect(0, 0, 400, 253);
 	graphics.endFill();
 	qwindowStage.addChild(graphics);
 }
