@@ -55,27 +55,43 @@ function menuShow()
 
 function onMenuButtonDown()
 {
-    this.isdown = true;
-    this.scale.set(0.95);
-    this.position.x += 5; 
+	this.isdown = true;
+	this.scale.set(0.95);
+	this.position.x += 5; 
 }
 
 function onMenuButtonUp()
 {
 	if(this.isdown)
 	{
-    	this.isdown = false;
-    	this.scale.set(1.0);
-    	this.position.x -= 5;
-    }
+		this.isdown = false;
+		this.scale.set(1.0);
+		this.position.x -= 5;
+	}
 }
 
 function onMenuSpriteButtonClick() 
 {
-	if(this.name === "menuSpriteButton0")
-	{
-		stage.removeChild(menuStage);
-		fightersShow(); // FIGHTERS SHOW
+	switch(this.name) {
+		case "menuSpriteButton0":
+			stage.removeChild(menuStage);
+			fightersShow(); // FIGHTERS SHOW
+			break;
+		case "menuSpriteButton1":
+			break;
+		case "menuSpriteButton2":
+			break;
+		case "menuSpriteButton3":
+			break;
+		case "menuSpriteButton4":
+			break;
+		case "menuSpriteButton5":
+			qwindowCreate(QWINDOW_TYPE_SETTINGS);
+			break;
+		case "menuSpriteButton6":
+			break;
+		default:
+			break;
 	}
 	// console.log("Menu click button: " + this.name);
 }

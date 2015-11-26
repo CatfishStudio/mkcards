@@ -14,12 +14,15 @@ var qwindowStyleText = {
 	wordWrapWidth : 440 
 };
 
-var dragonLeftMovieClip;
-var dragonRightMovieClip;
+var qwindowButtonStyleText = { font : 'bold 12px Arial', fill : '#F7EDCA', stroke : '#500000', strokeThickness : 3, wordWrap : true, wordWrapWidth : 440 };
+
+var qwindowDragonLeftMovieClip;
+var qwindowDragonRightMovieClip;
 
 function qwindowCreate(type)
 {
 	qwindowStage = new PIXI.Container();
+	
 	
 	qwindowGlobalBackground();
 	
@@ -31,9 +34,10 @@ function qwindowCreate(type)
 		qwindowBorder();
 	}
 	
-	if(type === QWINDOW_TYPE_EXIT_BATTLE)
+	if(type === QWINDOW_TYPE_SETTINGS)
 	{
-		qwindowBackgroundGraphics();
+		qwindowBackgroundGraphicsBlack();
+		qwindowButtonPanelSettings();
 		qwindowBorder();
 	}
 	
@@ -42,8 +46,8 @@ function qwindowCreate(type)
 
 function qwindowRemove()
 {
-	dragonLeftMovieClip = null;
-	dragonRightMovieClip = null;
+	qwindowDragonLeftMovieClip = null;
+	qwindowDragonRightMovieClip = null;
 	stage.removeChild(qwindowStage);
 	qwindowStage = null;
 }
@@ -52,12 +56,9 @@ function qwindowRemove()
 function qwindowGlobalBackground()
 {
 	var graphics = new PIXI.Graphics();
-	graphics.position.x = 0;
-	graphics.position.y = 0;
 	graphics.lineStyle(2, 0x000000, 1);
-	graphics.clear();
-	graphics.beginFill(0x000000, 0.25);
-	graphics.drawRoundedRect(0, 0, MAIN_WIDTH, MAIN_HEIGH, 15);
+	graphics.beginFill(0x000000, 0.75);
+	graphics.drawRect(0, 0, MAIN_WIDTH, MAIN_HEIGH);
 	graphics.endFill();
 	qwindowStage.addChild(graphics);
 }
@@ -68,7 +69,6 @@ function qwindowBackgroundImage()
 	var backgroundSprite = new PIXI.Sprite(bgWindowTexture);
 	backgroundSprite.position.x = MAIN_WIDTH / 4;
 	backgroundSprite.position.y = MAIN_HEIGH / 4;
-	backgroundSprite.scale.set(1.0);
 	qwindowStage.addChild(backgroundSprite);
 }
 
@@ -81,6 +81,20 @@ function qwindowBackgroundGraphicsRed()
 	graphics.lineStyle(2, 0x620000, 1);
 	graphics.clear();
 	graphics.beginFill(0x620000, 0.8);
+	graphics.drawRoundedRect(0, 0, 400, 253, 15);
+	graphics.endFill();
+	qwindowStage.addChild(graphics);
+}
+
+/* черный фон окна */
+function qwindowBackgroundGraphicsBlack()
+{
+	var graphics = new PIXI.Graphics();
+	graphics.position.x = MAIN_WIDTH / 4;
+	graphics.position.y = MAIN_HEIGH / 4;
+	graphics.lineStyle(2, 0x000000, 1);
+	graphics.clear();
+	graphics.beginFill(0x000000, 0.9);
 	graphics.drawRoundedRect(0, 0, 400, 253, 15);
 	graphics.endFill();
 	qwindowStage.addChild(graphics);
@@ -99,21 +113,21 @@ function qwindowBorder()
 /* Анимация драконов */
 function qwindowAnimationDragon()
 {
-	dragonLeftMovieClip = new PIXI.extras.MovieClip(animTexDrugonLeft); 
-	dragonLeftMovieClip.position.x = MAIN_WIDTH / 4; 
-	dragonLeftMovieClip.position.y = MAIN_HEIGH / 4; 
-	dragonLeftMovieClip.loop = true; 
-	dragonLeftMovieClip.animationSpeed = 0.2; 
-	dragonLeftMovieClip.play(); 
-	qwindowStage.addChild(dragonLeftMovieClip);
+	qwindowDragonLeftMovieClip = new PIXI.extras.MovieClip(animTexDrugonLeft); 
+	qwindowDragonLeftMovieClip.position.x = (MAIN_WIDTH / 4) + 2; 
+	qwindowDragonLeftMovieClip.position.y = MAIN_HEIGH / 4; 
+	qwindowDragonLeftMovieClip.loop = true; 
+	qwindowDragonLeftMovieClip.animationSpeed = 0.2; 
+	qwindowDragonLeftMovieClip.play(); 
+	qwindowStage.addChild(qwindowDragonLeftMovieClip);
 	
-	dragonRightMovieClip = new PIXI.extras.MovieClip(animTexDrugonRight); 
-	dragonRightMovieClip.position.x = (MAIN_WIDTH / 4)+ 320; 
-	dragonRightMovieClip.position.y = MAIN_HEIGH / 4; 
-	dragonRightMovieClip.loop = true; 
-	dragonRightMovieClip.animationSpeed = 0.2; 
-	dragonRightMovieClip.play(); 
-	qwindowStage.addChild(dragonRightMovieClip);
+	qwindowDragonRightMovieClip = new PIXI.extras.MovieClip(animTexDrugonRight); 
+	qwindowDragonRightMovieClip.position.x = (MAIN_WIDTH / 4) + 320; 
+	qwindowDragonRightMovieClip.position.y = MAIN_HEIGH / 4; 
+	qwindowDragonRightMovieClip.loop = true; 
+	qwindowDragonRightMovieClip.animationSpeed = 0.2; 
+	qwindowDragonRightMovieClip.play(); 
+	qwindowStage.addChild(qwindowDragonRightMovieClip);
 }
 
 function qwindowText(text)
@@ -122,4 +136,72 @@ function qwindowText(text)
 	qwindowText.x = 0; 
 	qwindowText.y = 0; 
 	qwindowStage.addChild(qwindowText);
+}
+
+function qwindowButtonPanelWin()
+{
+	
+}
+
+function qwindowButtonPanelLose()
+{
+	
+}
+
+function qwindowButtonPanelExitBattle()
+{
+	
+}
+
+function qwindowButtonPanelExitGame()
+{
+	
+}
+
+function qwindowButtonPanelSettings()
+{
+	var textButton = new PIXI.Text("Закрыть", qwindowButtonStyleText);
+	textButton.x = (170 / 2) - (textButton.width / 2);
+	textButton.y = 20;
+	
+	var spriteButton = new PIXI.Sprite(buttonTexture);
+	spriteButton.name = "buttonSettings";
+	spriteButton.position.x = 100;
+	spriteButton.position.y = 100;
+	spriteButton.interactive = true;
+	spriteButton.buttonMode = true;
+	spriteButton.tap = onqwindowButtonClick;
+	spriteButton.click = onqwindowButtonClick;
+	spriteButton.on('mousedown', onqwindowButtonDown);
+	spriteButton.on('touchstart', onqwindowButtonDown);
+	spriteButton.on('mouseup', onqwindowButtonUp);
+	spriteButton.on('touchend', onqwindowButtonUp);
+	spriteButton.on('mouseupoutside', onqwindowButtonUp);
+	spriteButton.on('touchendoutside', onqwindowButtonUp);
+
+	spriteButton.addChild(textButton);
+	qwindowStage.addChild(spriteButton);
+		
+}
+
+function onqwindowButtonDown()
+{
+	this.isdown = true;
+	this.scale.set(0.95);
+	this.position.x += 5; 
+}
+
+function onqwindowButtonUp()
+{
+	if(this.isdown)
+	{
+		this.isdown = false;
+		this.scale.set(1.0);
+		this.position.x -= 5;
+	}
+}
+
+function onqwindowButtonClick() 
+{
+	
 }

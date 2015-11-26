@@ -130,7 +130,7 @@ function createMatchField(levelJSON)
 		}
 	}
 
-
+	
 }
 
 /* Событие: нажатие на юнит */
