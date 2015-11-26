@@ -130,7 +130,12 @@ function onAssetsLoaded(loader, res)
 	hit4Texture = PIXI.Texture.fromFrame('hit_4.png');
 	hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
 	lifebarTexture = PIXI.Texture.fromFrame('lifebar.png');
-
+	soundOnTexture = PIXI.Texture.fromFrame('sound.png');
+	soundOffTexture = PIXI.Texture.fromFrame('sound_off.png');
+	musicOnTexture = PIXI.Texture.fromFrame('music.png');
+	musicOffTexture = PIXI.Texture.fromFrame('music_off.png');
+	informationTexture = PIXI.Texture.fromFrame('information.png');
+	
 	// console.log("Load assets game.json - complete!");
 
 	/* blood.json */

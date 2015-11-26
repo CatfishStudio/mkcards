@@ -37,6 +37,11 @@ var hit3Texture;			// hit_3.png
 var hit4Texture;			// hit_4.png
 var hit5Texture;			// hit_5.png
 var lifebarTexture;			// lifebar.png
+var soundOnTexture;		// sound.png
+var soundOffTexture;	// sound_off.png
+var musicOnTexture;		// music.png
+var musicOffTexture;		// music_off.png
+var informationTexture;	// information.png
 
 /* blood.json */
 var animTexBlood = [];
