@@ -49,19 +49,6 @@ function menuShow()
 		
 	}
 	
-	/*
-			  //cover container with graphics
-              var g = new PIXI.Graphics();
-			  g.hitArea = new PIXI.Rectangle(0, 0, 800, 600);
-              g.interactive = true;
-              g.beginFill(0);
-              g.drawRect(0,0,800,600);
-              g.endFill();
-              menuStage.addChild(g);
-	*/
-	
-	
-	
 	stage.addChild(menuStage);
 	// console.log("Create window: menu");
 }

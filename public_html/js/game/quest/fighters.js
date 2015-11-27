@@ -273,7 +273,7 @@ function onFightersButtonClick()
 	}
 	if(this.name == "Settings")
 	{
-		
+		qwindowCreate(QWINDOW_TYPE_SETTINGS);
 	}
 	if(this.name == "Invite")
 	{

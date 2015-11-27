@@ -372,7 +372,7 @@ function onStairsButtonClick()
 	}
 	if(this.name === "Settings")
 	{
-		
+		qwindowCreate(QWINDOW_TYPE_SETTINGS);
 	}
 	if(this.name === "Invite")
 	{

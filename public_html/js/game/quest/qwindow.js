@@ -24,14 +24,13 @@ function qwindowCreate(type)
 {
 	qwindowStage = new PIXI.Container();
 	
-	
 	qwindowGlobalBackground();
 	
 	if(type === QWINDOW_TYPE_WIN)
 	{
 		qwindowBackgroundImage();
 		qwindowAnimationDragon();
-		qwindowText("Вы победили!\nОчки за победу " + qGlobalTotalPointsPlayerLevel);
+		qwindowText("Вы победили!.\n                                                                                  \nОчки за победу " + qGlobalTotalPointsPlayerLevel);
 		qwindowBorder();
 	}
 	
@@ -39,10 +38,12 @@ function qwindowCreate(type)
 	{
 		qwindowBackgroundGraphicsBlack();
 		qwindowButtonPanelSettings();
-		qwindowText("Настройки.\n_______________________________________________\n\n\n            Звук                 Музыка            Информация");
+		qwindowText("   Настройки.\n                                                                                            \n\n\n            Звук                 Музыка            Информация");
 		qwindowBorder();
 	}
 	
+	qtimerPauseBegin();
+
 	stage.addChild(qwindowStage);
 }
 
@@ -52,6 +53,7 @@ function qwindowRemove()
 	qwindowDragonRightMovieClip = null;
 	stage.removeChild(qwindowStage);
 	qwindowStage = null;
+	qtimerPauseEnd();
 }
 
 /* Чёрный фон */
@@ -261,8 +263,24 @@ function onqwindowButtonClick()
 			qwindowRemove();
 			break;
 		case "buttonSound":
+			if(sound === true)
+			{
+				sound = false;
+				this.texture = soundOffTexture;
+			}else{
+				sound = true;
+				this.texture = soundOnTexture;
+			}
 			break;
 		case "buttonMusic":
+			if(music === true)
+			{
+				music = false;
+				this.texture = musicOffTexture;
+			}else{
+				music = true;
+				this.texture = musicOnTexture;
+			}
 			break;
 		case "buttonInfo":
 			break;

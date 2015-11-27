@@ -49,6 +49,13 @@ function levelShow()
 	stage.addChild(levelStage);
 	// console.log("Create window: level");
 }
+
+function levelRemove() 
+{
+	qtimerStop();
+	stage.removeChild(levelStage); 
+	levelStage = null; 
+}
 /* =========================================================================== */
 
 /* Инициализация характеристик бойцов ================================================= */
@@ -338,9 +345,22 @@ function onLevelButtonUp()
 
 function onLevelButtonClick() 
 {
+	if(this.name === "Exit in menu")
+	{
+		levelRemove();
+		menuShow(); 	// MENU SHOW
+	}
 	if(this.name === "Settings")
 	{
-		qwindowCreate(QWINDOW_TYPE_WIN);
+		qwindowCreate(QWINDOW_TYPE_SETTINGS);
+	}
+	if(this.name === "Invite")
+	{
+		
+	}
+	if(this.name === "End fight")
+	{
+		
 	}
 }
 /* =========================================================================== */

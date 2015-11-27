@@ -96,3 +96,14 @@ function qtimerStop()
 {
 	clearInterval(qtimer);
 }
+
+function qtimerPauseBegin()
+{
+	if(levelStage != null) clearInterval(qtimer);
+}
+
+function qtimerPauseEnd()
+{
+	if(levelStage != null) qtimer = setInterval(onQTimerComplete, 1000);
+}
+
