@@ -168,10 +168,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["baraka:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'baraka_hit_4_right_to_left_');
 	animFightersTextures["baraka:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'baraka_hit_5_left_to_right_');
 	animFightersTextures["baraka:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(7, 'baraka_hit_5_right_to_left_');
-	animFightersTextures["baraka:LOST"] = loadAnimationTextures(7, 'baraka_lost_');
+	animFightersTextures["baraka:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'baraka_lost_');
+	animFightersTextures["baraka:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'baraka_lost_');
 	animFightersTextures["baraka:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(9, 'baraka_stance_left_to_right_');
 	animFightersTextures["baraka:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(9, 'baraka_stance_right_to_left_');
-	animFightersTextures["baraka:VICTORY"] = loadAnimationTextures(10, 'baraka_victory_');
+	animFightersTextures["baraka:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(10, 'baraka_victory_');
+	animFightersTextures["baraka:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(10, 'baraka_victory_');
 	// console.log("Load assets baraka.json - complete!");
 
 	/* goro.json */
@@ -181,9 +183,9 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["goro:HIT_3:RIGHT_TO_LEFT"] = loadAnimationTextures(3, 'goro_hit_3_right_to_left_');
 	animFightersTextures["goro:HIT_4:RIGHT_TO_LEFT"] = loadAnimationTextures(5, 'goro_hit_4_right_to_left_');
 	animFightersTextures["goro:HIT_5:RIGHT_TO_LEFT"] = loadAnimationTextures(5, 'goro_hit_5_right_to_left_');
-	animFightersTextures["goro:LOST"] = loadAnimationTextures(6, 'goro_lost_');
+	animFightersTextures["goro:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(6, 'goro_lost_');
 	animFightersTextures["goro:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'goro_stance_right_to_left_');
-	animFightersTextures["goro:VICTORY"] = loadAnimationTextures(3, 'goro_victory_');
+	animFightersTextures["goro:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(3, 'goro_victory_');
 	// console.log("Load assets goro.json - complete!");
 
 	/* jax.json */
@@ -199,10 +201,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["jax:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'jax_hit_4_right_to_left_');
 	animFightersTextures["jax:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'jax_hit_5_left_to_right_');
 	animFightersTextures["jax:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'jax_hit_5_right_to_left_');
-	animFightersTextures["jax:LOST"] = loadAnimationTextures(7, 'jax_lost_');
+	animFightersTextures["jax:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'jax_lost_');
+	animFightersTextures["jax:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'jax_lost_');
 	animFightersTextures["jax:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'jax_stance_left_to_right_');
 	animFightersTextures["jax:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'jax_stance_right_to_left_');
-	animFightersTextures["jax:VICTORY"] = loadAnimationTextures(7, 'jax_victory_');
+	animFightersTextures["jax:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'jax_victory_');
+	animFightersTextures["jax:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'jax_victory_');
 	// console.log("Load assets jax.json - complete!");
 
 	/* johnnycage.json */
@@ -218,10 +222,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["johnnycage:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'johnnycage_hit_4_right_to_left_');
 	animFightersTextures["johnnycage:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'johnnycage_hit_5_left_to_right_');
 	animFightersTextures["johnnycage:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'johnnycage_hit_5_right_to_left_');
-	animFightersTextures["johnnycage:LOST"] = loadAnimationTextures(7, 'johnnycage_lost_');
+	animFightersTextures["johnnycage:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'johnnycage_lost_');
+	animFightersTextures["johnnycage:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'johnnycage_lost_');
 	animFightersTextures["johnnycage:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'johnnycage_stance_left_to_right_');
 	animFightersTextures["johnnycage:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'johnnycage_stance_right_to_left_');
-	animFightersTextures["johnnycage:VICTORY"] = loadAnimationTextures(14, 'johnnycage_victory_');
+	animFightersTextures["johnnycage:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(14, 'johnnycage_victory_');
+	animFightersTextures["johnnycage:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(14, 'johnnycage_victory_');
 	// console.log("Load assets johnnycage.json - complete!");
 
 	/* kitana.json */
@@ -237,10 +243,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["kitana:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'kitana_hit_4_right_to_left_');
 	animFightersTextures["kitana:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'kitana_hit_5_left_to_right_');
 	animFightersTextures["kitana:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'kitana_hit_5_right_to_left_');
-	animFightersTextures["kitana:LOST"] = loadAnimationTextures(7, 'kitana_lost_');
+	animFightersTextures["kitana:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'kitana_lost_');
+	animFightersTextures["kitana:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'kitana_lost_');
 	animFightersTextures["kitana:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(6, 'kitana_stance_left_to_right_');
 	animFightersTextures["kitana:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(6, 'kitana_stance_right_to_left_');
-	animFightersTextures["kitana:VICTORY"] = loadAnimationTextures(12, 'kitana_victory_');
+	animFightersTextures["kitana:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(12, 'kitana_victory_');
+	animFightersTextures["kitana:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(12, 'kitana_victory_');
 	// console.log("Load assets kitana.json - complete!");
 
 	/* kunglao.json */
@@ -256,10 +264,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["kunglao:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'kunglao_hit_4_right_to_left_');
 	animFightersTextures["kunglao:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'kunglao_hit_5_left_to_right_');
 	animFightersTextures["kunglao:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(7, 'kunglao_hit_5_right_to_left_');
-	animFightersTextures["kunglao:LOST"] = loadAnimationTextures(7, 'kunglao_lost_');
+	animFightersTextures["kunglao:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'kunglao_lost_');
+	animFightersTextures["kunglao:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'kunglao_lost_');
 	animFightersTextures["kunglao:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'kunglao_stance_left_to_right_');
 	animFightersTextures["kunglao:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(8, 'kunglao_stance_right_to_left_');
-	animFightersTextures["kunglao:VICTORY"] = loadAnimationTextures(8, 'kunglao_victory_');
+	animFightersTextures["kunglao:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'kunglao_victory_');
+	animFightersTextures["kunglao:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(8, 'kunglao_victory_');
 	// console.log("Load assets kunglao.json - complete!");
 
 	/* liukang.json */
@@ -275,10 +285,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["liukang:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'liukang_hit_4_right_to_left_');
 	animFightersTextures["liukang:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'liukang_hit_5_left_to_right_');
 	animFightersTextures["liukang:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'liukang_hit_5_right_to_left_');
-	animFightersTextures["liukang:LOST"] = loadAnimationTextures(7, 'liukang_lost_');
+	animFightersTextures["liukang:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'liukang_lost_');
+	animFightersTextures["liukang:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'liukang_lost_');
 	animFightersTextures["liukang:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'liukang_stance_left_to_right_');
 	animFightersTextures["liukang:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'liukang_stance_right_to_left_');
-	animFightersTextures["liukang:VICTORY"] = loadAnimationTextures(8, 'liukang_victory_');
+	animFightersTextures["liukang:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'liukang_victory_');
+	animFightersTextures["liukang:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(8, 'liukang_victory_');
 	// console.log("Load assets liukang.json - complete!");
 
 	/* mileena.json */
@@ -294,10 +306,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["mileena:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'mileena_hit_4_right_to_left_');
 	animFightersTextures["mileena:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'mileena_hit_5_left_to_right_');
 	animFightersTextures["mileena:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'mileena_hit_5_right_to_left_');
-	animFightersTextures["mileena:LOST"] = loadAnimationTextures(7, 'mileena_lost_');
+	animFightersTextures["mileena:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'mileena_lost_');
+	animFightersTextures["mileena:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'mileena_lost_');
 	animFightersTextures["mileena:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(12, 'mileena_stance_left_to_right_');
 	animFightersTextures["mileena:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(12, 'mileena_stance_right_to_left_');
-	animFightersTextures["mileena:VICTORY"] = loadAnimationTextures(12, 'mileena_victory_');
+	animFightersTextures["mileena:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(12, 'mileena_victory_');
+	animFightersTextures["mileena:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(12, 'mileena_victory_');
 	// console.log("Load assets mileena.json - complete!");
 
 	/* raiden.json */
@@ -313,10 +327,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["raiden:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'raiden_hit_4_right_to_left_');
 	animFightersTextures["raiden:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'raiden_hit_5_left_to_right_');
 	animFightersTextures["raiden:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(7, 'raiden_hit_5_right_to_left_');
-	animFightersTextures["raiden:LOST"] = loadAnimationTextures(7, 'raiden_lost_');
+	animFightersTextures["raiden:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'raiden_lost_');
+	animFightersTextures["raiden:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'raiden_lost_');
 	animFightersTextures["raiden:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(10, 'raiden_stance_left_to_right_');
 	animFightersTextures["raiden:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(10, 'raiden_stance_right_to_left_');
-	animFightersTextures["raiden:VICTORY"] = loadAnimationTextures(9, 'raiden_victory_');
+	animFightersTextures["raiden:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(9, 'raiden_victory_');
+	animFightersTextures["raiden:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(9, 'raiden_victory_');
 	// console.log("Load assets raiden.json - complete!");
 
 	/* reptile.json */
@@ -332,10 +348,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["reptile:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'reptile_hit_4_right_to_left_');
 	animFightersTextures["reptile:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'reptile_hit_5_left_to_right_');
 	animFightersTextures["reptile:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'reptile_hit_5_right_to_left_');
-	animFightersTextures["reptile:LOST"] = loadAnimationTextures(7, 'reptile_lost_');
+	animFightersTextures["reptile:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'reptile_lost_');
+	animFightersTextures["reptile:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'reptile_lost_');
 	animFightersTextures["reptile:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'reptile_stance_left_to_right_');
 	animFightersTextures["reptile:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'reptile_stance_right_to_left_');
-	animFightersTextures["reptile:VICTORY"] = loadAnimationTextures(4, 'reptile_victory_');
+	animFightersTextures["reptile:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(4, 'reptile_victory_');
+	animFightersTextures["reptile:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(4, 'reptile_victory_');
 	// console.log("Load assets reptile.json - complete!");
 
 	/* scorpion.json */
@@ -351,10 +369,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["scorpion:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'scorpion_hit_4_right_to_left_');
 	animFightersTextures["scorpion:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'scorpion_hit_5_left_to_right_');
 	animFightersTextures["scorpion:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'scorpion_hit_5_right_to_left_');
-	animFightersTextures["scorpion:LOST"] = loadAnimationTextures(7, 'scorpion_lost_');
+	animFightersTextures["scorpion:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'scorpion_lost_');
+	animFightersTextures["scorpion:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'scorpion_lost_');
 	animFightersTextures["scorpion:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'scorpion_stance_left_to_right_');
 	animFightersTextures["scorpion:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'scorpion_stance_right_to_left_');
-	animFightersTextures["scorpion:VICTORY"] = loadAnimationTextures(3, 'scorpion_victory_');
+	animFightersTextures["scorpion:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'scorpion_victory_');
+	animFightersTextures["scorpion:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(3, 'scorpion_victory_');
 	// console.log("Load assets scorpion.json - complete!");
 
 	/* shangtsung.json */
@@ -370,10 +390,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["shangtsung:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'shangtsung_hit_4_right_to_left_');
 	animFightersTextures["shangtsung:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'shangtsung_hit_5_left_to_right_');
 	animFightersTextures["shangtsung:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(7, 'shangtsung_hit_5_right_to_left_');
-	animFightersTextures["shangtsung:LOST"] = loadAnimationTextures(7, 'shangtsung_lost_');
+	animFightersTextures["shangtsung:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'shangtsung_lost_');
+	animFightersTextures["shangtsung:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'shangtsung_lost_');
 	animFightersTextures["shangtsung:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'shangtsung_stance_left_to_right_');
 	animFightersTextures["shangtsung:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'shangtsung_stance_right_to_left_');
-	animFightersTextures["shangtsung:VICTORY"] = loadAnimationTextures(5, 'shangtsung_victory_');
+	animFightersTextures["shangtsung:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(5, 'shangtsung_victory_');
+	animFightersTextures["shangtsung:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(5, 'shangtsung_victory_');
 	// console.log("Load assets shangtsung.json - complete!");
 
 	/* shaokahn.json */
@@ -383,9 +405,9 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["shaokahn:HIT_3:RIGHT_TO_LEFT"] = loadAnimationTextures(3, 'shaokahn_hit_3_right_to_left_');
 	animFightersTextures["shaokahn:HIT_4:RIGHT_TO_LEFT"] = loadAnimationTextures(5, 'shaokahn_hit_4_right_to_left_');
 	animFightersTextures["shaokahn:HIT_5:RIGHT_TO_LEFT"] = loadAnimationTextures(6, 'shaokahn_hit_5_right_to_left_');
-	animFightersTextures["shaokahn:LOST"] = loadAnimationTextures(11, 'shaokahn_lost_');
+	animFightersTextures["shaokahn:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(11, 'shaokahn_lost_');
 	animFightersTextures["shaokahn:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'shaokahn_stance_right_to_left_');
-	animFightersTextures["shaokahn:VICTORY"] = loadAnimationTextures(3, 'shaokahn_victory_');
+	animFightersTextures["shaokahn:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(3, 'shaokahn_victory_');
 	// console.log("Load assets shaokahn.json - complete!");
 
 	/* subzero.json */
@@ -401,10 +423,12 @@ function onAssetsLoaded(loader, res)
 	animFightersTextures["subzero:HIT_4:RIGHT_TO_LEFT"] =  loadAnimationTextures(5, 'subzero_hit_4_right_to_left_');
 	animFightersTextures["subzero:HIT_5:LEFT_TO_RIGHT"] = loadAnimationTextures(8, 'subzero_hit_5_left_to_right_');
 	animFightersTextures["subzero:HIT_5:RIGHT_TO_LEFT"] =  loadAnimationTextures(8, 'subzero_hit_5_right_to_left_');
-	animFightersTextures["subzero:LOST"] = loadAnimationTextures(7, 'subzero_lost_');
+	animFightersTextures["subzero:LOST:LEFT_TO_RIGHT"] = loadAnimationTextures(7, 'subzero_lost_');
+	animFightersTextures["subzero:LOST:RIGHT_TO_LEFT"] = loadAnimationTextures(7, 'subzero_lost_');
 	animFightersTextures["subzero:STANCE:LEFT_TO_RIGHT"] = loadAnimationTextures(12, 'subzero_stance_left_to_right_');
 	animFightersTextures["subzero:STANCE:RIGHT_TO_LEFT"] = loadAnimationTextures(12, 'subzero_stance_right_to_left_');
-	animFightersTextures["subzero:VICTORY"] = loadAnimationTextures(3, 'subzero_victory_');
+	animFightersTextures["subzero:VICTORY:LEFT_TO_RIGHT"] = loadAnimationTextures(3, 'subzero_victory_');
+	animFightersTextures["subzero:VICTORY:RIGHT_TO_LEFT"] = loadAnimationTextures(3, 'subzero_victory_');
 	// console.log("Load assets subzero.json - complete!");
 
 	/* levels */

@@ -31,6 +31,8 @@ function stairsShow()
 	stairsTween();
 
 	stage.addChild(stairsStage);
+	
+	if(qGlobalUserContinue == 0) qwindowCreate(QWINDOW_NO_LIFE);
 	// console.log("Create window: stairs");
 }
 

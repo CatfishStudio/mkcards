@@ -3,7 +3,7 @@ var Q_TIMER_MIN_VALUE = 0;
 
 var qtimerStage;
 var qtimerText;
-var qtimerCount = Q_TIMER_MAX_VALUE;
+var qtimerCount;
 var qtimer;
 
 
@@ -18,6 +18,8 @@ var qtimerStyleText = {
 
 function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 {
+	qtimerCount = Q_TIMER_MAX_VALUE;
+	
 	qtimerStage = new PIXI.Container();
 	qtimerStage.position.x = posX;
 	qtimerStage.position.y = posY;
@@ -40,6 +42,13 @@ function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 	qtimer = setInterval(onQTimerComplete, 1000);
 
 	// console.log("[TIMER] Create timer!");
+}
+
+function qtimerRemove() 
+{
+	qtimerStop();
+	levelStage.removeChild(qtimerStage); 
+	qtimerStage = null; 
 }
 
 function onQTimerComplete()

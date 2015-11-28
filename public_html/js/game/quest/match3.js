@@ -278,7 +278,7 @@ function matchCheckField(afterDown)
 			matchBackExchangeUnits(); 	// возвращаем выбранные юниты на места
 		}else{ 
 			matchSelectUnitsClear();	// очистка и разблокиров поля
-			qtimerStart();				// запускаем таймер
+			if(levelStatus === LEVEL_STATUS_BATTLE) qtimerStart();				// запускаем таймер
 		}
 	}
 }
@@ -408,10 +408,13 @@ function matchCheckRow(row)
 /* Удаление юнитов */
 function matchRemoveUnit(col, row, check, hitType, hitCount)
 {
-	/* ПРОГРЕСС: Обрабтка LifeBar */
-	levelReduceLifeBar(hitType, hitCount, modeAI);
-	/* АНИМАЦИЯ: Анимация бойцов */
-	levelUpdateAnimation(modeAI, hitType);
+	if(levelStatus === LEVEL_STATUS_BATTLE)
+	{
+		/* ПРОГРЕСС: Обрабтка LifeBar */
+		levelReduceLifeBar(hitType, hitCount, modeAI);
+		/* АНИМАЦИЯ: Анимация бойцов */
+		levelUpdateAnimation(modeAI, hitType);
+	}
 	
 	/*Отмечаем юниты для удаления */
 	if(check === "row")
