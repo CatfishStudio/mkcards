@@ -4,6 +4,7 @@ var Q_TIMER_MIN_VALUE = 0;
 var qtimerStage;
 var qtimerText;
 var qtimerCount;
+var qtimerPause;
 var qtimer;
 
 
@@ -18,6 +19,8 @@ var qtimerStyleText = {
 
 function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 {
+        qtimerPause = false;
+    
 	qtimerCount = Q_TIMER_MAX_VALUE;
 	
 	qtimerStage = new PIXI.Container();
@@ -39,7 +42,7 @@ function qtimerShow(stageParent, posX, posY, backColor, borderColor, textColor)
 
 	stageParent.addChild(qtimerStage);
 
-	qtimer = setInterval(onQTimerComplete, 1000);
+	if(qtimerPause === false) qtimer = setInterval(onQTimerComplete, 1000);
 
 	// console.log("[TIMER] Create timer!");
 }
@@ -98,7 +101,7 @@ function qtimerStart()
 	}
 	qtimerCount = Q_TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 	qtimerText.text = qtimerCount;	// показываем секунды
-	qtimer = setInterval(onQTimerComplete, 1000);	// запуск таймера
+	if(qtimerPause === false) qtimer = setInterval(onQTimerComplete, 1000);	// запуск таймера
 }
 
 function qtimerStop()
@@ -108,11 +111,13 @@ function qtimerStop()
 
 function qtimerPauseBegin()
 {
-	if(levelStage != null) clearInterval(qtimer);
+        qtimerPause = true;
+        if(levelStage != null) clearInterval(qtimer);
 }
 
 function qtimerPauseEnd()
 {
+        qtimerPause = false;
 	if(levelStage != null) qtimer = setInterval(onQTimerComplete, 1000);
 }
 
