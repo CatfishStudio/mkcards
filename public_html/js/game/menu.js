@@ -50,6 +50,8 @@ function menuShow()
 	}
 	
 	stage.addChild(menuStage);
+        
+        soundPlayMusic2();
 	// console.log("Create window: menu");
 }
 

@@ -1,4 +1,9 @@
 var bgPreloaderSprite;
+var preloaderProgressAssetsText;
+var preloaderStyleText = { font : 'bold 48px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 2, wordWrap : true, wordWrapWidth : 600 }; 
+var preloaderComplete = 0;  // количество завершенных процессов.
+var preloaderPercentSounds = 0;
+var preloaderPercentTextures = 0;
 
 function preloaderShow()
 {
@@ -21,11 +26,22 @@ function onPreloaderLoaded(loader, res)
 	stage.addChild(bgPreloaderSprite);
 
 	// console.log("Preloader: show");
+        
+        preloaderProgressAssets();
 
-	loadAssets();		// LOAD ASSETS
+	preloaderLoadAssets();
+        preloaderLoadSounds();
 }
 
-function loadAssets()
+function preloaderProgressAssets()
+{
+    preloaderProgressAssetsText = new PIXI.Text("Загрузка", preloaderStyleText); 
+    preloaderProgressAssetsText.x = 280;
+    preloaderProgressAssetsText.y = 550;
+    stage.addChild(preloaderProgressAssetsText);
+}
+
+function preloaderLoadAssets()
 {
 	var loader = new PIXI.loaders.Loader();
 	loader.add('bgImage','./assets/image/background.jpg');
@@ -65,19 +81,24 @@ function loadAssets()
 	loader.add('level11','./assets/data/quest/levels/level11.json');
 	loader.add('level12','./assets/data/quest/levels/level12.json');
 	loader.add('level13','./assets/data/quest/levels/level13.json');
-	loader.once('complete',onAssetsLoaded);
-	loader.once('progress',onProgressLoad);
+	loader.on('complete',onAssetsLoaded);
+	loader.on('progress',onProgressLoad);
 	loader.load();
 }
 
 function onProgressLoad()
 {
-	// console.log("Progress load!");
+        preloaderPercentTextures = (Math.round(this.progress) / 2);
+	preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
 }
 
 function onAssetsLoaded(loader, res) 
 {
-	bgTexture = res.bgImage.texture; /* background.jpg */
+        preloaderComplete++;
+        preloaderPercentTextures = 50;
+        preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
+    
+        bgTexture = res.bgImage.texture; /* background.jpg */
 	buttonTexture = res.buttonImage.texture; /* button.png */
 	borderTexture = res.borderImage.texture; /* border_screen.png */
 	blueportalTexture = res.blueportalImage.texture; /* blueportalImage.png */
@@ -450,9 +471,59 @@ function onAssetsLoaded(loader, res)
 
 	// console.log("Load all assets - complete!");
 	
-	bgShow();		// GAME BACKGROUND SHOW
-	stage.removeChild(bgPreloaderSprite);
+        if(preloaderComplete === 2)
+        {
+            bgShow();		// GAME BACKGROUND SHOW
+            stage.removeChild(bgPreloaderSprite);
+            stage.removeChild(preloaderProgressAssetsText);
+        }
 }
+
+function preloaderLoadSounds()
+{
+    var queue = new createjs.LoadQueue();
+    createjs.Sound.alternateExtensions = ["mp3"];
+    queue.installPlugin(createjs.Sound);
+    queue.on("progress", onPreloaderSoundLoaderProcess);
+    queue.on("complete", onPreloaderSoundLoaderComplete);
+    queue.loadFile({"id":"music1", "src":"assets/music/quest/music1.mp3"});
+    queue.loadFile({"id":"music2", "src":"assets/music/quest/music2.mp3"});
+    queue.loadFile({"id":"music3", "src":"assets/music/quest/music3.mp3"});
+    queue.loadFile({"id":"button", "src":"assets/sound/quest/button.mp3"});
+    queue.loadFile({"id":"f_01", "src":"assets/sound/quest/f_01.mp3"});
+    queue.loadFile({"id":"f_02", "src":"assets/sound/quest/f_02.mp3"});
+    queue.loadFile({"id":"f_d_03", "src":"assets/sound/quest/f_d_03.mp3"});
+    queue.loadFile({"id":"fight", "src":"assets/sound/quest/fight.mp3"});
+    queue.loadFile({"id":"hit_1_5", "src":"assets/sound/quest/hit_1_5.mp3"});
+    queue.loadFile({"id":"hit_2_4", "src":"assets/sound/quest/hit_2_4.mp3"});
+    queue.loadFile({"id":"hit_block", "src":"assets/sound/quest/hit_block.mp3"});
+    queue.loadFile({"id":"hit_move", "src":"assets/sound/quest/hit_move.mp3"});
+    queue.loadFile({"id":"Lost", "src":"assets/sound/quest/Lost.mp3"});
+    queue.loadFile({"id":"m_01", "src":"assets/sound/quest/m_01.mp3"});
+    queue.loadFile({"id":"m_02", "src":"assets/sound/quest/m_02.mp3"});
+    queue.loadFile({"id":"m_d_03", "src":"assets/sound/quest/m_d_03.mp3"});
+    queue.loadFile({"id":"wins", "src":"assets/sound/quest/wins.mp3"});
+}
+
+function onPreloaderSoundLoaderProcess(event) 
+{
+    //preloaderProgressSoundText.text = "Загрузка звуков : ............... " + event.progress + " / " + event.total;
+    preloaderPercentSounds = Math.round((event.loaded) * (50 / event.total));
+    preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
+}
+
+function onPreloaderSoundLoaderComplete(event) 
+{
+    preloaderComplete++;
+    if(preloaderComplete === 2)
+    {
+            bgShow();		// GAME BACKGROUND SHOW
+            stage.removeChild(bgPreloaderSprite);
+            stage.removeChild(preloaderProgressAssetsText);
+    }
+}
+
+
 
 function loadAnimationTextures(countFrame, nameFrame)
 {
