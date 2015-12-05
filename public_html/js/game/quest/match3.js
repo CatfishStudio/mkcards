@@ -327,21 +327,26 @@ function matchCheckColumn(column)
 								{
 									/* Удаляем группу из 5 юнитов */
 									matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 5);
+                                                                        break;
 								}else{
 									/* Удаляем группу из 4 юнитов */
 									matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+                                                                        break;
 								}
 							}else{
 								/* Удаляем группу из 4 юнитов */
 								matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+                                                                break;
 							}
 						}else{
 							/* Удаляем группу из 3 юнитов */
 							matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 3);
+                                                        break;
 						}
 					}else{
 						/* Удаляем группу из 3 юнитов */
 						matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 3);
+                                                break;
 					}
 				}
 			}
@@ -380,21 +385,26 @@ function matchCheckRow(row)
 								{
 									/* Удаляем группу из 5 юнитов */
 									matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 5);
+                                                                        break;
 								}else{
 									/* Удаляем группу из 4 юнитов */
 									matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+                                                                        break;
 								}
 							}else{
 								/* Удаляем группу из 4 юнитов */
 								matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+                                                                break;
 							}
 						}else{
 							/* Удаляем группу из 3 юнитов */
 							matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 3);
+                                                        break;
 						}
 					}else{
 						/* Удаляем группу из 3 юнитов */
 						matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 3);
+                                                break;
 					}
 				}
 			}

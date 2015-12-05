@@ -433,11 +433,12 @@ function levelReduceLifeBar(hitType, hitCount, hitModeAI)
 	}
 	if(hitType === MATCH_HIT_3)
 	{
-		points = (DAMAGE_HIT_3 + (hitCount - 3));
 		if(hitModeAI === false)
 		{
+                        points = ((DAMAGE_HIT_3 * qGlobalUserHit3) + hitPlus);
 			if(levelUserBlockPoints < points) levelUserBlockPoints = points; 
 		} else {
+                        points = ((DAMAGE_HIT_3 * levelAIHit3) + hitPlus);
 			if(levelAIBlockPoints < points) levelAIBlockPoints = 	points;
 		}
 	}
@@ -477,7 +478,7 @@ function levelReduceLifeBar(hitType, hitCount, hitModeAI)
 
 function levelReduceLife(hitModeAI, damage)
 {
-	if(hitModeAI === false) 						// удар пользователя
+	if(hitModeAI === false) 		// удар пользователя
 	{
 		levelAILifeFromBattle -= damage;		// уменишение жизни у ИИ
 		qGlobalTotalPointsPlayerLevel += (damage * 10);
