@@ -41,11 +41,11 @@ module MortalKombatCards {
         }
 
         private onCompleteVideo():void {
-            this.groupButtons = new Phaser.Group(this.game, this.stage);
+            this.groupButtons = new Phaser.Group(this.game, this.groupMenu);
             this.groupButtons.x = -500;
             this.groupButtons.y = 0;
 
-            this.groupButtons.addChild(new Phaser.Sprite(this.game, 25, 125, Images.LogoImage));
+            this.groupButtons.addChild(new Phaser.Sprite(this.game, 35, 80, Images.LogoImage));
             
             let buttonStart = new Phaser.Button(this.game, 75, 400, Sheet.ButtonStartNewGame, this.onButtonClick, this, 1, 2);
             buttonStart.name = 'start';
