@@ -1,1 +1,1 @@
-# A casual game Mortal Kombat Card & Quest
+# This is game Mortal Kombat Cards
