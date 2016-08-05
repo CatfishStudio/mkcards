@@ -50,20 +50,17 @@ var Images = (function () {
     function Images() {
     }
     Images.PreloaderImage = 'preloader.jpg';
-    Images.TitleImage = 'title.png';
     Images.BackgroundImage = 'background.png';
     Images.MenuImage = 'menu.png';
     Images.LogoImage = 'logo.png';
-    Images.GarageImage = 'garage.jpg';
-    Images.TracksImage = 'tracks.jpg';
-    Images.TrackAtlantaImage = 'atlanta_motor_speedway.png';
+    Images.FightersImage = 'fighters.png';
+    Images.UpgradeImage = 'upgrade.png';
     Images.preloadList = [
         Images.BackgroundImage,
         Images.MenuImage,
         Images.LogoImage,
-        Images.GarageImage,
-        Images.TracksImage,
-        Images.TrackAtlantaImage
+        Images.FightersImage,
+        Images.UpgradeImage
     ];
     return Images;
 }());
@@ -73,9 +70,11 @@ var Atlases = (function () {
     Atlases.LogoAtlas = 'logo_atlas';
     Atlases.Video1 = 'video1';
     Atlases.Video2 = 'video2';
+    Atlases.Video3 = 'video3';
     Atlases.preloadList = [
         Atlases.Video1,
-        Atlases.Video2
+        Atlases.Video2,
+        Atlases.Video3
     ];
     return Atlases;
 }());
@@ -136,7 +135,6 @@ var MortalKombatCards;
         };
         Boot.prototype.preload = function () {
             this.game.load.image(Images.PreloaderImage, 'assets/images/' + Images.PreloaderImage);
-            this.game.load.image(Images.TitleImage, 'assets/images/' + Images.TitleImage);
             this.game.load.atlas(Atlases.LogoAtlas, 'assets/atlas/' + Atlases.LogoAtlas + '.png', 'assets/atlas/' + Atlases.LogoAtlas + '.json');
         };
         Boot.prototype.create = function () {
@@ -199,6 +197,7 @@ var MortalKombatCards;
         Preloader.prototype.onFileComplete = function (progress, cacheKey, success, totalLoaded, totalFiles) {
             this.loadPercent = Math.round(progress * 0.1);
             if (this.preloadText !== null) {
+                this.logo.frameName = "load_" + this.loadPercent + ".png";
                 this.preloadText.text = "ЗАГРУЗКА " + this.loadPercent + "0 %";
             }
         };

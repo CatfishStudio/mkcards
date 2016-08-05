@@ -20,7 +20,6 @@ module MortalKombatCards {
         
         public preload() {
             this.game.load.image(Images.PreloaderImage, 'assets/images/' + Images.PreloaderImage);
-            this.game.load.image(Images.TitleImage, 'assets/images/' + Images.TitleImage);
             this.game.load.atlas(Atlases.LogoAtlas, 'assets/atlas/' + Atlases.LogoAtlas + '.png','assets/atlas/' + Atlases.LogoAtlas + '.json');
         }
         

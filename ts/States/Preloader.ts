@@ -45,6 +45,7 @@ module MortalKombatCards {
         private onFileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
             this.loadPercent = Math.round(progress  * 0.1);
             if (this.preloadText !== null) {
+                this.logo.frameName = "load_" + this.loadPercent + ".png";
                 this.preloadText.text = "ЗАГРУЗКА " + this.loadPercent + "0 %";
             }
         }
