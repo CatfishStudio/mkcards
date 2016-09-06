@@ -1,0 +1,25 @@
+{
+  "name": "mkcards",
+  "title": "MKCards",
+  "author": "CatfishStudio",
+  "version": "1.0.0",
+  "description": "This is the game MKCards",
+  "contributors": [
+    {
+      "name": "Evgeniy Somov",
+      "email": ""
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CatfishStudio/mkcards"
+  },
+  "private": true,
+  "devDependencies": {
+    "phaser": "^2.6.2",
+    "typescript": "1.8.x"
+  },
+  "engines": {
+    "node": "5.x.x"
+  }
+}
