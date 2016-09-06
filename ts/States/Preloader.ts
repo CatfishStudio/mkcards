@@ -52,7 +52,7 @@ module MortalKombatCards {
        
         private onLoadComplete() {
             this.logo.frameName = "load_" + this.loadPercent + ".png";
-            this.game.stage.removeChildren();
+            //this.game.stage.removeChildren();
             this.game.state.start(this.config.nextStage, true, false);
         }
 

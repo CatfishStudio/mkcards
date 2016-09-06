@@ -16,10 +16,7 @@ var MortalKombatCards;
                 parent: 'content',
                 transparent: true,
                 antialias: true,
-                preserveDrawingBuffer: false,
-                physicsConfig: null,
-                seed: '',
-                state: null
+                forceSetTimeOut: true
             });
             this.state.add(MortalKombatCards.Boot.Name, MortalKombatCards.Boot, false);
             this.state.add(MortalKombatCards.Preloader.Name, MortalKombatCards.Preloader, false);
@@ -203,7 +200,7 @@ var MortalKombatCards;
         };
         Preloader.prototype.onLoadComplete = function () {
             this.logo.frameName = "load_" + this.loadPercent + ".png";
-            this.game.stage.removeChildren();
+            //this.game.stage.removeChildren();
             this.game.state.start(this.config.nextStage, true, false);
         };
         Preloader.Name = "preloader";
@@ -310,7 +307,7 @@ var MortalKombatCards;
             this.groupSettings.addChild(buttonClose);
         };
         Menu.prototype.settingsClose = function () {
-            this.groupSettings.removeChildren();
+            //this.groupSettings.removeChildren();
             this.groupMenu.removeChild(this.groupSettings);
         };
         Menu.Name = "menu";
