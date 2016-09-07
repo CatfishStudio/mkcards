@@ -127,7 +127,7 @@ module MortalKombatCards {
         }
         
         private settingsClose() {
-            //this.groupSettings.removeChildren();
+            this.groupSettings.removeChildren();
             this.groupMenu.removeChild(this.groupSettings);
         }
     }
