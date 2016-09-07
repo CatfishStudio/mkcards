@@ -118,19 +118,31 @@ var Fabrique;
 (function (Fabrique) {
     var Tutorial = (function (_super) {
         __extends(Tutorial, _super);
-        function Tutorial(game) {
+        function Tutorial(game, text) {
             _super.call(this, game, 0, 0, Atlases.VideoHelp, 0);
+            this.text = text;
             this.init();
         }
         Tutorial.prototype.init = function () {
             var graphics = this.game.add.graphics(0, 0);
-            graphics.beginFill(0xFFFFFF, 1);
-            graphics.lineStyle(1, 0xFFFFFF, 1);
-            graphics.drawRect(0, 0, 100, 400);
+            graphics.beginFill(0x000000, 0);
+            graphics.lineStyle(10, 0x000000, 1);
+            graphics.drawRect(0, 0, 400, 116);
             graphics.endFill();
+            graphics.beginFill(0x000000, 0.6);
+            graphics.lineStyle(1, 0x000000, 1);
+            graphics.drawRect(150, 0, 250, 116);
+            graphics.endFill();
+            graphics.beginFill(0x000000, 0.5);
+            graphics.lineStyle(2, 0xFFFFFF, 0.5);
+            graphics.drawRect(0, 0, 400, 116);
+            graphics.endFill();
+            this.addChild(graphics);
+            var messageText = this.game.add.text(175, 10, this.text, { font: "16px Arial", fill: "#FFFFFF", align: "left" });
+            this.addChild(messageText);
             var anim = this.animations.add(Atlases.VideoHelp);
             anim.onComplete.add(this.onCompleteVideo, this);
-            anim.play(15, false, false);
+            anim.play(10, true, false);
         };
         Tutorial.prototype.onCompleteVideo = function () {
         };
@@ -277,19 +289,19 @@ var MortalKombatCards;
             var buttonInvite = new Phaser.Button(this.game, 75, 550, Sheet.ButtonInvite, this.onButtonClick, this, 1, 2, 2, 2);
             buttonInvite.name = 'invite';
             this.groupButtons.addChild(buttonInvite);
+            this.tutorial = new Tutorial(this.game, "Нажмите начать игру\nчтобы вступить в турнир.");
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 175);
+            this.groupMenu.addChild(this.tutorial);
+            var tweenTutorial = this.game.add.tween(this.tutorial);
+            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
             var tweenButtons = this.game.add.tween(this.groupButtons);
             tweenButtons.to({ x: 0, y: 0 }, 500, 'Linear');
             tweenButtons.onComplete.add(function () {
                 _this.tween.start();
+                tweenTutorial.start();
             }, this);
             tweenButtons.start();
-            this.tutorial = new Tutorial(this.game);
-            this.tutorial.x = Constants.GAME_WIDTH;
-            this.tutorial.y = (Constants.GAME_HEIGHT - 150);
-            this.groupMenu.addChild(this.tutorial);
-            var tweenTutorial = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 150) }, 500, 'Linear');
-            tweenTutorial.start();
         };
         Menu.prototype.onTweenComplete = function (event) {
             this.tween.start();

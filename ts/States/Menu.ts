@@ -62,22 +62,25 @@ module MortalKombatCards {
             let buttonInvite = new Phaser.Button(this.game, 75, 550, Sheet.ButtonInvite, this.onButtonClick, this, 1, 2, 2, 2);
             buttonInvite.name = 'invite';
             this.groupButtons.addChild(buttonInvite);
+
+            this.tutorial = new Tutorial(this.game, "Нажмите начать игру\nчтобы вступить в турнир.");
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 175);
+            this.groupMenu.addChild(this.tutorial);
+            
+            let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
+            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
             
             let tweenButtons: Phaser.Tween = this.game.add.tween(this.groupButtons);
             tweenButtons.to({ x: 0, y: 0}, 500, 'Linear');
             tweenButtons.onComplete.add(() => {
                 this.tween.start();
+                tweenTutorial.start();
             }, this);
             tweenButtons.start();
 
-            this.tutorial = new Tutorial(this.game);
-            this.tutorial.x = Constants.GAME_WIDTH;
-            this.tutorial.y = (Constants.GAME_HEIGHT - 150);
-            this.groupMenu.addChild(this.tutorial);
             
-            let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 150)}, 500, 'Linear');
-            tweenTutorial.start();
+            
         }
 
         private onTweenComplete(event:any):void {
