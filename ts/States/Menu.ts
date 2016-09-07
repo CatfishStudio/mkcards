@@ -1,4 +1,7 @@
 module MortalKombatCards {
+
+    import Tutorial = Fabrique.Tutorial;
+
     export class Menu extends Phaser.State{
         public static Name: string = "menu";
         public name: string = Menu.Name;
@@ -8,6 +11,7 @@ module MortalKombatCards {
         private groupButtons: Phaser.Group;
         private groupSettings: Phaser.Group;
         private tween:Phaser.Tween;
+        private tutorial:Tutorial;
         
         constructor() {
             super();
@@ -65,6 +69,15 @@ module MortalKombatCards {
                 this.tween.start();
             }, this);
             tweenButtons.start();
+
+            this.tutorial = new Tutorial(this.game);
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 150);
+            this.groupMenu.addChild(this.tutorial);
+            
+            let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
+            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 150)}, 500, 'Linear');
+            tweenTutorial.start();
         }
 
         private onTweenComplete(event:any):void {

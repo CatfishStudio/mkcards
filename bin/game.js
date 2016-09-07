@@ -67,10 +67,12 @@ var Atlases = (function () {
     Atlases.Video1 = 'video1';
     Atlases.Video2 = 'video2';
     Atlases.Video3 = 'video3';
+    Atlases.VideoHelp = 'video_help';
     Atlases.preloadList = [
         Atlases.Video1,
         Atlases.Video2,
-        Atlases.Video3
+        Atlases.Video3,
+        Atlases.VideoHelp
     ];
     return Atlases;
 }());
@@ -111,6 +113,30 @@ var Fabrique;
         return State;
     }(Phaser.State));
     Fabrique.State = State;
+})(Fabrique || (Fabrique = {}));
+var Fabrique;
+(function (Fabrique) {
+    var Tutorial = (function (_super) {
+        __extends(Tutorial, _super);
+        function Tutorial(game) {
+            _super.call(this, game, 0, 0, Atlases.VideoHelp, 0);
+            this.init();
+        }
+        Tutorial.prototype.init = function () {
+            var graphics = this.game.add.graphics(0, 0);
+            graphics.beginFill(0xFFFFFF, 1);
+            graphics.lineStyle(1, 0xFFFFFF, 1);
+            graphics.drawRect(0, 0, 100, 400);
+            graphics.endFill();
+            var anim = this.animations.add(Atlases.VideoHelp);
+            anim.onComplete.add(this.onCompleteVideo, this);
+            anim.play(15, false, false);
+        };
+        Tutorial.prototype.onCompleteVideo = function () {
+        };
+        return Tutorial;
+    }(Phaser.Sprite));
+    Fabrique.Tutorial = Tutorial;
 })(Fabrique || (Fabrique = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
@@ -209,6 +235,7 @@ var MortalKombatCards;
 })(MortalKombatCards || (MortalKombatCards = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
+    var Tutorial = Fabrique.Tutorial;
     var Menu = (function (_super) {
         __extends(Menu, _super);
         function Menu() {
@@ -256,6 +283,13 @@ var MortalKombatCards;
                 _this.tween.start();
             }, this);
             tweenButtons.start();
+            this.tutorial = new Tutorial(this.game);
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 150);
+            this.groupMenu.addChild(this.tutorial);
+            var tweenTutorial = this.game.add.tween(this.tutorial);
+            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 150) }, 500, 'Linear');
+            tweenTutorial.start();
         };
         Menu.prototype.onTweenComplete = function (event) {
             this.tween.start();
@@ -320,6 +354,7 @@ var MortalKombatCards;
 /// <reference path="Data\Atlases.ts" />
 /// <reference path="Data\Sheets.ts" />
 /// <reference path="Fabrique\State.ts" />
+/// <reference path="Fabrique\Objects\Tutorial.ts" />
 /// <reference path="States\Boot.ts" />
 /// <reference path="States\Preloader.ts" />
 /// <reference path="States\Menu.ts" />
