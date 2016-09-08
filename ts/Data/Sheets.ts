@@ -1,8 +1,9 @@
 class Sheet {
     public static ButtonStartNewGame: string = 'button_start_new_game_sheet.png';
-    public static ButtonContinueGame: string = 'button_continue_game_sheet.png';
     public static ButtonSettings: string = 'button_settings_sheet.png';
     public static ButtonInvite: string = 'button_invite_sheet.png';
+    public static ButtonClose: string = 'button_close_sheet.png';
+    public static ButtonBackMenu: string = 'button_back_menu_sheet.png';
     
     public static ButtonBlueClose: string = 'button_blue_close_sheet.png';
     public static ButtonBlueBackMenu: string = 'button_blue_back_menu_sheet.png';
@@ -11,9 +12,10 @@ class Sheet {
     
     public static preloadList1:Array<string> = [
         Sheet.ButtonStartNewGame,
-        Sheet.ButtonContinueGame,
         Sheet.ButtonSettings,
-        Sheet.ButtonInvite
+        Sheet.ButtonInvite,
+        Sheet.ButtonClose,
+        Sheet.ButtonBackMenu
     ]; 
     
     public static preloadList2:Array<string> = [

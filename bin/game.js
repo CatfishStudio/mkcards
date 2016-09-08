@@ -80,18 +80,20 @@ var Sheet = (function () {
     function Sheet() {
     }
     Sheet.ButtonStartNewGame = 'button_start_new_game_sheet.png';
-    Sheet.ButtonContinueGame = 'button_continue_game_sheet.png';
     Sheet.ButtonSettings = 'button_settings_sheet.png';
     Sheet.ButtonInvite = 'button_invite_sheet.png';
+    Sheet.ButtonClose = 'button_close_sheet.png';
+    Sheet.ButtonBackMenu = 'button_back_menu_sheet.png';
     Sheet.ButtonBlueClose = 'button_blue_close_sheet.png';
     Sheet.ButtonBlueBackMenu = 'button_blue_back_menu_sheet.png';
     Sheet.ButtonBlueSettings = 'button_blue_settings_sheet.png';
     Sheet.ButtonBlueChampionship = 'button_blue_championship_sheet.png';
     Sheet.preloadList1 = [
         Sheet.ButtonStartNewGame,
-        Sheet.ButtonContinueGame,
         Sheet.ButtonSettings,
-        Sheet.ButtonInvite
+        Sheet.ButtonInvite,
+        Sheet.ButtonClose,
+        Sheet.ButtonBackMenu
     ];
     Sheet.preloadList2 = [
         Sheet.ButtonBlueClose,
@@ -323,7 +325,7 @@ var MortalKombatCards;
                         this.settingsCreate();
                         break;
                     }
-                case 'close':
+                case 'setting_close':
                     {
                         this.settingsClose();
                         break;
@@ -337,23 +339,41 @@ var MortalKombatCards;
             }
         };
         Menu.prototype.settingsCreate = function () {
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 175);
             this.groupSettings = new Phaser.Group(this.game, this.groupMenu);
+            var startX = (this.game.width / 2) - 150;
+            var startY = (this.game.height / 2) - 150;
+            var polygon = new Phaser.Polygon([
+                new Phaser.Point(startX, startY),
+                new Phaser.Point(startX + 10, startY - 10),
+                new Phaser.Point(startX + 300, startY - 10),
+                new Phaser.Point(startX + 310, startY),
+                new Phaser.Point(startX + 310, startY + 200),
+                new Phaser.Point(startX + 300, startY + 210),
+                new Phaser.Point(startX + 10, startY + 210),
+                new Phaser.Point(startX, startY + 200)
+            ]);
             var graphicOverlay = new Phaser.Graphics(this.game, 0, 0);
-            graphicOverlay.beginFill(0xFFFFFF, 0.5);
+            graphicOverlay.beginFill(0x000000, 0.5);
             graphicOverlay.drawRect(0, 0, this.game.width, this.game.height);
             graphicOverlay.endFill();
-            graphicOverlay.beginFill(0x0000AA, 0.8);
-            graphicOverlay.drawRect((this.game.width / 2) - 150, (this.game.height / 2) - 150, 300, 150);
+            graphicOverlay.beginFill(0x000000, 0.8);
+            graphicOverlay.lineStyle(2, 0x777777, 1);
+            graphicOverlay.drawPolygon(polygon);
             graphicOverlay.endFill();
             graphicOverlay.inputEnabled = true;
             this.groupSettings.addChild(graphicOverlay);
-            var buttonClose = new Phaser.Button(this.game, 50, 50, Sheet.ButtonBlueClose, this.onButtonClick, this, 1, 2);
-            buttonClose.name = 'close';
+            var buttonClose = new Phaser.Button(this.game, startX + 25, startY + 150, Sheet.ButtonClose, this.onButtonClick, this, 1, 2);
+            buttonClose.name = 'setting_close';
             this.groupSettings.addChild(buttonClose);
         };
         Menu.prototype.settingsClose = function () {
             this.groupSettings.removeChildren();
             this.groupMenu.removeChild(this.groupSettings);
+            var tweenTutorial = this.game.add.tween(this.tutorial);
+            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
+            tweenTutorial.start();
         };
         Menu.Name = "menu";
         return Menu;
