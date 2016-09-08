@@ -51,12 +51,16 @@ var Images = (function () {
     Images.LogoImage = 'logo.png';
     Images.FightersImage = 'fighters.png';
     Images.UpgradeImage = 'upgrade.png';
+    Images.ButtonOn = 'buttons_on.png';
+    Images.ButtonOff = 'buttons_off.png';
     Images.preloadList = [
         Images.BackgroundImage,
         Images.MenuImage,
         Images.LogoImage,
         Images.FightersImage,
-        Images.UpgradeImage
+        Images.UpgradeImage,
+        Images.ButtonOn,
+        Images.ButtonOff
     ];
     return Images;
 }());
@@ -151,6 +155,49 @@ var Fabrique;
         return Tutorial;
     }(Phaser.Sprite));
     Fabrique.Tutorial = Tutorial;
+})(Fabrique || (Fabrique = {}));
+var Fabrique;
+(function (Fabrique) {
+    var Settings = (function (_super) {
+        __extends(Settings, _super);
+        function Settings(game, parent) {
+            _super.call(this, game, parent);
+            this.init();
+        }
+        Settings.prototype.init = function () {
+            this.event = new Phaser.Signal();
+            var startX = (this.game.width / 2) - 150;
+            var startY = (this.game.height / 2) - 150;
+            var polygon = new Phaser.Polygon([
+                new Phaser.Point(startX, startY),
+                new Phaser.Point(startX + 10, startY - 10),
+                new Phaser.Point(startX + 300, startY - 10),
+                new Phaser.Point(startX + 310, startY),
+                new Phaser.Point(startX + 310, startY + 200),
+                new Phaser.Point(startX + 300, startY + 210),
+                new Phaser.Point(startX + 10, startY + 210),
+                new Phaser.Point(startX, startY + 200)
+            ]);
+            var graphicOverlay = new Phaser.Graphics(this.game, 0, 0);
+            graphicOverlay.beginFill(0x000000, 0.5);
+            graphicOverlay.drawRect(0, 0, this.game.width, this.game.height);
+            graphicOverlay.endFill();
+            graphicOverlay.beginFill(0x000000, 0.8);
+            graphicOverlay.lineStyle(2, 0x777777, 1);
+            graphicOverlay.drawPolygon(polygon);
+            graphicOverlay.endFill();
+            graphicOverlay.inputEnabled = true;
+            this.addChild(graphicOverlay);
+            var buttonClose = new Phaser.Button(this.game, startX + 25, startY + 150, Sheet.ButtonClose, this.onButtonClick, this, 1, 2);
+            buttonClose.name = 'setting_close';
+            this.addChild(buttonClose);
+        };
+        Settings.prototype.onButtonClick = function (event) {
+            this.event.dispatch(event);
+        };
+        return Settings;
+    }(Phaser.Group));
+    Fabrique.Settings = Settings;
 })(Fabrique || (Fabrique = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
@@ -250,6 +297,7 @@ var MortalKombatCards;
 var MortalKombatCards;
 (function (MortalKombatCards) {
     var Tutorial = Fabrique.Tutorial;
+    var Settings = Fabrique.Settings;
     var Menu = (function (_super) {
         __extends(Menu, _super);
         function Menu() {
@@ -341,36 +389,12 @@ var MortalKombatCards;
         Menu.prototype.settingsCreate = function () {
             this.tutorial.x = Constants.GAME_WIDTH;
             this.tutorial.y = (Constants.GAME_HEIGHT - 175);
-            this.groupSettings = new Phaser.Group(this.game, this.groupMenu);
-            var startX = (this.game.width / 2) - 150;
-            var startY = (this.game.height / 2) - 150;
-            var polygon = new Phaser.Polygon([
-                new Phaser.Point(startX, startY),
-                new Phaser.Point(startX + 10, startY - 10),
-                new Phaser.Point(startX + 300, startY - 10),
-                new Phaser.Point(startX + 310, startY),
-                new Phaser.Point(startX + 310, startY + 200),
-                new Phaser.Point(startX + 300, startY + 210),
-                new Phaser.Point(startX + 10, startY + 210),
-                new Phaser.Point(startX, startY + 200)
-            ]);
-            var graphicOverlay = new Phaser.Graphics(this.game, 0, 0);
-            graphicOverlay.beginFill(0x000000, 0.5);
-            graphicOverlay.drawRect(0, 0, this.game.width, this.game.height);
-            graphicOverlay.endFill();
-            graphicOverlay.beginFill(0x000000, 0.8);
-            graphicOverlay.lineStyle(2, 0x777777, 1);
-            graphicOverlay.drawPolygon(polygon);
-            graphicOverlay.endFill();
-            graphicOverlay.inputEnabled = true;
-            this.groupSettings.addChild(graphicOverlay);
-            var buttonClose = new Phaser.Button(this.game, startX + 25, startY + 150, Sheet.ButtonClose, this.onButtonClick, this, 1, 2);
-            buttonClose.name = 'setting_close';
-            this.groupSettings.addChild(buttonClose);
+            this.settings = new Settings(this.game, this.groupMenu);
+            this.settings.event.add(this.onButtonClick.bind(this));
         };
         Menu.prototype.settingsClose = function () {
-            this.groupSettings.removeChildren();
-            this.groupMenu.removeChild(this.groupSettings);
+            this.settings.removeAll();
+            this.groupMenu.removeChild(this.settings);
             var tweenTutorial = this.game.add.tween(this.tutorial);
             tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
             tweenTutorial.start();
@@ -387,6 +411,7 @@ var MortalKombatCards;
 /// <reference path="Data\Sheets.ts" />
 /// <reference path="Fabrique\State.ts" />
 /// <reference path="Fabrique\Objects\Tutorial.ts" />
+/// <reference path="Fabrique\Objects\Settings.ts" />
 /// <reference path="States\Boot.ts" />
 /// <reference path="States\Preloader.ts" />
 /// <reference path="States\Menu.ts" />

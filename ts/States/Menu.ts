@@ -1,6 +1,7 @@
 module MortalKombatCards {
 
     import Tutorial = Fabrique.Tutorial;
+    import Settings = Fabrique.Settings;
 
     export class Menu extends Phaser.State{
         public static Name: string = "menu";
@@ -9,9 +10,10 @@ module MortalKombatCards {
         private menuSprite:Phaser.Sprite;
         private groupMenu: Phaser.Group;
         private groupButtons: Phaser.Group;
-        private groupSettings: Phaser.Group;
+        //private groupSettings: Phaser.Group;
         private tween:Phaser.Tween;
         private tutorial:Tutorial;
+        private settings:Settings;
         
         constructor() {
             super();
@@ -124,44 +126,15 @@ module MortalKombatCards {
         private settingsCreate() {
             this.tutorial.x = Constants.GAME_WIDTH;
             this.tutorial.y = (Constants.GAME_HEIGHT - 175);
-
-            this.groupSettings = new Phaser.Group(this.game, this.groupMenu);
             
-            let startX:number = (this.game.width / 2) - 150;
-            let startY:number = (this.game.height / 2) - 150; 
-            let polygon:Phaser.Polygon = new Phaser.Polygon([   
-                new Phaser.Point(startX, startY), 
-                new Phaser.Point(startX+10, startY-10), 
-                new Phaser.Point(startX+300, startY-10), 
-                new Phaser.Point(startX+310, startY),  
-                new Phaser.Point(startX+310, startY+200),
-                new Phaser.Point(startX+300, startY+210),
-                new Phaser.Point(startX+10, startY+210),
-                new Phaser.Point(startX, startY+200)
-            ]);
-            let graphicOverlay: Phaser.Graphics = new Phaser.Graphics(this.game, 0, 0);
-            graphicOverlay.beginFill(0x000000, 0.5);
-            graphicOverlay.drawRect(0, 0, this.game.width, this.game.height);
-            graphicOverlay.endFill();
-            
-            graphicOverlay.beginFill(0x000000, 0.8);
-            graphicOverlay.lineStyle(2, 0x777777, 1);
-            graphicOverlay.drawPolygon(polygon)
-            graphicOverlay.endFill();
-            
-            graphicOverlay.inputEnabled = true;
-            
-            this.groupSettings.addChild(graphicOverlay);
-            
-            let buttonClose = new Phaser.Button(this.game, startX+25, startY+150, Sheet.ButtonClose, this.onButtonClick, this, 1, 2);
-            buttonClose.name = 'setting_close';
-            this.groupSettings.addChild(buttonClose);
+            this.settings = new Settings(this.game, this.groupMenu);
+            this.settings.event.add(this.onButtonClick.bind(this));
         }
         
         private settingsClose() {
-            this.groupSettings.removeChildren();
-            this.groupMenu.removeChild(this.groupSettings);
-
+            this.settings.removeAll();
+            this.groupMenu.removeChild(this.settings);
+            
             let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
             tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
             tweenTutorial.start();
