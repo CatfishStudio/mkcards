@@ -81,11 +81,13 @@ var Atlases = (function () {
     Atlases.Video2 = 'video2';
     Atlases.Video3 = 'video3';
     Atlases.VideoHelp = 'video_help';
+    Atlases.FightersCards = 'fighters_cards';
     Atlases.preloadList = [
         Atlases.Video1,
         Atlases.Video2,
         Atlases.Video3,
-        Atlases.VideoHelp
+        Atlases.VideoHelp,
+        Atlases.FightersCards
     ];
     return Atlases;
 }());
@@ -541,9 +543,16 @@ var MortalKombatCards;
         };
         Store.prototype.onCompleteVideo = function () {
             this.tween.start();
+            this.createSlide();
         };
         Store.prototype.onTweenComplete = function (event) {
             this.tween.start();
+        };
+        Store.prototype.createSlide = function () {
+            this.groupSlide = new Phaser.Group(this.game);
+            var sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.FightersCards, 0);
+            this.groupSlide.addChild(sprite);
+            this.groupStore.addChild(this.groupSlide);
         };
         Store.Name = "store";
         return Store;
@@ -564,3 +573,42 @@ var MortalKombatCards;
 /// <reference path="States\Menu.ts" />
 /// <reference path="States\Store.ts" />
 /// <reference path="app.ts" /> 
+var MortalKombatCards;
+(function (MortalKombatCards) {
+    var Tournament = (function (_super) {
+        __extends(Tournament, _super);
+        function Tournament() {
+            _super.call(this);
+            this.name = MortalKombatCards.Store.Name;
+        }
+        Tournament.prototype.create = function () {
+            this.groupStore = new Phaser.Group(this.game, this.stage);
+            this.storeSprite = new Phaser.Sprite(this.game, -5, -5, Images.FightersImage);
+            this.storeSprite.scale.set(1.025);
+            this.groupStore.addChild(this.storeSprite);
+            this.tween = this.game.add.tween(this.storeSprite);
+            this.tween.to({ x: -200, y: -5 }, 20000, 'Linear');
+            this.tween.to({ x: 0, y: 0 }, 20000, 'Linear');
+            this.tween.onComplete.add(this.onTweenComplete, this);
+            this.videoSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Video3, 0);
+            this.videoSprite.scale.set(2.6, 2.6);
+            this.groupStore.addChild(this.videoSprite);
+            var anim = this.videoSprite.animations.add(Atlases.Video3);
+            anim.onComplete.add(this.onCompleteVideo, this);
+            anim.play(15, false, true);
+            this.groupStore.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
+        };
+        Tournament.prototype.shutdown = function () {
+            this.groupStore.removeAll();
+        };
+        Tournament.prototype.onCompleteVideo = function () {
+            this.tween.start();
+        };
+        Tournament.prototype.onTweenComplete = function (event) {
+            this.tween.start();
+        };
+        Tournament.Name = "tourtament";
+        return Tournament;
+    }(Phaser.State));
+    MortalKombatCards.Tournament = Tournament;
+})(MortalKombatCards || (MortalKombatCards = {}));

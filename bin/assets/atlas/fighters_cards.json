@@ -1,0 +1,20 @@
+{
+"frames": {
+	"scorpion.png": {
+		"frame": {"x":201, "y":0, "w":200, "h":300},
+		"spriteSourceSize": {"x":0,"y":0,"w":200,"h":300},
+		"sourceSize": {"w":200,"h":300}
+	},
+	"sub-zero.png": {
+		"frame": {"x":0, "y":0, "w":200, "h":300},
+		"spriteSourceSize": {"x":0,"y":0,"w":200,"h":300},
+		"sourceSize": {"w":200,"h":300}
+	}
+
+},
+"meta": {
+	"image": "fighters_cards.png",
+	"size": {"w": 402, "h": 301},
+	"scale": "1"
+}
+}

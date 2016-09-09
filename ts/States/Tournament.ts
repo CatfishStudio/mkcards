@@ -3,15 +3,14 @@ module MortalKombatCards {
     import Tutorial = Fabrique.Tutorial;
     import Settings = Fabrique.Settings;
 
-    export class Store extends Phaser.State{
-        public static Name: string = "store";
+    export class Tournament extends Phaser.State{
+        public static Name: string = "tourtament";
         public name: string = Store.Name;
 
         private groupStore: Phaser.Group;
         private videoSprite:Phaser.Sprite;
         private storeSprite:Phaser.Sprite;
         private tween:Phaser.Tween;
-        private groupSlide:Phaser.Group;
 
         constructor() {
             super();
@@ -29,11 +28,11 @@ module MortalKombatCards {
             this.tween.to({ x: 0, y: 0}, 20000, 'Linear');
             this.tween.onComplete.add(this.onTweenComplete, this);
 
-            this.videoSprite = new Phaser.Sprite(this.game,0,0,Atlases.Video2,0);
+            this.videoSprite = new Phaser.Sprite(this.game,0,0,Atlases.Video3,0);
             this.videoSprite.scale.set(2.6, 2.6);
             this.groupStore.addChild(this.videoSprite);
 
-            let anim: Phaser.Animation = this.videoSprite.animations.add(Atlases.Video2);
+            let anim: Phaser.Animation = this.videoSprite.animations.add(Atlases.Video3);
             anim.onComplete.add(this.onCompleteVideo, this);
             anim.play(15, false, true);
 
@@ -47,20 +46,10 @@ module MortalKombatCards {
 
         private onCompleteVideo():void {
             this.tween.start();
-            this.createSlide();
         }
 
         private onTweenComplete(event:any):void {
             this.tween.start();
-        }
-
-        private createSlide():void {
-            this.groupSlide = new Phaser.Group(this.game);
-            let sprite:Phaser.Sprite = new Phaser.Sprite(this.game, 0,0, Atlases.FightersCards, 0);
-            
-            this.groupSlide.addChild(sprite);
-
-            this.groupStore.addChild(this.groupSlide);
         }
 
     }
