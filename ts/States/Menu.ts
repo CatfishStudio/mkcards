@@ -135,9 +135,11 @@ module MortalKombatCards {
             this.settings.removeAll();
             this.groupMenu.removeChild(this.settings);
             
-            let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
-            tweenTutorial.start();
+            if(Config.settintTutorial === true){
+                let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
+                tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
+                tweenTutorial.start();
+            }
         }
     }
 }

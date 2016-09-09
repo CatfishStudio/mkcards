@@ -42,6 +42,14 @@ var Constants = (function () {
     Constants.GAME_HEIGHT = 730;
     return Constants;
 }());
+var Config = (function () {
+    function Config() {
+    }
+    Config.settintSound = true;
+    Config.settintMusic = true;
+    Config.settintTutorial = true;
+    return Config;
+}());
 var Images = (function () {
     function Images() {
     }
@@ -144,7 +152,7 @@ var Fabrique;
             graphics.drawRect(0, 0, 400, 116);
             graphics.endFill();
             this.addChild(graphics);
-            var messageText = this.game.add.text(175, 10, this.text, { font: "16px Arial", fill: "#FFFFFF", align: "left" });
+            var messageText = this.game.add.text(175, 10, this.text, { font: "18px Georgia", fill: "#FFFFFF", align: "left" });
             this.addChild(messageText);
             var anim = this.animations.add(Atlases.VideoHelp);
             anim.onComplete.add(this.onCompleteVideo, this);
@@ -160,14 +168,18 @@ var Fabrique;
 (function (Fabrique) {
     var Settings = (function (_super) {
         __extends(Settings, _super);
+        //private buttonSound:Phaser.Button;
+        //private buttonMusic:Phaser.Button;
+        //private buttonTutorial:Phaser.Button;
         function Settings(game, parent) {
             _super.call(this, game, parent);
             this.init();
         }
         Settings.prototype.init = function () {
             this.event = new Phaser.Signal();
-            var startX = (this.game.width / 2) - 150;
-            var startY = (this.game.height / 2) - 150;
+            var startX = (Constants.GAME_WIDTH / 2) - 150;
+            var startY = (Constants.GAME_HEIGHT / 2) - 150;
+            /* bacground and border */
             var polygon = new Phaser.Polygon([
                 new Phaser.Point(startX, startY),
                 new Phaser.Point(startX + 10, startY - 10),
@@ -188,12 +200,107 @@ var Fabrique;
             graphicOverlay.endFill();
             graphicOverlay.inputEnabled = true;
             this.addChild(graphicOverlay);
-            var buttonClose = new Phaser.Button(this.game, startX + 25, startY + 150, Sheet.ButtonClose, this.onButtonClick, this, 1, 2);
+            /* title */
+            var title = new Phaser.Text(this.game, startX + 35, startY + 5, "НАСТРОЙКИ ИГРЫ", { font: "24px Georgia", fill: "#FFFFFF", align: "left" });
+            this.addChild(title);
+            /* sound */
+            var buttonSound;
+            if (Config.settintSound === true)
+                buttonSound = new Phaser.Button(this.game, startX + 25, startY + 50, Images.ButtonOn, this.onButtonClick, this);
+            else
+                buttonSound = new Phaser.Button(this.game, startX + 25, startY + 50, Images.ButtonOff, this.onButtonClick, this);
+            buttonSound.name = 'sound';
+            this.addChild(buttonSound);
+            var labelSound = new Phaser.Text(this.game, startX + 90, startY + 55, "Звук", { font: "18px Georgia", fill: "#FFFFFF", align: "left" });
+            this.addChild(labelSound);
+            /* music */
+            var buttonMusic;
+            if (Config.settintMusic === true)
+                buttonMusic = new Phaser.Button(this.game, startX + 155, startY + 50, Images.ButtonOn, this.onButtonClick, this);
+            else
+                buttonMusic = new Phaser.Button(this.game, startX + 155, startY + 50, Images.ButtonOff, this.onButtonClick, this);
+            buttonMusic.name = 'music';
+            this.addChild(buttonMusic);
+            var labelMusic = new Phaser.Text(this.game, startX + 220, startY + 55, "Музыка", { font: "18px Georgia", fill: "#FFFFFF", align: "left" });
+            this.addChild(labelMusic);
+            /* tutorial */
+            var buttonTutorial;
+            if (Config.settintTutorial === true)
+                buttonTutorial = new Phaser.Button(this.game, startX + 25, startY + 100, Images.ButtonOn, this.onButtonClick, this);
+            else
+                buttonTutorial = new Phaser.Button(this.game, startX + 25, startY + 100, Images.ButtonOff, this.onButtonClick, this);
+            buttonTutorial.name = 'tutorial';
+            this.addChild(buttonTutorial);
+            var labelTutorial = new Phaser.Text(this.game, startX + 90, startY + 105, "Обучение в игре", { font: "18px Georgia", fill: "#FFFFFF", align: "left" });
+            this.addChild(labelTutorial);
+            /* button close */
+            var buttonClose = new Phaser.Button(this.game, startX + 25, startY + 150, Sheet.ButtonClose, this.onButtonCloseClick, this, 1, 2);
             buttonClose.name = 'setting_close';
             this.addChild(buttonClose);
+            this.updateTransform();
+        };
+        Settings.prototype.onButtonCloseClick = function (event) {
+            this.event.dispatch(event);
         };
         Settings.prototype.onButtonClick = function (event) {
-            this.event.dispatch(event);
+            switch (event.name) {
+                case 'sound':
+                    {
+                        if (Config.settintSound === true) {
+                            Config.settintSound = false;
+                            this.removeChild(event);
+                            event = new Phaser.Button(this.game, event.x, event.y, Images.ButtonOff, this.onButtonClick, this);
+                            event.name = 'sound';
+                            this.addChild(event);
+                        }
+                        else {
+                            Config.settintSound = true;
+                            this.removeChild(event);
+                            event = new Phaser.Button(this.game, event.x, event.y, Images.ButtonOn, this.onButtonClick, this);
+                            event.name = 'sound';
+                            this.addChild(event);
+                        }
+                        break;
+                    }
+                case 'music':
+                    {
+                        if (Config.settintMusic === true) {
+                            Config.settintMusic = false;
+                            this.removeChild(event);
+                            event = new Phaser.Button(this.game, event.x, event.y, Images.ButtonOff, this.onButtonClick, this);
+                            event.name = 'music';
+                            this.addChild(event);
+                        }
+                        else {
+                            Config.settintMusic = true;
+                            this.removeChild(event);
+                            event = new Phaser.Button(this.game, event.x, event.y, Images.ButtonOn, this.onButtonClick, this);
+                            event.name = 'music';
+                            this.addChild(event);
+                        }
+                        break;
+                    }
+                case 'tutorial':
+                    {
+                        if (Config.settintTutorial === true) {
+                            Config.settintTutorial = false;
+                            this.removeChild(event);
+                            event = new Phaser.Button(this.game, event.x, event.y, Images.ButtonOff, this.onButtonClick, this);
+                            event.name = 'tutorial';
+                            this.addChild(event);
+                        }
+                        else {
+                            Config.settintTutorial = true;
+                            this.removeChild(event);
+                            event = new Phaser.Button(this.game, event.x, event.y, Images.ButtonOn, this.onButtonClick, this);
+                            event.name = 'tutorial';
+                            this.addChild(event);
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
         };
         return Settings;
     }(Phaser.Group));
@@ -395,9 +502,11 @@ var MortalKombatCards;
         Menu.prototype.settingsClose = function () {
             this.settings.removeAll();
             this.groupMenu.removeChild(this.settings);
-            var tweenTutorial = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
-            tweenTutorial.start();
+            if (Config.settintTutorial === true) {
+                var tweenTutorial = this.game.add.tween(this.tutorial);
+                tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
+                tweenTutorial.start();
+            }
         };
         Menu.Name = "menu";
         return Menu;
@@ -406,6 +515,7 @@ var MortalKombatCards;
 })(MortalKombatCards || (MortalKombatCards = {}));
 /// <reference path="..\node_modules\phaser\typescript\phaser.d.ts" />
 /// <reference path="Data\Constants.ts" />
+/// <reference path="Data\Config.ts" />
 /// <reference path="Data\Images.ts" />
 /// <reference path="Data\Atlases.ts" />
 /// <reference path="Data\Sheets.ts" />

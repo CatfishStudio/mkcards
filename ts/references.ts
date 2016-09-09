@@ -1,6 +1,7 @@
 /// <reference path="..\node_modules\phaser\typescript\phaser.d.ts" />
 
 /// <reference path="Data\Constants.ts" />
+/// <reference path="Data\Config.ts" />
 /// <reference path="Data\Images.ts" />
 /// <reference path="Data\Atlases.ts" />
 /// <reference path="Data\Sheets.ts" />
