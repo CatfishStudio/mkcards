@@ -20,6 +20,7 @@ var MortalKombatCards;
             this.state.add(MortalKombatCards.Boot.Name, MortalKombatCards.Boot, false);
             this.state.add(MortalKombatCards.Preloader.Name, MortalKombatCards.Preloader, false);
             this.state.add(MortalKombatCards.Menu.Name, MortalKombatCards.Menu, false);
+            this.state.add(MortalKombatCards.Store.Name, MortalKombatCards.Store, false);
         }
         Game.getInstance = function () {
             if (MortalKombatCards.Game.instance === null) {
@@ -168,9 +169,6 @@ var Fabrique;
 (function (Fabrique) {
     var Settings = (function (_super) {
         __extends(Settings, _super);
-        //private buttonSound:Phaser.Button;
-        //private buttonMusic:Phaser.Button;
-        //private buttonTutorial:Phaser.Button;
         function Settings(game, parent) {
             _super.call(this, game, parent);
             this.init();
@@ -429,7 +427,7 @@ var MortalKombatCards;
             this.groupMenu.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
         };
         Menu.prototype.shutdown = function () {
-            this.groupMenu.removeChildren();
+            this.groupMenu.removeAll();
         };
         Menu.prototype.onCompleteVideo = function () {
             var _this = this;
@@ -468,7 +466,7 @@ var MortalKombatCards;
                 case 'start':
                     {
                         console.log("START");
-                        //this.game.state.start(Drivers.Name, true, false);
+                        this.game.state.start(MortalKombatCards.Store.Name, true, false);
                         break;
                     }
                 case 'continue':
@@ -513,6 +511,45 @@ var MortalKombatCards;
     }(Phaser.State));
     MortalKombatCards.Menu = Menu;
 })(MortalKombatCards || (MortalKombatCards = {}));
+var MortalKombatCards;
+(function (MortalKombatCards) {
+    var Store = (function (_super) {
+        __extends(Store, _super);
+        function Store() {
+            _super.call(this);
+            this.name = Store.Name;
+        }
+        Store.prototype.create = function () {
+            this.groupStore = new Phaser.Group(this.game, this.stage);
+            this.storeSprite = new Phaser.Sprite(this.game, -5, -5, Images.FightersImage);
+            this.storeSprite.scale.set(1.025);
+            this.groupStore.addChild(this.storeSprite);
+            this.tween = this.game.add.tween(this.storeSprite);
+            this.tween.to({ x: -200, y: -5 }, 20000, 'Linear');
+            this.tween.to({ x: 0, y: 0 }, 20000, 'Linear');
+            this.tween.onComplete.add(this.onTweenComplete, this);
+            this.videoSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Video2, 0);
+            this.videoSprite.scale.set(2.6, 2.6);
+            this.groupStore.addChild(this.videoSprite);
+            var anim = this.videoSprite.animations.add(Atlases.Video2);
+            anim.onComplete.add(this.onCompleteVideo, this);
+            anim.play(15, false, true);
+            this.groupStore.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
+        };
+        Store.prototype.shutdown = function () {
+            this.groupStore.removeAll();
+        };
+        Store.prototype.onCompleteVideo = function () {
+            this.tween.start();
+        };
+        Store.prototype.onTweenComplete = function (event) {
+            this.tween.start();
+        };
+        Store.Name = "store";
+        return Store;
+    }(Phaser.State));
+    MortalKombatCards.Store = Store;
+})(MortalKombatCards || (MortalKombatCards = {}));
 /// <reference path="..\node_modules\phaser\typescript\phaser.d.ts" />
 /// <reference path="Data\Constants.ts" />
 /// <reference path="Data\Config.ts" />
@@ -525,4 +562,5 @@ var MortalKombatCards;
 /// <reference path="States\Boot.ts" />
 /// <reference path="States\Preloader.ts" />
 /// <reference path="States\Menu.ts" />
+/// <reference path="States\Store.ts" />
 /// <reference path="app.ts" /> 

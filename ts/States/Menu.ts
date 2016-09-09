@@ -10,7 +10,6 @@ module MortalKombatCards {
         private menuSprite:Phaser.Sprite;
         private groupMenu: Phaser.Group;
         private groupButtons: Phaser.Group;
-        //private groupSettings: Phaser.Group;
         private tween:Phaser.Tween;
         private tutorial:Tutorial;
         private settings:Settings;
@@ -43,7 +42,7 @@ module MortalKombatCards {
         }
 
         public shutdown(){
-            this.groupMenu.removeChildren();
+            this.groupMenu.removeAll();
         }
 
         private onCompleteVideo():void {
@@ -95,7 +94,7 @@ module MortalKombatCards {
                 case 'start':
                     {
                         console.log("START");
-                        //this.game.state.start(Drivers.Name, true, false);
+                        this.game.state.start(Store.Name, true, false);
                         break;
                     }
                 case 'continue':

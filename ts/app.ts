@@ -16,6 +16,7 @@ module MortalKombatCards{
                         this.state.add(Boot.Name, Boot, false);
                         this.state.add(Preloader.Name, Preloader, false);
                         this.state.add(Menu.Name, Menu, false);
+                        this.state.add(Store.Name, Store, false);
                 }
                 
                 public static getInstance(): Game {
