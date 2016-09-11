@@ -8,6 +8,7 @@ class Images {
     public static UpgradeImage: string = 'upgrade.png';
     public static ButtonOn: string = 'buttons_on.png';
     public static ButtonOff: string = 'buttons_off.png';
+    public static Title: string = 'title.png';
     
     public static preloadList:Array<string> = [
         Images.BackgroundImage,
@@ -16,6 +17,7 @@ class Images {
         Images.FightersImage,
         Images.UpgradeImage,
         Images.ButtonOn,
-        Images.ButtonOff
+        Images.ButtonOff,
+        Images.Title
     ]; 
 }

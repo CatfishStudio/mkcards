@@ -62,6 +62,7 @@ var Images = (function () {
     Images.UpgradeImage = 'upgrade.png';
     Images.ButtonOn = 'buttons_on.png';
     Images.ButtonOff = 'buttons_off.png';
+    Images.Title = 'title.png';
     Images.preloadList = [
         Images.BackgroundImage,
         Images.MenuImage,
@@ -69,7 +70,8 @@ var Images = (function () {
         Images.FightersImage,
         Images.UpgradeImage,
         Images.ButtonOn,
-        Images.ButtonOff
+        Images.ButtonOff,
+        Images.Title
     ];
     return Images;
 }());
@@ -306,6 +308,39 @@ var Fabrique;
     }(Phaser.Group));
     Fabrique.Settings = Settings;
 })(Fabrique || (Fabrique = {}));
+var Fabrique;
+(function (Fabrique) {
+    var Title = (function (_super) {
+        __extends(Title, _super);
+        function Title(game, x, y, text) {
+            _super.call(this, game, x, y, Images.Title);
+            this.posX = 0;
+            this.posY = 0;
+            this.text = text;
+            this.posX = ((Constants.GAME_WIDTH / 2) - (this.width / 2));
+            this.posY = Constants.GAME_HEIGHT / 8;
+            if (x >= 0)
+                this.x = this.posX;
+            if (y >= 0)
+                this.y = this.posY;
+            this.updateTransform();
+            this.init();
+        }
+        Title.prototype.init = function () {
+            var size = 12 * this.text.length;
+            var posX = (this.width / 2) - (size / 2);
+            var titleText = this.game.add.text(posX, 20, this.text, { font: "18px Georgia", fill: "#FFFFFF", align: "left" });
+            this.addChild(titleText);
+        };
+        Title.prototype.show = function () {
+            var tween = this.game.add.tween(this);
+            tween.to({ x: this.posX, y: this.posY }, 500, 'Linear');
+            tween.start();
+        };
+        return Title;
+    }(Phaser.Sprite));
+    Fabrique.Title = Title;
+})(Fabrique || (Fabrique = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
     var Boot = (function (_super) {
@@ -515,6 +550,7 @@ var MortalKombatCards;
 })(MortalKombatCards || (MortalKombatCards = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
+    var Title = Fabrique.Title;
     var Store = (function (_super) {
         __extends(Store, _super);
         function Store() {
@@ -536,6 +572,7 @@ var MortalKombatCards;
             var anim = this.videoSprite.animations.add(Atlases.Video2);
             anim.onComplete.add(this.onCompleteVideo, this);
             anim.play(15, false, true);
+            this.createContent();
             this.groupStore.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
         };
         Store.prototype.shutdown = function () {
@@ -543,15 +580,21 @@ var MortalKombatCards;
         };
         Store.prototype.onCompleteVideo = function () {
             this.tween.start();
-            this.createSlide();
+            this.title.show();
+            this.groupSlide.visible = true;
         };
         Store.prototype.onTweenComplete = function (event) {
             this.tween.start();
         };
-        Store.prototype.createSlide = function () {
+        Store.prototype.createContent = function () {
+            /* title */
+            this.title = new Title(this.game, 0, -50, 'ВЫБОР БОЙЦА');
+            this.groupStore.addChild(this.title);
+            /* slider */
             this.groupSlide = new Phaser.Group(this.game);
             var sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.FightersCards, 0);
             this.groupSlide.addChild(sprite);
+            this.groupSlide.visible = false;
             this.groupStore.addChild(this.groupSlide);
         };
         Store.Name = "store";
@@ -568,6 +611,7 @@ var MortalKombatCards;
 /// <reference path="Fabrique\State.ts" />
 /// <reference path="Fabrique\Objects\Tutorial.ts" />
 /// <reference path="Fabrique\Objects\Settings.ts" />
+/// <reference path="Fabrique\Objects\Title.ts" />
 /// <reference path="States\Boot.ts" />
 /// <reference path="States\Preloader.ts" />
 /// <reference path="States\Menu.ts" />

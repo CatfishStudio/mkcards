@@ -2,6 +2,7 @@ module MortalKombatCards {
 
     import Tutorial = Fabrique.Tutorial;
     import Settings = Fabrique.Settings;
+    import Title = Fabrique.Title;
 
     export class Store extends Phaser.State{
         public static Name: string = "store";
@@ -10,6 +11,7 @@ module MortalKombatCards {
         private groupStore: Phaser.Group;
         private videoSprite:Phaser.Sprite;
         private storeSprite:Phaser.Sprite;
+        private title:Title;
         private tween:Phaser.Tween;
         private groupSlide:Phaser.Group;
 
@@ -37,6 +39,8 @@ module MortalKombatCards {
             anim.onComplete.add(this.onCompleteVideo, this);
             anim.play(15, false, true);
 
+            this.createContent();
+
             this.groupStore.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
 
         }
@@ -47,20 +51,27 @@ module MortalKombatCards {
 
         private onCompleteVideo():void {
             this.tween.start();
-            this.createSlide();
+            this.title.show();
+            this.groupSlide.visible = true;
         }
 
         private onTweenComplete(event:any):void {
             this.tween.start();
         }
 
-        private createSlide():void {
+        private createContent():void {
+            /* title */
+            this.title = new Title(this.game, 0, -50, 'ВЫБОР БОЙЦА');
+            this.groupStore.addChild(this.title);
+
+            /* slider */
             this.groupSlide = new Phaser.Group(this.game);
             let sprite:Phaser.Sprite = new Phaser.Sprite(this.game, 0,0, Atlases.FightersCards, 0);
-            
             this.groupSlide.addChild(sprite);
-
+            this.groupSlide.visible = false;
             this.groupStore.addChild(this.groupSlide);
+
+            
         }
 
     }
