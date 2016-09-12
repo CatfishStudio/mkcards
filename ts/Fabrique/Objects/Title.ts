@@ -10,7 +10,7 @@ module Fabrique {
             this.text = text;
 
             this.posX = ( (Constants.GAME_WIDTH / 2) - (this.width / 2) );
-            this.posY = Constants.GAME_HEIGHT / 8;
+            this.posY = Constants.GAME_HEIGHT / 10;
             if(x >= 0) this.x = this.posX;
             if(y >= 0) this.y = this.posY;
             this.updateTransform();

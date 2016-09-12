@@ -45,6 +45,10 @@ module MortalKombatCards {
             this.groupMenu.removeAll();
         }
 
+        private createButtons():void{
+            
+        }
+
         private onCompleteVideo():void {
             this.groupButtons = new Phaser.Group(this.game, this.groupMenu);
             this.groupButtons.x = -500;
@@ -76,7 +80,7 @@ module MortalKombatCards {
             tweenButtons.to({ x: 0, y: 0}, 500, 'Linear');
             tweenButtons.onComplete.add(() => {
                 this.tween.start();
-                tweenTutorial.start();
+                if(Config.settintTutorial === true) tweenTutorial.start();
             }, this);
             tweenButtons.start();
 

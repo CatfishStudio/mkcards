@@ -3,17 +3,20 @@ module MortalKombatCards {
     import Tutorial = Fabrique.Tutorial;
     import Settings = Fabrique.Settings;
     import Title = Fabrique.Title;
+    import Slides = Fabrique.Slides;
 
     export class Store extends Phaser.State{
         public static Name: string = "store";
         public name: string = Store.Name;
 
+        private tween:Phaser.Tween;
         private groupStore: Phaser.Group;
         private videoSprite:Phaser.Sprite;
         private storeSprite:Phaser.Sprite;
         private title:Title;
-        private tween:Phaser.Tween;
-        private groupSlide:Phaser.Group;
+        private slides:Slides;
+        private tutorial:Tutorial;
+        private settings:Settings;
 
         constructor() {
             super();
@@ -52,7 +55,10 @@ module MortalKombatCards {
         private onCompleteVideo():void {
             this.tween.start();
             this.title.show();
-            this.groupSlide.visible = true;
+            this.slides.show();
+            let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
+            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
+            if(Config.settintTutorial === true) tweenTutorial.start();
         }
 
         private onTweenComplete(event:any):void {
@@ -65,12 +71,13 @@ module MortalKombatCards {
             this.groupStore.addChild(this.title);
 
             /* slider */
-            this.groupSlide = new Phaser.Group(this.game);
-            let sprite:Phaser.Sprite = new Phaser.Sprite(this.game, 0,0, Atlases.FightersCards, 0);
-            this.groupSlide.addChild(sprite);
-            this.groupSlide.visible = false;
-            this.groupStore.addChild(this.groupSlide);
+            this.slides = new Fabrique.Slides(this.game, this.groupStore);
 
+            /* tutorial */
+            this.tutorial = new Tutorial(this.game, "Нажмите начать игру\nчтобы вступить в турнир.");
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 175);
+            this.groupStore.addChild(this.tutorial);
             
         }
 

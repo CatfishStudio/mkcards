@@ -318,7 +318,7 @@ var Fabrique;
             this.posY = 0;
             this.text = text;
             this.posX = ((Constants.GAME_WIDTH / 2) - (this.width / 2));
-            this.posY = Constants.GAME_HEIGHT / 8;
+            this.posY = Constants.GAME_HEIGHT / 10;
             if (x >= 0)
                 this.x = this.posX;
             if (y >= 0)
@@ -466,6 +466,8 @@ var MortalKombatCards;
         Menu.prototype.shutdown = function () {
             this.groupMenu.removeAll();
         };
+        Menu.prototype.createButtons = function () {
+        };
         Menu.prototype.onCompleteVideo = function () {
             var _this = this;
             this.groupButtons = new Phaser.Group(this.game, this.groupMenu);
@@ -491,7 +493,8 @@ var MortalKombatCards;
             tweenButtons.to({ x: 0, y: 0 }, 500, 'Linear');
             tweenButtons.onComplete.add(function () {
                 _this.tween.start();
-                tweenTutorial.start();
+                if (Config.settintTutorial === true)
+                    tweenTutorial.start();
             }, this);
             tweenButtons.start();
         };
@@ -550,6 +553,7 @@ var MortalKombatCards;
 })(MortalKombatCards || (MortalKombatCards = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
+    var Tutorial = Fabrique.Tutorial;
     var Title = Fabrique.Title;
     var Store = (function (_super) {
         __extends(Store, _super);
@@ -581,7 +585,11 @@ var MortalKombatCards;
         Store.prototype.onCompleteVideo = function () {
             this.tween.start();
             this.title.show();
-            this.groupSlide.visible = true;
+            this.slides.show();
+            var tweenTutorial = this.game.add.tween(this.tutorial);
+            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
+            if (Config.settintTutorial === true)
+                tweenTutorial.start();
         };
         Store.prototype.onTweenComplete = function (event) {
             this.tween.start();
@@ -591,11 +599,12 @@ var MortalKombatCards;
             this.title = new Title(this.game, 0, -50, 'ВЫБОР БОЙЦА');
             this.groupStore.addChild(this.title);
             /* slider */
-            this.groupSlide = new Phaser.Group(this.game);
-            var sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.FightersCards, 0);
-            this.groupSlide.addChild(sprite);
-            this.groupSlide.visible = false;
-            this.groupStore.addChild(this.groupSlide);
+            this.slides = new Fabrique.Slides(this.game, this.groupStore);
+            /* tutorial */
+            this.tutorial = new Tutorial(this.game, "Нажмите начать игру\nчтобы вступить в турнир.");
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 175);
+            this.groupStore.addChild(this.tutorial);
         };
         Store.Name = "store";
         return Store;
@@ -608,6 +617,7 @@ var MortalKombatCards;
 /// <reference path="Data\Images.ts" />
 /// <reference path="Data\Atlases.ts" />
 /// <reference path="Data\Sheets.ts" />
+/// <reference path="Data\Game.ts" />
 /// <reference path="Fabrique\State.ts" />
 /// <reference path="Fabrique\Objects\Tutorial.ts" />
 /// <reference path="Fabrique\Objects\Settings.ts" />
@@ -617,6 +627,50 @@ var MortalKombatCards;
 /// <reference path="States\Menu.ts" />
 /// <reference path="States\Store.ts" />
 /// <reference path="app.ts" /> 
+var Fabrique;
+(function (Fabrique) {
+    var Slides = (function (_super) {
+        __extends(Slides, _super);
+        function Slides(game, parent) {
+            _super.call(this, game, parent);
+            this.fighters = [];
+            this.data = [
+                [0, 'Cyrex', 'cyrex.png'],
+                [1, 'Scorpion', 'scorpion.png'],
+                [2, 'Sub-Zero', 'sub-zero.png']
+            ];
+            this.visible = false;
+            this.init();
+        }
+        Slides.prototype.init = function () {
+            for (var i = 0; i < this.data.length; i++) {
+                var fighter = {};
+                fighter.id = this.data[i][0];
+                fighter.name = this.data[i][1];
+                fighter.frame = this.data[i][2];
+                this.fighters.push(fighter);
+            }
+            this.createSlides();
+        };
+        Slides.prototype.createSlides = function () {
+            var posX = 25;
+            var posY = 150;
+            for (var i = 0; i < this.fighters.length; i++) {
+                var sprite = new Phaser.Sprite(this.game, posX + (300 * i), posY, Atlases.FightersCards, this.fighters[i].frame);
+                this.addChild(sprite);
+            }
+        };
+        Slides.prototype.show = function () {
+            this.alpha = 0;
+            this.visible = true;
+            var tween = this.game.add.tween(this);
+            tween.to({ alpha: 1 }, 500, 'Linear');
+            tween.start();
+        };
+        return Slides;
+    }(Phaser.Group));
+    Fabrique.Slides = Slides;
+})(Fabrique || (Fabrique = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
     var Tournament = (function (_super) {
