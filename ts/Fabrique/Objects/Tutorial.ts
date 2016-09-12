@@ -42,6 +42,12 @@ module Fabrique {
 
         }
 
+        public show(x:number, y:number):void {
+            let tween: Phaser.Tween = this.game.add.tween(this);
+            tween.to({ x: x, y:y}, 500, 'Linear');
+            tween.start();
+        }
+
     }
 
 }

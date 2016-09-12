@@ -165,6 +165,11 @@ var Fabrique;
         };
         Tutorial.prototype.onCompleteVideo = function () {
         };
+        Tutorial.prototype.show = function (x, y) {
+            var tween = this.game.add.tween(this);
+            tween.to({ x: x, y: y }, 500, 'Linear');
+            tween.start();
+        };
         return Tutorial;
     }(Phaser.Sprite));
     Fabrique.Tutorial = Tutorial;
@@ -461,18 +466,17 @@ var MortalKombatCards;
             var anim = this.videoSprite.animations.add(Atlases.Video1);
             anim.onComplete.add(this.onCompleteVideo, this);
             anim.play(15, false, true);
+            this.createButtons();
             this.groupMenu.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
         };
         Menu.prototype.shutdown = function () {
             this.groupMenu.removeAll();
         };
         Menu.prototype.createButtons = function () {
-        };
-        Menu.prototype.onCompleteVideo = function () {
-            var _this = this;
             this.groupButtons = new Phaser.Group(this.game, this.groupMenu);
             this.groupButtons.x = -500;
             this.groupButtons.y = 0;
+            this.groupButtons.visible = false;
             this.groupButtons.addChild(new Phaser.Sprite(this.game, 35, 80, Images.LogoImage));
             var buttonStart = new Phaser.Button(this.game, 75, 400, Sheet.ButtonStartNewGame, this.onButtonClick, this, 1, 2);
             buttonStart.name = 'start';
@@ -487,14 +491,16 @@ var MortalKombatCards;
             this.tutorial.x = Constants.GAME_WIDTH;
             this.tutorial.y = (Constants.GAME_HEIGHT - 175);
             this.groupMenu.addChild(this.tutorial);
-            var tweenTutorial = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
+        };
+        Menu.prototype.onCompleteVideo = function () {
+            var _this = this;
+            this.groupButtons.visible = true;
             var tweenButtons = this.game.add.tween(this.groupButtons);
             tweenButtons.to({ x: 0, y: 0 }, 500, 'Linear');
             tweenButtons.onComplete.add(function () {
                 _this.tween.start();
                 if (Config.settintTutorial === true)
-                    tweenTutorial.start();
+                    _this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
             }, this);
             tweenButtons.start();
         };
@@ -586,10 +592,8 @@ var MortalKombatCards;
             this.tween.start();
             this.title.show();
             this.slides.show();
-            var tweenTutorial = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
             if (Config.settintTutorial === true)
-                tweenTutorial.start();
+                this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
         };
         Store.prototype.onTweenComplete = function (event) {
             this.tween.start();

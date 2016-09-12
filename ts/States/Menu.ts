@@ -38,6 +38,8 @@ module MortalKombatCards {
             anim.onComplete.add(this.onCompleteVideo, this);
             anim.play(15, false, true);
 
+            this.createButtons();
+
             this.groupMenu.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
         }
 
@@ -46,13 +48,10 @@ module MortalKombatCards {
         }
 
         private createButtons():void{
-            
-        }
-
-        private onCompleteVideo():void {
             this.groupButtons = new Phaser.Group(this.game, this.groupMenu);
             this.groupButtons.x = -500;
             this.groupButtons.y = 0;
+            this.groupButtons.visible = false;
 
             this.groupButtons.addChild(new Phaser.Sprite(this.game, 35, 80, Images.LogoImage));
             
@@ -72,18 +71,18 @@ module MortalKombatCards {
             this.tutorial.x = Constants.GAME_WIDTH;
             this.tutorial.y = (Constants.GAME_HEIGHT - 175);
             this.groupMenu.addChild(this.tutorial);
-            
-            let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
-            
+        }
+
+        private onCompleteVideo():void {
+            this.groupButtons.visible = true;
+
             let tweenButtons: Phaser.Tween = this.game.add.tween(this.groupButtons);
             tweenButtons.to({ x: 0, y: 0}, 500, 'Linear');
             tweenButtons.onComplete.add(() => {
                 this.tween.start();
-                if(Config.settintTutorial === true) tweenTutorial.start();
+                if(Config.settintTutorial === true) this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
             }, this);
             tweenButtons.start();
-
             
             
         }

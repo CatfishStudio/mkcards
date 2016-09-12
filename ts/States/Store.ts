@@ -56,9 +56,7 @@ module MortalKombatCards {
             this.tween.start();
             this.title.show();
             this.slides.show();
-            let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
-            tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
-            if(Config.settintTutorial === true) tweenTutorial.start();
+            if(Config.settintTutorial === true) this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
         }
 
         private onTweenComplete(event:any):void {
