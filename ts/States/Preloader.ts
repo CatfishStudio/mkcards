@@ -22,7 +22,7 @@ module MortalKombatCards {
         
         public preload() {
             this.game.add.sprite(0,0, Images.PreloaderImage);
-            //this.game.add.sprite(0,0, Images.TitleImage);
+            
             this.logo =  this.game.add.sprite(0,0, Atlases.LogoAtlas, "load_1.png");
             this.logo.x = (this.game.world.width/2) - (this.logo.width / 2);
             this.logo.y = (this.game.world.height/2) - (this.logo.height / 2);
@@ -44,6 +44,7 @@ module MortalKombatCards {
 
         private onFileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
             this.loadPercent = Math.round(progress  * 0.1);
+            if(this.loadPercent <= 0) this.loadPercent = 1;
             if (this.preloadText !== null) {
                 this.logo.frameName = "load_" + this.loadPercent + ".png";
                 this.preloadText.text = "ЗАГРУЗКА " + this.loadPercent + "0 %";

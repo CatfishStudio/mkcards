@@ -9,6 +9,8 @@ class Images {
     public static ButtonOn: string = 'buttons_on.png';
     public static ButtonOff: string = 'buttons_off.png';
     public static Title: string = 'title.png';
+    public static ButtonLeft: string = 'button_left.png';
+    public static ButtonRight: string ='button_right.png';
     
     public static preloadList:Array<string> = [
         Images.BackgroundImage,
@@ -18,6 +20,8 @@ class Images {
         Images.UpgradeImage,
         Images.ButtonOn,
         Images.ButtonOff,
-        Images.Title
+        Images.Title,
+        Images.ButtonLeft,
+        Images.ButtonRight
     ]; 
 }

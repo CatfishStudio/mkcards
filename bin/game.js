@@ -63,6 +63,8 @@ var Images = (function () {
     Images.ButtonOn = 'buttons_on.png';
     Images.ButtonOff = 'buttons_off.png';
     Images.Title = 'title.png';
+    Images.ButtonLeft = 'button_left.png';
+    Images.ButtonRight = 'button_right.png';
     Images.preloadList = [
         Images.BackgroundImage,
         Images.MenuImage,
@@ -71,7 +73,9 @@ var Images = (function () {
         Images.UpgradeImage,
         Images.ButtonOn,
         Images.ButtonOff,
-        Images.Title
+        Images.Title,
+        Images.ButtonLeft,
+        Images.ButtonRight
     ];
     return Images;
 }());
@@ -409,7 +413,6 @@ var MortalKombatCards;
         };
         Preloader.prototype.preload = function () {
             this.game.add.sprite(0, 0, Images.PreloaderImage);
-            //this.game.add.sprite(0,0, Images.TitleImage);
             this.logo = this.game.add.sprite(0, 0, Atlases.LogoAtlas, "load_1.png");
             this.logo.x = (this.game.world.width / 2) - (this.logo.width / 2);
             this.logo.y = (this.game.world.height / 2) - (this.logo.height / 2);
@@ -426,6 +429,8 @@ var MortalKombatCards;
         };
         Preloader.prototype.onFileComplete = function (progress, cacheKey, success, totalLoaded, totalFiles) {
             this.loadPercent = Math.round(progress * 0.1);
+            if (this.loadPercent <= 0)
+                this.loadPercent = 1;
             if (this.preloadText !== null) {
                 this.logo.frameName = "load_" + this.loadPercent + ".png";
                 this.preloadText.text = "ЗАГРУЗКА " + this.loadPercent + "0 %";
