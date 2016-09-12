@@ -44,6 +44,9 @@ module MortalKombatCards {
         }
 
         public shutdown(){
+            this.tween.stop();
+            this.tween = null;
+            this.groupButtons.removeAll();
             this.groupMenu.removeAll();
         }
 
@@ -96,7 +99,6 @@ module MortalKombatCards {
             switch (event.name) {
                 case 'start':
                     {
-                        console.log("START");
                         this.game.state.start(Store.Name, true, false);
                         break;
                     }

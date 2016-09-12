@@ -17,6 +17,8 @@ module MortalKombatCards {
         private slides:Slides;
         private tutorial:Tutorial;
         private settings:Settings;
+        private backMenuButton:Phaser.Button;
+        private settingsButton:Phaser.Button;
 
         constructor() {
             super();
@@ -49,6 +51,8 @@ module MortalKombatCards {
         }
 
         public shutdown(){
+            this.tween.stop();
+            this.tween = null;
             this.groupStore.removeAll();
         }
 
@@ -57,6 +61,14 @@ module MortalKombatCards {
             this.title.show();
             this.slides.show();
             if(Config.settintTutorial === true) this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
+
+            this.backMenuButton = new Phaser.Button(this.game, -25, Constants.GAME_HEIGHT - 50, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
+            this.backMenuButton.name = 'back_menu';
+            this.groupStore.addChild(this.backMenuButton);
+
+            this.settingsButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 225, Constants.GAME_HEIGHT - 50, Sheet.ButtonSettingsMini, this.onButtonClick, this, 1, 2);
+            this.settingsButton.name = 'settings';
+            this.groupStore.addChild(this.settingsButton);
         }
 
         private onTweenComplete(event:any):void {
@@ -77,6 +89,52 @@ module MortalKombatCards {
             this.tutorial.y = (Constants.GAME_HEIGHT - 175);
             this.groupStore.addChild(this.tutorial);
             
+        }
+
+        private onButtonClick(event) {
+            switch (event.name) {
+                case 'back_menu':
+                    {
+                        this.game.state.start(Menu.Name, true, false);
+                        break;
+                    }
+                case 'settings':
+                    {
+                        this.settingsCreate();
+                        break;
+                    }
+                case 'setting_close':
+                    {
+                        this.settingsClose();
+                        break;
+                    }
+                case 'invite':
+                    {
+                        
+                        break;
+                    }                
+                default:
+                    break;
+            }
+        }
+
+        private settingsCreate() {
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 175);
+            
+            this.settings = new Settings(this.game, this.groupStore);
+            this.settings.event.add(this.onButtonClick.bind(this));
+        }
+        
+        private settingsClose() {
+            this.settings.removeAll();
+            this.groupStore.removeChild(this.settings);
+            
+            if(Config.settintTutorial === true){
+                let tweenTutorial: Phaser.Tween = this.game.add.tween(this.tutorial);
+                tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175)}, 500, 'Linear');
+                tweenTutorial.start();
+            }
         }
 
     }

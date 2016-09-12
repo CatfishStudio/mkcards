@@ -104,7 +104,8 @@ var Sheet = (function () {
     Sheet.ButtonSettings = 'button_settings_sheet.png';
     Sheet.ButtonInvite = 'button_invite_sheet.png';
     Sheet.ButtonClose = 'button_close_sheet.png';
-    Sheet.ButtonBackMenu = 'button_back_menu_sheet.png';
+    Sheet.ButtonBackMenuMini = 'button_back_menu_mini_sheet.png';
+    Sheet.ButtonSettingsMini = 'button_settings_mini_sheet.png';
     Sheet.ButtonBlueClose = 'button_blue_close_sheet.png';
     Sheet.ButtonBlueBackMenu = 'button_blue_back_menu_sheet.png';
     Sheet.ButtonBlueSettings = 'button_blue_settings_sheet.png';
@@ -114,7 +115,8 @@ var Sheet = (function () {
         Sheet.ButtonSettings,
         Sheet.ButtonInvite,
         Sheet.ButtonClose,
-        Sheet.ButtonBackMenu
+        Sheet.ButtonBackMenuMini,
+        Sheet.ButtonSettingsMini
     ];
     Sheet.preloadList2 = [
         Sheet.ButtonBlueClose,
@@ -475,6 +477,9 @@ var MortalKombatCards;
             this.groupMenu.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
         };
         Menu.prototype.shutdown = function () {
+            this.tween.stop();
+            this.tween = null;
+            this.groupButtons.removeAll();
             this.groupMenu.removeAll();
         };
         Menu.prototype.createButtons = function () {
@@ -516,7 +521,6 @@ var MortalKombatCards;
             switch (event.name) {
                 case 'start':
                     {
-                        console.log("START");
                         this.game.state.start(MortalKombatCards.Store.Name, true, false);
                         break;
                     }
@@ -565,6 +569,7 @@ var MortalKombatCards;
 var MortalKombatCards;
 (function (MortalKombatCards) {
     var Tutorial = Fabrique.Tutorial;
+    var Settings = Fabrique.Settings;
     var Title = Fabrique.Title;
     var Store = (function (_super) {
         __extends(Store, _super);
@@ -591,6 +596,8 @@ var MortalKombatCards;
             this.groupStore.addChild(new Phaser.Sprite(this.game, 0, 0, Images.BackgroundImage));
         };
         Store.prototype.shutdown = function () {
+            this.tween.stop();
+            this.tween = null;
             this.groupStore.removeAll();
         };
         Store.prototype.onCompleteVideo = function () {
@@ -599,6 +606,12 @@ var MortalKombatCards;
             this.slides.show();
             if (Config.settintTutorial === true)
                 this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
+            this.backMenuButton = new Phaser.Button(this.game, -25, Constants.GAME_HEIGHT - 50, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
+            this.backMenuButton.name = 'back_menu';
+            this.groupStore.addChild(this.backMenuButton);
+            this.settingsButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 225, Constants.GAME_HEIGHT - 50, Sheet.ButtonSettingsMini, this.onButtonClick, this, 1, 2);
+            this.settingsButton.name = 'settings';
+            this.groupStore.addChild(this.settingsButton);
         };
         Store.prototype.onTweenComplete = function (event) {
             this.tween.start();
@@ -614,6 +627,46 @@ var MortalKombatCards;
             this.tutorial.x = Constants.GAME_WIDTH;
             this.tutorial.y = (Constants.GAME_HEIGHT - 175);
             this.groupStore.addChild(this.tutorial);
+        };
+        Store.prototype.onButtonClick = function (event) {
+            switch (event.name) {
+                case 'back_menu':
+                    {
+                        this.game.state.start(MortalKombatCards.Menu.Name, true, false);
+                        break;
+                    }
+                case 'settings':
+                    {
+                        this.settingsCreate();
+                        break;
+                    }
+                case 'setting_close':
+                    {
+                        this.settingsClose();
+                        break;
+                    }
+                case 'invite':
+                    {
+                        break;
+                    }
+                default:
+                    break;
+            }
+        };
+        Store.prototype.settingsCreate = function () {
+            this.tutorial.x = Constants.GAME_WIDTH;
+            this.tutorial.y = (Constants.GAME_HEIGHT - 175);
+            this.settings = new Settings(this.game, this.groupStore);
+            this.settings.event.add(this.onButtonClick.bind(this));
+        };
+        Store.prototype.settingsClose = function () {
+            this.settings.removeAll();
+            this.groupStore.removeChild(this.settings);
+            if (Config.settintTutorial === true) {
+                var tweenTutorial = this.game.add.tween(this.tutorial);
+                tweenTutorial.to({ x: (Constants.GAME_WIDTH / 2), y: (Constants.GAME_HEIGHT - 175) }, 500, 'Linear');
+                tweenTutorial.start();
+            }
         };
         Store.Name = "store";
         return Store;
