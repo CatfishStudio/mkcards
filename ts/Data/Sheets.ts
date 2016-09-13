@@ -4,7 +4,7 @@ class Sheet {
     public static ButtonInvite: string = 'button_invite_sheet.png';
     public static ButtonClose: string = 'button_close_sheet.png';
     public static ButtonBackMenuMini: string = 'button_back_menu_mini_sheet.png';
-    public static ButtonSettingsMini: string = 'button_settings_mini_sheet.png';
+    public static ButtonHelpMini: string = 'button_help_mini_sheet.png';
     
     public static ButtonBlueClose: string = 'button_blue_close_sheet.png';
     public static ButtonBlueBackMenu: string = 'button_blue_back_menu_sheet.png';
@@ -17,7 +17,7 @@ class Sheet {
         Sheet.ButtonInvite,
         Sheet.ButtonClose,
         Sheet.ButtonBackMenuMini,
-        Sheet.ButtonSettingsMini
+        Sheet.ButtonHelpMini
     ]; 
     
     public static preloadList2:Array<string> = [

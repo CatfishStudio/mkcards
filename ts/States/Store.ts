@@ -19,6 +19,7 @@ module MortalKombatCards {
         private settings:Settings;
         private backMenuButton:Phaser.Button;
         private settingsButton:Phaser.Button;
+        private backHalpButton:Phaser.Button;
 
         constructor() {
             super();
@@ -62,13 +63,17 @@ module MortalKombatCards {
             this.slides.show();
             if(Config.settintTutorial === true) this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
 
-            this.backMenuButton = new Phaser.Button(this.game, -25, Constants.GAME_HEIGHT - 50, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
+            this.backMenuButton = new Phaser.Button(this.game, -25, 5, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
             this.backMenuButton.name = 'back_menu';
             this.groupStore.addChild(this.backMenuButton);
 
-            this.settingsButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 225, Constants.GAME_HEIGHT - 50, Sheet.ButtonSettingsMini, this.onButtonClick, this, 1, 2);
+            this.settingsButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), 5, Sheet.ButtonSettings, this.onButtonClick, this, 1, 2);
             this.settingsButton.name = 'settings';
             this.groupStore.addChild(this.settingsButton);
+
+            this.backHalpButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 230, 5, Sheet.ButtonHelpMini, this.onButtonClick, this, 1, 2);
+            this.backHalpButton.name = 'help';
+            this.groupStore.addChild(this.backHalpButton);
         }
 
         private onTweenComplete(event:any):void {
@@ -108,7 +113,7 @@ module MortalKombatCards {
                         this.settingsClose();
                         break;
                     }
-                case 'invite':
+                case 'help':
                     {
                         
                         break;

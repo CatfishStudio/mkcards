@@ -105,7 +105,7 @@ var Sheet = (function () {
     Sheet.ButtonInvite = 'button_invite_sheet.png';
     Sheet.ButtonClose = 'button_close_sheet.png';
     Sheet.ButtonBackMenuMini = 'button_back_menu_mini_sheet.png';
-    Sheet.ButtonSettingsMini = 'button_settings_mini_sheet.png';
+    Sheet.ButtonHelpMini = 'button_help_mini_sheet.png';
     Sheet.ButtonBlueClose = 'button_blue_close_sheet.png';
     Sheet.ButtonBlueBackMenu = 'button_blue_back_menu_sheet.png';
     Sheet.ButtonBlueSettings = 'button_blue_settings_sheet.png';
@@ -116,7 +116,7 @@ var Sheet = (function () {
         Sheet.ButtonInvite,
         Sheet.ButtonClose,
         Sheet.ButtonBackMenuMini,
-        Sheet.ButtonSettingsMini
+        Sheet.ButtonHelpMini
     ];
     Sheet.preloadList2 = [
         Sheet.ButtonBlueClose,
@@ -606,12 +606,15 @@ var MortalKombatCards;
             this.slides.show();
             if (Config.settintTutorial === true)
                 this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
-            this.backMenuButton = new Phaser.Button(this.game, -25, Constants.GAME_HEIGHT - 50, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
+            this.backMenuButton = new Phaser.Button(this.game, -25, 5, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
             this.backMenuButton.name = 'back_menu';
             this.groupStore.addChild(this.backMenuButton);
-            this.settingsButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 225, Constants.GAME_HEIGHT - 50, Sheet.ButtonSettingsMini, this.onButtonClick, this, 1, 2);
+            this.settingsButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), 5, Sheet.ButtonSettings, this.onButtonClick, this, 1, 2);
             this.settingsButton.name = 'settings';
             this.groupStore.addChild(this.settingsButton);
+            this.backHalpButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 230, 5, Sheet.ButtonHelpMini, this.onButtonClick, this, 1, 2);
+            this.backHalpButton.name = 'help';
+            this.groupStore.addChild(this.backHalpButton);
         };
         Store.prototype.onTweenComplete = function (event) {
             this.tween.start();
@@ -645,7 +648,7 @@ var MortalKombatCards;
                         this.settingsClose();
                         break;
                     }
-                case 'invite':
+                case 'help':
                     {
                         break;
                     }
