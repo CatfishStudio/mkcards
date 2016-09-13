@@ -6,12 +6,7 @@ class Sheet {
     public static ButtonBackMenuMini: string = 'button_back_menu_mini_sheet.png';
     public static ButtonHelpMini: string = 'button_help_mini_sheet.png';
     
-    public static ButtonBlueClose: string = 'button_blue_close_sheet.png';
-    public static ButtonBlueBackMenu: string = 'button_blue_back_menu_sheet.png';
-    public static ButtonBlueSettings: string = 'button_blue_settings_sheet.png';
-    public static ButtonBlueChampionship: string = 'button_blue_championship_sheet.png';
-    
-    public static preloadList1:Array<string> = [
+    public static preloadList:Array<string> = [
         Sheet.ButtonStartNewGame,
         Sheet.ButtonSettings,
         Sheet.ButtonInvite,
@@ -20,10 +15,4 @@ class Sheet {
         Sheet.ButtonHelpMini
     ]; 
     
-    public static preloadList2:Array<string> = [
-        Sheet.ButtonBlueClose,
-        Sheet.ButtonBlueBackMenu,
-        Sheet.ButtonBlueSettings,
-        Sheet.ButtonBlueChampionship
-    ];
 }

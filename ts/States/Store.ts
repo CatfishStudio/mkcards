@@ -55,6 +55,7 @@ module MortalKombatCards {
             this.tween.stop();
             this.tween = null;
             this.groupStore.removeAll();
+            this.game.stage.removeChildren();
         }
 
         private onCompleteVideo():void {

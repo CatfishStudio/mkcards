@@ -35,12 +35,8 @@ module MortalKombatCards {
                         this.game.load.atlas(assetName, 'assets/atlas/' + assetName + '.png','assets/atlas/' + assetName + '.json');
                     });
                     
-                    Sheet.preloadList1.forEach((assetName: string) => {
+                    Sheet.preloadList.forEach((assetName: string) => {
                         this.game.load.spritesheet(assetName, 'assets/images/' + assetName, 255, 50);
-                    });
-                    
-                    Sheet.preloadList2.forEach((assetName: string) => {
-                        this.game.load.spritesheet(assetName, 'assets/images/' + assetName, 255, 46);
                     });
                 }
             });

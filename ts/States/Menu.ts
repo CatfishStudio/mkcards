@@ -48,6 +48,7 @@ module MortalKombatCards {
             this.tween = null;
             this.groupButtons.removeAll();
             this.groupMenu.removeAll();
+            this.game.stage.removeChildren();
         }
 
         private createButtons():void{

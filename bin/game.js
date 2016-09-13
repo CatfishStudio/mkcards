@@ -106,23 +106,13 @@ var Sheet = (function () {
     Sheet.ButtonClose = 'button_close_sheet.png';
     Sheet.ButtonBackMenuMini = 'button_back_menu_mini_sheet.png';
     Sheet.ButtonHelpMini = 'button_help_mini_sheet.png';
-    Sheet.ButtonBlueClose = 'button_blue_close_sheet.png';
-    Sheet.ButtonBlueBackMenu = 'button_blue_back_menu_sheet.png';
-    Sheet.ButtonBlueSettings = 'button_blue_settings_sheet.png';
-    Sheet.ButtonBlueChampionship = 'button_blue_championship_sheet.png';
-    Sheet.preloadList1 = [
+    Sheet.preloadList = [
         Sheet.ButtonStartNewGame,
         Sheet.ButtonSettings,
         Sheet.ButtonInvite,
         Sheet.ButtonClose,
         Sheet.ButtonBackMenuMini,
         Sheet.ButtonHelpMini
-    ];
-    Sheet.preloadList2 = [
-        Sheet.ButtonBlueClose,
-        Sheet.ButtonBlueBackMenu,
-        Sheet.ButtonBlueSettings,
-        Sheet.ButtonBlueChampionship
     ];
     return Sheet;
 }());
@@ -384,11 +374,8 @@ var MortalKombatCards;
                     Atlases.preloadList.forEach(function (assetName) {
                         _this.game.load.atlas(assetName, 'assets/atlas/' + assetName + '.png', 'assets/atlas/' + assetName + '.json');
                     });
-                    Sheet.preloadList1.forEach(function (assetName) {
+                    Sheet.preloadList.forEach(function (assetName) {
                         _this.game.load.spritesheet(assetName, 'assets/images/' + assetName, 255, 50);
-                    });
-                    Sheet.preloadList2.forEach(function (assetName) {
-                        _this.game.load.spritesheet(assetName, 'assets/images/' + assetName, 255, 46);
                     });
                 }
             });
@@ -481,6 +468,7 @@ var MortalKombatCards;
             this.tween = null;
             this.groupButtons.removeAll();
             this.groupMenu.removeAll();
+            this.game.stage.removeChildren();
         };
         Menu.prototype.createButtons = function () {
             this.groupButtons = new Phaser.Group(this.game, this.groupMenu);
@@ -599,6 +587,7 @@ var MortalKombatCards;
             this.tween.stop();
             this.tween = null;
             this.groupStore.removeAll();
+            this.game.stage.removeChildren();
         };
         Store.prototype.onCompleteVideo = function () {
             this.tween.start();
