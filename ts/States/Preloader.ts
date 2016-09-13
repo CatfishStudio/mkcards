@@ -39,7 +39,7 @@ module MortalKombatCards {
         }
 
         private onLoadStart() {
-            this.preloadText = this.game.add.text(625, 600, "ЗАГРУЗКА 0%", {font: "25px Arial", fill: "#202020"});
+            this.preloadText = this.game.add.text(335, 600, "ЗАГРУЗКА 0%", {font: "24px Georgia", fill: "#505050"});
         }
 
         private onFileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {

@@ -20,6 +20,7 @@ module MortalKombatCards {
         private backMenuButton:Phaser.Button;
         private settingsButton:Phaser.Button;
         private backHalpButton:Phaser.Button;
+        private selectButton:Phaser.Button;
 
         constructor() {
             super();
@@ -54,6 +55,7 @@ module MortalKombatCards {
         public shutdown(){
             this.tween.stop();
             this.tween = null;
+            this.slides.removeAll();
             this.groupStore.removeAll();
             this.game.stage.removeChildren();
         }
@@ -64,17 +66,21 @@ module MortalKombatCards {
             this.slides.show();
             if(Config.settintTutorial === true) this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
 
-            this.backMenuButton = new Phaser.Button(this.game, -25, 5, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
+            this.backMenuButton = new Phaser.Button(this.game, -25, 5, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2, 2, 2);
             this.backMenuButton.name = 'back_menu';
             this.groupStore.addChild(this.backMenuButton);
 
-            this.settingsButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), 5, Sheet.ButtonSettings, this.onButtonClick, this, 1, 2);
+            this.settingsButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), 5, Sheet.ButtonSettings, this.onButtonClick, this, 1, 2, 2, 2);
             this.settingsButton.name = 'settings';
             this.groupStore.addChild(this.settingsButton);
 
-            this.backHalpButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 230, 5, Sheet.ButtonHelpMini, this.onButtonClick, this, 1, 2);
+            this.backHalpButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 230, 5, Sheet.ButtonHelpMini, this.onButtonClick, this, 1, 2, 2, 2);
             this.backHalpButton.name = 'help';
             this.groupStore.addChild(this.backHalpButton);
+
+            this.selectButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), (Constants.GAME_HEIGHT - 50), Sheet.ButtonSelectFighter, this.onButtonClick, this, 1, 2, 2, 2);
+            this.selectButton.name = 'select_fighter';
+            this.groupStore.addChild(this.selectButton);
         }
 
         private onTweenComplete(event:any):void {
@@ -118,7 +124,12 @@ module MortalKombatCards {
                     {
                         
                         break;
-                    }                
+                    }  
+                case 'select_fighter':
+                    {
+                        
+                        break;
+                    }                                  
                 default:
                     break;
             }

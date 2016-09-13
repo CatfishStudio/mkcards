@@ -104,6 +104,7 @@ var Sheet = (function () {
     Sheet.ButtonSettings = 'button_settings_sheet.png';
     Sheet.ButtonInvite = 'button_invite_sheet.png';
     Sheet.ButtonClose = 'button_close_sheet.png';
+    Sheet.ButtonSelectFighter = 'button_select_fighter_sheet.png';
     Sheet.ButtonBackMenuMini = 'button_back_menu_mini_sheet.png';
     Sheet.ButtonHelpMini = 'button_help_mini_sheet.png';
     Sheet.preloadList = [
@@ -111,6 +112,7 @@ var Sheet = (function () {
         Sheet.ButtonSettings,
         Sheet.ButtonInvite,
         Sheet.ButtonClose,
+        Sheet.ButtonSelectFighter,
         Sheet.ButtonBackMenuMini,
         Sheet.ButtonHelpMini
     ];
@@ -414,7 +416,7 @@ var MortalKombatCards;
             }
         };
         Preloader.prototype.onLoadStart = function () {
-            this.preloadText = this.game.add.text(625, 600, "ЗАГРУЗКА 0%", { font: "25px Arial", fill: "#202020" });
+            this.preloadText = this.game.add.text(335, 600, "ЗАГРУЗКА 0%", { font: "24px Georgia", fill: "#505050" });
         };
         Preloader.prototype.onFileComplete = function (progress, cacheKey, success, totalLoaded, totalFiles) {
             this.loadPercent = Math.round(progress * 0.1);
@@ -586,6 +588,7 @@ var MortalKombatCards;
         Store.prototype.shutdown = function () {
             this.tween.stop();
             this.tween = null;
+            this.slides.removeAll();
             this.groupStore.removeAll();
             this.game.stage.removeChildren();
         };
@@ -595,15 +598,18 @@ var MortalKombatCards;
             this.slides.show();
             if (Config.settintTutorial === true)
                 this.tutorial.show((Constants.GAME_WIDTH / 2), (Constants.GAME_HEIGHT - 175));
-            this.backMenuButton = new Phaser.Button(this.game, -25, 5, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2);
+            this.backMenuButton = new Phaser.Button(this.game, -25, 5, Sheet.ButtonBackMenuMini, this.onButtonClick, this, 1, 2, 2, 2);
             this.backMenuButton.name = 'back_menu';
             this.groupStore.addChild(this.backMenuButton);
-            this.settingsButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), 5, Sheet.ButtonSettings, this.onButtonClick, this, 1, 2);
+            this.settingsButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), 5, Sheet.ButtonSettings, this.onButtonClick, this, 1, 2, 2, 2);
             this.settingsButton.name = 'settings';
             this.groupStore.addChild(this.settingsButton);
-            this.backHalpButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 230, 5, Sheet.ButtonHelpMini, this.onButtonClick, this, 1, 2);
+            this.backHalpButton = new Phaser.Button(this.game, Constants.GAME_WIDTH - 230, 5, Sheet.ButtonHelpMini, this.onButtonClick, this, 1, 2, 2, 2);
             this.backHalpButton.name = 'help';
             this.groupStore.addChild(this.backHalpButton);
+            this.selectButton = new Phaser.Button(this.game, (Constants.GAME_WIDTH / 2) - (255 / 2), (Constants.GAME_HEIGHT - 50), Sheet.ButtonSelectFighter, this.onButtonClick, this, 1, 2, 2, 2);
+            this.selectButton.name = 'select_fighter';
+            this.groupStore.addChild(this.selectButton);
         };
         Store.prototype.onTweenComplete = function (event) {
             this.tween.start();
@@ -638,6 +644,10 @@ var MortalKombatCards;
                         break;
                     }
                 case 'help':
+                    {
+                        break;
+                    }
+                case 'select_fighter':
                     {
                         break;
                     }
@@ -687,6 +697,7 @@ var Fabrique;
         __extends(Slides, _super);
         function Slides(game, parent) {
             _super.call(this, game, parent);
+            this.fighterIndex = 0;
             this.fighters = [];
             this.data = [
                 [0, 'Cyrex', 'cyrex.png'],
@@ -694,9 +705,11 @@ var Fabrique;
                 [2, 'Sub-Zero', 'sub-zero.png']
             ];
             this.visible = false;
+            this.canClick = false;
             this.init();
         }
         Slides.prototype.init = function () {
+            this.fighterIndex = 1;
             for (var i = 0; i < this.data.length; i++) {
                 var fighter = {};
                 fighter.id = this.data[i][0];
@@ -707,19 +720,72 @@ var Fabrique;
             this.createSlides();
         };
         Slides.prototype.createSlides = function () {
+            this.slideGroup = new Phaser.Group(this.game, this);
             var posX = 25;
             var posY = 150;
             for (var i = 0; i < this.fighters.length; i++) {
                 var sprite = new Phaser.Sprite(this.game, posX + (300 * i), posY, Atlases.FightersCards, this.fighters[i].frame);
-                this.addChild(sprite);
+                this.slideGroup.addChild(sprite);
             }
+            this.buttonLeft = new Phaser.Button(this.game, 240, 250, Images.ButtonLeft, this.onButtonClick, this);
+            this.buttonLeft.name = 'button_left';
+            this.addChild(this.buttonLeft);
+            this.buttonRight = new Phaser.Button(this.game, 540, 250, Images.ButtonRight, this.onButtonClick, this);
+            this.buttonRight.name = 'button_right';
+            this.addChild(this.buttonRight);
         };
         Slides.prototype.show = function () {
             this.alpha = 0;
             this.visible = true;
+            this.canClick = true;
             var tween = this.game.add.tween(this);
             tween.to({ alpha: 1 }, 500, 'Linear');
             tween.start();
+        };
+        Slides.prototype.onButtonClick = function (event) {
+            switch (event.name) {
+                case 'button_left':
+                    {
+                        if (this.canClick) {
+                            this.canClick = false;
+                            this.fighterIndex--;
+                            var tween = this.game.add.tween(this.slideGroup);
+                            tween.to({ x: this.slideGroup.x + 300 }, 500, 'Linear');
+                            tween.onComplete.add(this.onTweenComplete, this);
+                            tween.start();
+                        }
+                        break;
+                    }
+                case 'button_right':
+                    {
+                        if (this.canClick) {
+                            this.canClick = false;
+                            this.fighterIndex++;
+                            var tween = this.game.add.tween(this.slideGroup);
+                            tween.to({ x: this.slideGroup.x - 300 }, 500, 'Linear');
+                            tween.onComplete.add(this.onTweenComplete, this);
+                            tween.start();
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
+        };
+        Slides.prototype.onTweenComplete = function (event) {
+            if (this.fighterIndex === 0) {
+                this.buttonLeft.visible = false;
+                this.buttonRight.visible = true;
+            }
+            else if (this.fighterIndex === this.fighters.length - 1) {
+                this.buttonLeft.visible = true;
+                this.buttonRight.visible = false;
+            }
+            else {
+                this.buttonLeft.visible = true;
+                this.buttonRight.visible = true;
+            }
+            this.canClick = true;
         };
         return Slides;
     }(Phaser.Group));
