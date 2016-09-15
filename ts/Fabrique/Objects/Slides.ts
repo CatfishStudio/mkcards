@@ -4,6 +4,7 @@ module Fabrique {
         private slideGroup:Phaser.Group;
         private buttonLeft:Phaser.Button;
         private buttonRight:Phaser.Button;
+        private infoBox:Fabrique.InfoBox;
         private canClick:boolean;
         private fighterIndex:number = 0;
 
@@ -31,6 +32,7 @@ module Fabrique {
                 this.fighters.push(fighter);
             }
             this.createSlides();
+            this.createInfoBox();
         }
 
         private createSlides():void{
@@ -50,6 +52,10 @@ module Fabrique {
             this.buttonRight = new Phaser.Button(this.game, 540, 250, Images.ButtonRight, this.onButtonClick, this);
             this.buttonRight.name = 'button_right';
             this.addChild(this.buttonRight);            
+        }
+
+        private createInfoBox():void{
+            this.infoBox = new Fabrique.InfoBox(this.game, this, this.fighters[this.fighterIndex]);
         }
 
         public show():void{

@@ -88,12 +88,14 @@ var Atlases = (function () {
     Atlases.Video3 = 'video3';
     Atlases.VideoHelp = 'video_help';
     Atlases.FightersCards = 'fighters_cards';
+    Atlases.Characteristics = 'characteristics';
     Atlases.preloadList = [
         Atlases.Video1,
         Atlases.Video2,
         Atlases.Video3,
         Atlases.VideoHelp,
-        Atlases.FightersCards
+        Atlases.FightersCards,
+        Atlases.Characteristics
     ];
     return Atlases;
 }());
@@ -711,6 +713,49 @@ var MortalKombatCards;
 /// <reference path="app.ts" /> 
 var Fabrique;
 (function (Fabrique) {
+    var InfoBox = (function (_super) {
+        __extends(InfoBox, _super);
+        function InfoBox(game, parent, data) {
+            _super.call(this, game, parent);
+            this.dataFighter = data;
+            this.init();
+        }
+        InfoBox.prototype.init = function () {
+            var startX = (Constants.GAME_WIDTH / 2) - 225;
+            var startY = (Constants.GAME_HEIGHT / 2) + 100;
+            /* bacground and border */
+            var graphics = new Phaser.Graphics(this.game, 0, 0);
+            graphics.beginFill(0x000000, 0.8);
+            graphics.lineStyle(1, 0x000000, 1);
+            graphics.drawRect(startX, startY, 450, 60);
+            graphics.endFill();
+            graphics.lineStyle(1, 0x777777, 1);
+            graphics.moveTo(startX - 2, startY - 2);
+            graphics.lineTo(startX - 2 + 150, startY - 2);
+            graphics.moveTo(startX - 2, startY - 2);
+            graphics.lineTo(startX - 2, startY + 25 - 2);
+            graphics.moveTo(startX + 2, startY + 2);
+            graphics.lineTo(startX + 150 + 2, startY + 2);
+            graphics.moveTo(startX + 2, startY + 2);
+            graphics.lineTo(startX + 2, startY + 25 + 2);
+            graphics.moveTo(startX + 450 - 2, startY + 60 - 2);
+            graphics.lineTo(startX + 300 - 2, startY + 60 - 2);
+            graphics.moveTo(startX + 450 - 2, startY + 60 - 2);
+            graphics.lineTo(startX + 450 - 2, startY + 35 - 2);
+            graphics.moveTo(startX + 450 + 2, startY + 60 + 2);
+            graphics.lineTo(startX + 300 + 2, startY + 60 + 2);
+            graphics.moveTo(startX + 450 + 2, startY + 60 + 2);
+            graphics.lineTo(startX + 450 + 2, startY + 35 + 2);
+            graphics.endFill();
+            graphics.inputEnabled = true;
+            this.addChild(graphics);
+        };
+        return InfoBox;
+    }(Phaser.Group));
+    Fabrique.InfoBox = InfoBox;
+})(Fabrique || (Fabrique = {}));
+var Fabrique;
+(function (Fabrique) {
     var Slides = (function (_super) {
         __extends(Slides, _super);
         function Slides(game, parent) {
@@ -736,14 +781,13 @@ var Fabrique;
                 this.fighters.push(fighter);
             }
             this.createSlides();
+            this.createInfoBox();
         };
         Slides.prototype.createSlides = function () {
             this.slideGroup = new Phaser.Group(this.game, this);
             var posX = 25;
             var posY = 150;
             for (var i = 0; i < this.fighters.length; i++) {
-                //let sprite:Phaser.Sprite = new Phaser.Sprite(this.game, posX + (300 * i), posY, Atlases.FightersCards, this.fighters[i].frame);
-                //this.slideGroup.addChild(sprite);
                 var fCard = new Fabrique.FighterCard(this.game, posX + (300 * i), posY, this.fighters[i]);
                 this.slideGroup.addChild(fCard);
             }
@@ -753,6 +797,9 @@ var Fabrique;
             this.buttonRight = new Phaser.Button(this.game, 540, 250, Images.ButtonRight, this.onButtonClick, this);
             this.buttonRight.name = 'button_right';
             this.addChild(this.buttonRight);
+        };
+        Slides.prototype.createInfoBox = function () {
+            this.infoBox = new Fabrique.InfoBox(this.game, this, this.fighters[this.fighterIndex]);
         };
         Slides.prototype.show = function () {
             this.alpha = 0;

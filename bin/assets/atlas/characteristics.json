@@ -1,0 +1,30 @@
+{
+"frames": {
+	"damage.png": {
+		"frame": {"x":21, "y":23, "w":17, "h":21},
+		"spriteSourceSize": {"x":4,"y":2,"w":25,"h":25},
+		"sourceSize": {"w":25,"h":25}
+	},
+	"defense.png": {
+		"frame": {"x":0, "y":20, "w":20, "h":20},
+		"spriteSourceSize": {"x":3,"y":3,"w":25,"h":25},
+		"sourceSize": {"w":25,"h":25}
+	},
+	"energy.png": {
+		"frame": {"x":21, "y":0, "w":18, "h":22},
+		"spriteSourceSize": {"x":4,"y":2,"w":25,"h":25},
+		"sourceSize": {"w":25,"h":25}
+	},
+	"health.png": {
+		"frame": {"x":0, "y":0, "w":20, "h":19},
+		"spriteSourceSize": {"x":2,"y":4,"w":25,"h":25},
+		"sourceSize": {"w":25,"h":25}
+	}
+
+},
+"meta": {
+	"image": "characteristics.png",
+	"size": {"w": 40, "h": 45},
+	"scale": "1"
+}
+}
