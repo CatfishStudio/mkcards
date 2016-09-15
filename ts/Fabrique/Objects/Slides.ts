@@ -39,8 +39,8 @@ module Fabrique {
             let posX:number = 25;
             let posY:number = 150;
             for(let i:number = 0; i < this.fighters.length; i++){
-                let sprite:Phaser.Sprite = new Phaser.Sprite(this.game, posX + (300 * i), posY, Atlases.FightersCards, this.fighters[i].frame);
-                this.slideGroup.addChild(sprite);
+                let fCard:Fabrique.FighterCard = new Fabrique.FighterCard(this.game, posX + (300 * i), posY, this.fighters[i]);
+                this.slideGroup.addChild(fCard);
             }
 
             this.buttonLeft = new Phaser.Button(this.game, 240, 250, Images.ButtonLeft, this.onButtonClick, this);

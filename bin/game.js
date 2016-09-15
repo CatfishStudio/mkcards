@@ -344,6 +344,21 @@ var Fabrique;
     }(Phaser.Sprite));
     Fabrique.Title = Title;
 })(Fabrique || (Fabrique = {}));
+var Fabrique;
+(function (Fabrique) {
+    var FighterCard = (function (_super) {
+        __extends(FighterCard, _super);
+        function FighterCard(game, x, y, data) {
+            _super.call(this, game, x, y, Atlases.FightersCards, data.frame);
+            this.dataFighter = data;
+            this.init();
+        }
+        FighterCard.prototype.init = function () {
+        };
+        return FighterCard;
+    }(Phaser.Sprite));
+    Fabrique.FighterCard = FighterCard;
+})(Fabrique || (Fabrique = {}));
 var MortalKombatCards;
 (function (MortalKombatCards) {
     var Boot = (function (_super) {
@@ -588,7 +603,9 @@ var MortalKombatCards;
         Store.prototype.shutdown = function () {
             this.tween.stop();
             this.tween = null;
+            this.slides.removeChildren();
             this.slides.removeAll();
+            this.groupStore.removeChildren();
             this.groupStore.removeAll();
             this.game.stage.removeChildren();
         };
@@ -686,6 +703,7 @@ var MortalKombatCards;
 /// <reference path="Fabrique\Objects\Tutorial.ts" />
 /// <reference path="Fabrique\Objects\Settings.ts" />
 /// <reference path="Fabrique\Objects\Title.ts" />
+/// <reference path="Fabrique\Objects\FighterCard.ts" />
 /// <reference path="States\Boot.ts" />
 /// <reference path="States\Preloader.ts" />
 /// <reference path="States\Menu.ts" />
@@ -724,8 +742,10 @@ var Fabrique;
             var posX = 25;
             var posY = 150;
             for (var i = 0; i < this.fighters.length; i++) {
-                var sprite = new Phaser.Sprite(this.game, posX + (300 * i), posY, Atlases.FightersCards, this.fighters[i].frame);
-                this.slideGroup.addChild(sprite);
+                //let sprite:Phaser.Sprite = new Phaser.Sprite(this.game, posX + (300 * i), posY, Atlases.FightersCards, this.fighters[i].frame);
+                //this.slideGroup.addChild(sprite);
+                var fCard = new Fabrique.FighterCard(this.game, posX + (300 * i), posY, this.fighters[i]);
+                this.slideGroup.addChild(fCard);
             }
             this.buttonLeft = new Phaser.Button(this.game, 240, 250, Images.ButtonLeft, this.onButtonClick, this);
             this.buttonLeft.name = 'button_left';

@@ -55,7 +55,9 @@ module MortalKombatCards {
         public shutdown(){
             this.tween.stop();
             this.tween = null;
+            this.slides.removeChildren()
             this.slides.removeAll();
+            this.groupStore.removeChildren();
             this.groupStore.removeAll();
             this.game.stage.removeChildren();
         }
