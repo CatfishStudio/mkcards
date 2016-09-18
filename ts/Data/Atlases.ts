@@ -5,6 +5,7 @@ class Atlases {
     public static Video3: string = 'video3';
     public static VideoHelp: string = 'video_help';
     public static FightersCards: string = 'fighters_cards';
+    public static HitsCards: string = 'hits_cards';
     public static Characteristics: string = 'characteristics';
     
     public static preloadList:Array<string> = [
@@ -13,6 +14,7 @@ class Atlases {
         Atlases.Video3,
         Atlases.VideoHelp,
         Atlases.FightersCards,
+        Atlases.HitsCards,
         Atlases.Characteristics
     ];
 }

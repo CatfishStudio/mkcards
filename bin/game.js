@@ -88,6 +88,7 @@ var Atlases = (function () {
     Atlases.Video3 = 'video3';
     Atlases.VideoHelp = 'video_help';
     Atlases.FightersCards = 'fighters_cards';
+    Atlases.HitsCards = 'hits_cards';
     Atlases.Characteristics = 'characteristics';
     Atlases.preloadList = [
         Atlases.Video1,
@@ -95,6 +96,7 @@ var Atlases = (function () {
         Atlases.Video3,
         Atlases.VideoHelp,
         Atlases.FightersCards,
+        Atlases.HitsCards,
         Atlases.Characteristics
     ];
     return Atlases;
@@ -356,6 +358,10 @@ var Fabrique;
             this.init();
         }
         FighterCard.prototype.init = function () {
+            this.damageText = this.game.add.text(5, 240, "5%", { font: "18px Arial", fill: "#FFFFFF", align: "left" });
+            this.addChild(this.damageText);
+            this.defenseText = this.game.add.text(5, 45, "10%", { font: "18px Arial", fill: "#FFFFFF", align: "left" });
+            this.addChild(this.defenseText);
         };
         return FighterCard;
     }(Phaser.Sprite));
